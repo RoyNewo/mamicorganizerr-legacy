@@ -1,0 +1,312 @@
+{
+    "mangasspanish": [
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Assassination Classroom": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Assassination Classroom (2012)",
+                "name": "Assassination Classroom (2012) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Assassination Classroom",
+                "Volume": "2012",
+                "Publisher": "Shueisha",
+                "mangaid": 200008,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200008/title_thumbnail_portrait_list/14308.jpg?key=53745a3f80def7ff834a6bb825d68217&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman。": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Bakuman。 (2008)",
+                "name": "Bakuman。 (2008) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Bakuman。",
+                "Volume": "2008",
+                "Publisher": "Shueisha",
+                "mangaid": 200002,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200002/title_thumbnail_portrait_list/14290.jpg?key=70543032e7cb3f7b607396b34a429284&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bleach": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Bleach (2001)",
+                "name": "Bleach (2001) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Bleach",
+                "Volume": "2001",
+                "Publisher": "Shueisha",
+                "mangaid": 200012,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200012/title_thumbnail_portrait_list/14320.jpg?key=d4fb493711c9b9c8ff159fadabc278f9&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Captain Tsubasa": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Captain Tsubasa (1981)",
+                "name": "Captain Tsubasa (1981) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Captain Tsubasa",
+                "Volume": "1981",
+                "Publisher": "Shueisha",
+                "mangaid": 200014,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200014/title_thumbnail_portrait_list/14326.jpg?key=65e04c3c2572f2bd64613fcf5047e267&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Claymore": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Claymore (2001)",
+                "name": "Claymore (2001) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Claymore",
+                "Volume": "2001",
+                "Publisher": "Shueisha",
+                "mangaid": 200005,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200005/title_thumbnail_portrait_list/14299.jpg?key=d356cc8edd9f5e85b732c8f42fd05ad5&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Death Note": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Death Note (2003)",
+                "name": "Death Note (2003) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Death Note",
+                "Volume": "2003",
+                "Publisher": "Shueisha",
+                "mangaid": 200009,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200009/title_thumbnail_portrait_list/14311.jpg?key=8e68bbcd566107f04327a61c51d36c41&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Dragon Ball": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Dragon Ball (1984)",
+                "name": "Dragon Ball (1984) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Dragon Ball",
+                "Volume": "1984",
+                "Publisher": "Shueisha",
+                "mangaid": 200010,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200010/title_thumbnail_portrait_list/14314.jpg?key=63fa1bb924431371098d28348d35f8cf&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/GUARDIANES DE LA NOCHE": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/GUARDIANES DE LA NOCHE (2016)",
+                "name": "GUARDIANES DE LA NOCHE (2016) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "GUARDIANES DE LA NOCHE",
+                "Volume": "2016",
+                "Publisher": "Shueisha",
+                "mangaid": 200030,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200030/title_thumbnail_portrait_list/27174.jpg?key=7e7ed79d39ac06194ac68e6c9eb98422&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/HEART GEAR": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/HEART GEAR (2019)",
+                "name": "HEART GEAR (2019) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "HEART GEAR",
+                "Volume": "2019",
+                "Publisher": "Shueisha",
+                "mangaid": 200028,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200028/title_thumbnail_portrait_list/23817.jpg?key=fd01b41227a906e8816df8badf116ac8&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Hell's Paradise Jigokuraku": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Hell's Paradise Jigokuraku (2018)",
+                "name": "Hell's Paradise Jigokuraku (2018) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Hell's Paradise Jigokuraku",
+                "Volume": "2018",
+                "Publisher": "Shueisha",
+                "mangaid": 200026,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200026/title_thumbnail_portrait_list/61254.jpg?key=d4d70df9b0bf003350f4341eb38aa009&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/JoJo's Bizarre Adventure Part 1--Phantom Blood": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/JoJo's Bizarre Adventure Part 1--Phantom Blood (1986)",
+                "name": "JoJo's Bizarre Adventure Part 1--Phantom Blood (1986) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "JoJo's Bizarre Adventure Part 1--Phantom Blood",
+                "Volume": "1986",
+                "Publisher": "Shueisha",
+                "mangaid": 200013,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200013/title_thumbnail_portrait_list/14323.jpg?key=7a8c0deb7fcc547c881b57dd435422a6&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/JoJo's Bizarre Adventure Part 2--Battle Tendency": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/JoJo's Bizarre Adventure Part 2--Battle Tendency (1987)",
+                "name": "JoJo's Bizarre Adventure Part 2--Battle Tendency (1987) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "JoJo's Bizarre Adventure Part 2--Battle Tendency",
+                "Volume": "1987",
+                "Publisher": "Shueisha",
+                "mangaid": 200043,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200043/title_thumbnail_portrait_list/62223.jpg?key=6cf6435d32e0cef4dfb1d4e405ac9d70&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/JoJo's Bizarre Adventure Part 3--Stardust Crusaders": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/JoJo's Bizarre Adventure Part 3--Stardust Crusaders (1989)",
+                "name": "JoJo's Bizarre Adventure Part 3--Stardust Crusaders (1989) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "JoJo's Bizarre Adventure Part 3--Stardust Crusaders",
+                "Volume": "1989",
+                "Publisher": "Shueisha",
+                "mangaid": 200087,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200087/title_thumbnail_portrait_list/172579.jpg?key=9fd1425944ce60a94672afeb6192924e&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Katekyo Hitman ¡Reborn!": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Katekyo Hitman ¡Reborn! (2004)",
+                "name": "Katekyo Hitman ¡Reborn! (2004) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Katekyo Hitman ¡Reborn!",
+                "Volume": "2004",
+                "Publisher": "Shueisha",
+                "mangaid": 200015,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200015/title_thumbnail_portrait_list/14329.jpg?key=2c855a72e5de5fd7bcc948a76bd7fb90&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/La misión de la familia Yozakura": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/La misión de la familia Yozakura (2019)",
+                "name": "La misión de la familia Yozakura (2019) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "La misión de la familia Yozakura",
+                "Volume": "2019",
+                "Publisher": "Shueisha",
+                "mangaid": 200039,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200039/title_thumbnail_portrait_list/59391.jpg?key=89fbd11685c54851a6f8df97621bb050&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Naruto": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Naruto (1999)",
+                "name": "Naruto (1999) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Naruto",
+                "Volume": "1999",
+                "Publisher": "Shueisha",
+                "mangaid": 200001,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200001/title_thumbnail_portrait_list/14287.jpg?key=1709ac9ca86be35e315d4e9e950b649c&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Platinum End": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Platinum End (2015)",
+                "name": "Platinum End (2015) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Platinum End",
+                "Volume": "2015",
+                "Publisher": "Shueisha",
+                "mangaid": 200024,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200024/title_thumbnail_portrait_list/14356.jpg?key=f011b227f526dbca0688eeaca71d11f7&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Rurouni Kenshin": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Rurouni Kenshin (1994)",
+                "name": "Rurouni Kenshin (1994) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Rurouni Kenshin",
+                "Volume": "1994",
+                "Publisher": "Shueisha",
+                "mangaid": 200011,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200011/title_thumbnail_portrait_list/14317.jpg?key=9bfa66cbbc6d55df6519ed9b83584e76&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Tegami Bachi": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Tegami Bachi (2006)",
+                "name": "Tegami Bachi (2006) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "Tegami Bachi",
+                "Volume": "2006",
+                "Publisher": "Shueisha",
+                "mangaid": 200045,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200045/title_thumbnail_portrait_list/64641.jpg?key=67cc431dee2122c1f110b09faf3e54da&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/The Promised Neverland": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/The Promised Neverland (2016)",
+                "name": "The Promised Neverland (2016) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "The Promised Neverland",
+                "Volume": "2016",
+                "Publisher": "Shueisha",
+                "mangaid": 200017,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200017/title_thumbnail_portrait_list/14335.jpg?key=e81f7ffb484f867a8a130be3bb0f2cff&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/TOKYO GHOUL": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/TOKYO GHOUL (2011)",
+                "name": "TOKYO GHOUL (2011) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "TOKYO GHOUL",
+                "Volume": "2011",
+                "Publisher": "Shueisha",
+                "mangaid": 200006,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200006/title_thumbnail_portrait_list/14302.jpg?key=538c5e1fe003ae80d6cc77ea24ba59cb&duration=86400"
+            }
+        },
+        {
+            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/World Trigger": {
+                "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/World Trigger (2013)",
+                "name": "World Trigger (2013) Issue #",
+                "funcion": "MANGA Plus by SHUEISHA (ES)",
+                "provider": "MANGA Plus by SHUEISHA (ES)",
+                "slug": "undefined",
+                "Series": "World Trigger",
+                "Volume": "2013",
+                "Publisher": "Shueisha",
+                "mangaid": 200023,
+                "portrait": "https://mangaplus.shueisha.co.jp/drm/title/200023/title_thumbnail_portrait_list/14353.jpg?key=c298e1bcdb47144fa450564d8db2d9e0&duration=86400"
+            }
+        }
+    ]
+}
