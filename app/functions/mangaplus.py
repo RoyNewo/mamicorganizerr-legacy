@@ -249,8 +249,20 @@ def ultimosmangas(mensaj, mensaj2):
                     == "ex"
                 ):
                     ic("capitulo especial")
-                    separado = str(mangasespeciales(str(dataultimos["success"]["webHomeView"]["groups"][groupnumber]["titles"][titlenumber]["chapterId"]))).replace("#", "").split(".")
-                    numeroflotante = "{:0>4}".format(separado[0])+"."+separado[1]
+                    separado = (
+                        str(
+                            mangasespeciales(
+                                str(
+                                    dataultimos["success"]["webHomeView"]["groups"][
+                                        groupnumber
+                                    ]["titles"][titlenumber]["chapterId"]
+                                )
+                            )
+                        )
+                        .replace("#", "")
+                        .split(".")
+                    )
+                    numeroflotante = "{:0>4}".format(separado[0]) + "." + separado[1]
                     mangasnormales(
                         str(
                             dataultimos["success"]["webHomeView"]["groups"][
@@ -370,23 +382,17 @@ def capitulossueltos(mensaj, mensaj2):
             if historeturn == "update" and downloadchapter(
                 tdescargas, chapter["number"], chapter["name"], chapter["number"]
             ):
-                update = True
                 cbz = (
-                    "/media/cristian/Datos/Comics/Tachiyomi/Updates/"
+                    str(chapter["destino"])
+                    + "/"
                     + str(chapter["name"])
                     + str(chapter["number"])
                     + ".cbz"
                 )
-                organizar.newinhistory(
-                    chapter,
-                    tdescargas + "/" + str(chapter["name"]) + str(chapter["number"]),
-                    str(chapter["number"]),
-                    deletefolder,
-                    cbz,
-                    update,
-                    mensaj2,
-                    mensaj,
-                )
+                update = True
+                organizar.updatebook(chapter, tdescargas + "/" + str(chapter["name"]) + str(chapter["number"]), str(chapter["number"]), deletefolder, cbz, update, mensaj2, mensaj)
+                history[chapter,].update({str(chapter["number"]): str(chapter["provider"])})
+                
         os.remove(capitulossueltos)
 
 
@@ -412,23 +418,13 @@ def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2):
     if historeturn == "update" and downloadchapter(
         tdescargas, chapterid, dic["name"], chapternumber
     ):
+        cbz = dic["destino"] + "/" + dic["name"] + chapternumber + ".cbz"
+        ic(cbz)
+        ic("se actualiza un manga")
         update = True
-        cbz = (
-            "/media/cristian/Datos/Comics/Tachiyomi/Updates/"
-            + dic["name"]
-            + chapternumber
-            + ".cbz"
-        )
-        organizar.newinhistory(
-            dic,
-            tdescargas + "/" + dic["name"] + chapternumber,
-            chapternumber,
-            deletefolder,
-            cbz,
-            update,
-            mensaj2,
-            mensaj,
-        )
+        organizar.updatebook(dic, tdescargas + "/" + dic["name"] + chapternumber, chapternumber, deletefolder, cbz, update, mensaj2, mensaj)
+        history[dic["Series"]].update({chapternumber: dic["provider"]})
+        
 
 
 def mangasespeciales(chapterid):
@@ -513,8 +509,14 @@ def mangascompletos(mensaj, mensaj2):
                     organizar.folderinit(mangas[mapeo[key]])
                     ic("First Chapters " + chapters["name"])
                     if str(chapters["name"]).replace("#", "") == "ex":
-                        separado = str(mangasespeciales(str(chapters["chapterId"]))).replace("#", "").split(".")
-                        numeroflotante = "{:0>4}".format(separado[0])+"."+separado[1]
+                        separado = (
+                            str(mangasespeciales(str(chapters["chapterId"])))
+                            .replace("#", "")
+                            .split(".")
+                        )
+                        numeroflotante = (
+                            "{:0>4}".format(separado[0]) + "." + separado[1]
+                        )
                         mangasnormales(
                             str(chapters["chapterId"]),
                             numeroflotante,
@@ -547,8 +549,14 @@ def mangascompletos(mensaj, mensaj2):
                     organizar.folderinit(mangas[mapeo[key]])
                     ic("Last Chapters " + chapters["name"])
                     if str(chapters["name"]).replace("#", "") == "ex":
-                        separado = str(mangasespeciales(str(chapters["chapterId"]))).replace("#", "").split(".")
-                        numeroflotante = "{:0>4}".format(separado[0])+"."+separado[1]
+                        separado = (
+                            str(mangasespeciales(str(chapters["chapterId"])))
+                            .replace("#", "")
+                            .split(".")
+                        )
+                        numeroflotante = (
+                            "{:0>4}".format(separado[0]) + "." + separado[1]
+                        )
                         mangasnormales(
                             str(chapters["chapterId"]),
                             numeroflotante,

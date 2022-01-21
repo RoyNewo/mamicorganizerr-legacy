@@ -81,7 +81,7 @@ def main():
         mangas = json.load(json_file)
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secrets = json.load(json_file2)
-    organizar.issueupdate(secrets, mangas)
+    # organizar.issueupdate(secrets, mangas)
     MangaPlus.mangaplusmain()
     explosm.cyanide("/media/cristian/Datos/Comics/Tachiyomi/Cyanide & Happiness (EN)/C&H 2022")
     with open("/opt/tachiyomimangaexporter/history.json") as json_file3:

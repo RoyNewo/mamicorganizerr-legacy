@@ -126,9 +126,6 @@ def historial(history, issue, dic):
             if dic["funcion"] == history[dic["Series"]][issue]:
                 return False
             history[dic["Series"]].pop(issue, None)
-            with open("/opt/tachiyomimangaexporter/komgabooksid.json") as komgabooksid_file:
-                komgabooksid = json.load(komgabooksid_file)
-            komgabooksid[dic["Series"]].pop(issue, None)
             return "update"
         else:
             history[dic["Series"]].update({issue: dic["provider"]})
@@ -191,31 +188,54 @@ def folderinit(dic):
         postermangaplus(dic)
 
 
-def cyanideorganizer(dic, finalpath, mensaj, mensaj2, history, fecha):
-    deletefolder = "Error while deleting directory"
-    historeturn = historial(history, fecha, dic)
-    if historeturn == True:
-        generatexml(dic, finalpath, fecha)
-        cbz = dic["destino"] + "/" + dic["name"] + fecha + ".cbz"
-        archivos = os.listdir(finalpath)
-        archivos.sort()
-        zipobje = ZipFile(cbz, "w")
-        for archivos2 in archivos:
-            finalpath2 = finalpath + "/" + archivos2
-            zipobje.write(finalpath2, basename(archivos2))
-        zipobje.close()
-        try:
-            shutil.rmtree(finalpath)
-        except OSError:
-            print(deletefolder)
+def updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj):
+    with open("/opt/tachiyomimangaexporter/komgabooksid.json") as komgabooksid_file:
+        komgabooksid = json.load(komgabooksid_file)
+    bookid = komgabooksid[dic["Series"]][issue]
+    ic(bookid)
+    komgabooksid[dic["Series"]].pop(issue, None)
+    os.chmod(cbz, 0o777)
 
-        mensaj.append(dic["name"] + fecha + "\n\n")
-    if historeturn == False:
-        try:
-            shutil.rmtree(finalpath)
-        except OSError:
-            print(deletefolder)
-        mensaj2.append(finalpath + " El Issue existe con el proveedor correcto \n\n")
+    newfiles = "/media/cristian/Datos/Comics/Descargas/" + dic["name"] + issue + ".cbz"
+    ic(newfiles)
+
+    newinhistory(
+        dic, finalpath, issue, deletefolder, newfiles, update, mensaj2, mensaj
+    )
+
+
+
+
+
+    with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
+        secrets = json.load(json_file2)
+    
+    sourcefile = "/comics/Descargas/" + dic["name"] + issue + ".cbz"
+    destinationname =  dic["name"] + issue
+    replace = { "books": [
+        {
+        "sourceFile": sourcefile,
+        "seriesId": str(dic["komga_serie_id"]),
+        "upgradeBookId": str(bookid),
+        "destinationName": destinationname
+        }
+    ],
+    "copyMode": "MOVE"}
+    ic(sourcefile, destinationname, replace)
+    reponse = requests.post(
+                'https://komga.loyhouse.net/api/v1/books/import',
+                json=replace,
+                headers={"accept": "*/*", "Content-Type": "application/json"},
+                auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
+            )
+    ic(reponse.content)
+    if reponse.status_code != 202:
+        mensaj2.append("El rusultado de api de borrado ha sido " + str(reponse) + " " + str(reponse))
+    with open("/opt/tachiyomimangaexporter/komgabooksid.json", "w") as outfile:
+        json.dump(komgabooksid, outfile)
+    
+
+
 
 
 def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
@@ -233,8 +253,8 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
             else:
                 issue = "{:0>4}".format(separado[0])
         historeturn = historial(history, issue, dic)
+        cbz = dic["destino"] + "/" + dic["name"] + issue + ".cbz"
         if historeturn == True:
-            cbz = dic["destino"] + "/" + dic["name"] + issue + ".cbz"
             update = False
             newinhistory(
                 dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj
@@ -243,16 +263,11 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
             historycorrect(finalpath, deletefolder, mensaj2)
 
         if historeturn == "update":
-            cbz = (
-                "/media/cristian/Datos/Comics/Tachiyomi/Updates/"
-                + dic["name"]
-                + issue
-                + ".cbz"
-            )
             update = True
-            newinhistory(
-                dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj
-            )
+            ic("se actualiza un manga")
+            updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj)
+            history[dic["Series"]].update({issue: dic["provider"]})
+
     else:
         try:
             shutil.move(finalpath, "/media/cristian/Datos/Comics/Fallo/" + cap)
@@ -268,8 +283,6 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
 
 def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj):
     generatexml(dic, finalpath, issue)
-    if update == True:
-        eliminado = dic["destino"] + "/" + dic["name"] + issue + ".cbz"
     archivos = os.listdir(finalpath)
     archivos.sort()
     zipobje = ZipFile(cbz, "w")
@@ -282,12 +295,8 @@ def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mens
     except OSError:
         print(deletefolder)
     if update == True:
-        try:
-            os.remove(eliminado)
-        except OSError:
-            print(deletefolder)
         mensaj2.append(
-            dic["name"] + issue + " eliminado para su futura actualizacion \n\n"
+            dic["name"] + issue + " se ha actualizado de proveedor a " + dic["provider"] + "\n\n"
         )
     else:
         mensaj.append(dic["name"] + issue + "\n\n")
@@ -318,7 +327,6 @@ def organizer(elemento, dic, finalpath, mensaj, mensaj2, history):
     ]
 
     numero = ""
-    fecha = ""
     cadena = (
         elemento[1]
         .lower()
@@ -354,12 +362,6 @@ def organizer(elemento, dic, finalpath, mensaj, mensaj2, history):
         if palabra == 0:
             if re.findall("^#", cadena.split()[palabra]):
                 numero = cadena.split()[palabra].replace("#", "")
-                primero = True
-                tilde = True
-            if re.findall(
-                "[0-9][0-9][0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]", cadena.split()[palabra]
-            ):
-                fecha = cadena.split()[palabra]
                 primero = True
                 tilde = True
             if cadena.split()[palabra] in tags:
@@ -439,9 +441,6 @@ def organizer(elemento, dic, finalpath, mensaj, mensaj2, history):
     # ic(numero)
     if numero != "":
         issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, elemento[1])
-
-    if fecha != "":
-        cyanideorganizer(dic, finalpath, mensaj, mensaj2, history, fecha)
     tilde = False
 
 
