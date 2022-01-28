@@ -501,6 +501,27 @@ def komgabookid():
     with open(configpath + komga) as komgabooksid_file:
         komgabooksid = json.load(komgabooksid_file)
 
+    for manga in mangas:
+        if "komga_serie_id" not in mangas[manga]:
+            if str(mangas[manga]["destino"])[-1] != '/':
+                url = urllib.parse.quote_plus(mangas[manga]["destino"].split("/")[-1])
+            else:
+                url = urllib.parse.quote_plus(mangas[manga]["destino"].split("/")[-2])
+            ic(url)
+            query = "https://komga.loyhouse.net/api/v1/series?search=%22" + url + "%22"
+            reponse = requests.get(
+                        query,
+                        headers={"accept": "application/json"},
+                        auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
+                    )
+            ic(reponse.status_code)
+            if reponse.status_code != 200:
+                ic(reponse.content)
+            serie = reponse.json()
+            if int(serie["numberOfElements"]) == 1:
+                mangas[manga]["komga_serie_id"] = serie["content"][0]["id"]
+            else:
+                ic(reponse.content)
 
     intermedia = {mangas[manga]["Series"]: manga for manga in mangas}
 
@@ -552,3 +573,5 @@ def komgabookid():
 
     with open(configpath + komga, "w") as outfile:
         json.dump(komgabooksid, outfile)
+    with open(configpath + "mangas.json", "w") as mangaoutfile:
+        json.dump(mangas, mangaoutfile)

@@ -75,7 +75,7 @@ def nuevosmangas():
         todosdict = json.load(json_file)
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secrets = json.load(json_file2)
-    with open("/opt/tachiyomimangaexporter/mangasnuevos.json") as json_file2:
+    with open("/opt/tachiyomimangaexporter/newmanga.json") as json_file2:
         mangasnuevos = json.load(json_file2)
     todoslist = [
         {manga["titleId"]: manga["name"]}
@@ -122,7 +122,7 @@ def nuevosmangas():
             portrait = manga2["portraitImageUrl"]
 
             if enviar:
-                mangasnuevos["nuevos"].append(
+                mangasnuevos["new"].append(
                     {
                         source: {
                             "destino": output,
@@ -187,7 +187,7 @@ def nuevosmangas():
     ic()
     with open("/opt/tachiyomimangaexporter/all.json", "w") as outfile:
         json.dump(datamanga, outfile)
-    with open("/opt/tachiyomimangaexporter/mangasnuevos.json", "w") as outfile:
+    with open("/opt/tachiyomimangaexporter/newmanga.json", "w") as outfile:
         json.dump(mangasnuevos, outfile)
 
 
