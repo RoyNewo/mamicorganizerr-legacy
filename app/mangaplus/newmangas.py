@@ -78,7 +78,7 @@ def preparemsg(mangaid):
 def main():
 
     # hacemos la peticion a la web con la lista de todos los mangas y los guardamos en el diccionario datamanga
-    url = mangaplus.loader.api_url + "title_list/all?format=json"
+    url = f'{mangaplus.loader.api_url}title_list/all?format=json'
     responsemanga = requests.get(url, headers=mangaplus.loader.headers)
     webdatamanga = responsemanga.json()
 

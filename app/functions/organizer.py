@@ -265,6 +265,7 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
         if historeturn == "update":
             update = True
             ic("se actualiza un manga")
+            ic(dic["Series"], dic["provider"])
             updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj)
             history[dic["Series"]].update({issue: dic["provider"]})
 

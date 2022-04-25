@@ -113,7 +113,7 @@ def ninemanga():
     with conn:
         print("2. Query all tasks")
         lista = select_all_tasks(conn)
-    
+
     for iterable in lista:
         if iterable[0] == 4097111295486074350:
             url = 'https://es.ninemanga.com'        
@@ -123,8 +123,8 @@ def ninemanga():
         fullurl = url + iterable[1]
 
         if len(iterable[1].split('?')) == 1:
-            fullurl = fullurl + '?waring=1'
-        
+            fullurl = f'{fullurl}?waring=1'
+
         log[iterable[2]] = {}
         infofile = Path("/media/cristian/Datos/Comics/Buffer/manga-py/info.json")
         init = (

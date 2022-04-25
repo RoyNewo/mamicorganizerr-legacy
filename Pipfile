@@ -24,9 +24,11 @@ icecream = ">=2.1.1"
 lxml = ">=4.6.3"
 discord = "*"
 Scrapy = ">=2.5.1"
+cfscrape = "*"
 
 [dev-packages]
 autopep8 = "*"
+tensorboard = "*"
 
 [requires]
 python_version = "3.6"
