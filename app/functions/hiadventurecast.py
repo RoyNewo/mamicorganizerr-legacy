@@ -149,12 +149,14 @@ def hac():
                     mensaj,
                 )                
                 history[manga["Series"]][capitulo[0]] = manga["funcion"]
-    with open(rutahistorial, "w") as outfile:
-        json.dump(history, outfile)
+                with open(rutahistorial, "w") as outfile:
+                    json.dump(history, outfile)
+                mensaj = []
+                mensaj2 = []
     organizar.scankomgalibrary(
-        mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"]
+        mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets
     )
-    organizar.send(mensaj, mensaj2)
+    # organizar.send(mensaj, mensaj2)
 
 
 

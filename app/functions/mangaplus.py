@@ -9,6 +9,7 @@ from icecream import ic
 import functions.organizer as organizar
 import urllib.request
 from discord import Webhook, RequestsWebhookAdapter
+from functions import sendmsgdiscord, sendmsgtelegram
 
 
 api_url = "https://jumpg-webapi.tokyo-cdn.com/api/"
@@ -31,12 +32,12 @@ def downloadchapter(path, chapterid, name, number):
     if "error" in datachapter:
         return False
 
-    dfolder = path + "/" + name + number
+    dfolder = f"{path}/{name}{number}"
     if not os.path.exists(dfolder):
         os.makedirs(dfolder)
     for chapter in range(len(datachapter["success"]["mangaViewer"]["pages"])):
         if "mangaPage" in datachapter["success"]["mangaViewer"]["pages"][chapter]:
-            imgpath = dfolder + "/" + "{:0>3}".format(chapter) + ".jpg"
+            imgpath = f"{dfolder}/" + "{:0>3}".format(chapter) + ".jpg"
             imgdecrypt(
                 datachapter["success"]["mangaViewer"]["pages"][chapter]["mangaPage"][
                     "imageUrl"
@@ -82,7 +83,7 @@ def nuevosmangas():
         for manga in todosdict["success"]["allTitlesView"]["titles"]
     ]
 
-    url = api_url + "title_list/all?format=json"
+    url = f"{api_url}title_list/all?format=json"
     responsemanga = requests.get(url, headers=headers)
     datamanga = responsemanga.json()
 
@@ -141,7 +142,7 @@ def nuevosmangas():
                 mensaje = (
                     "Se ha detectado un nuevo manga en la aplicacione MangaPlus\n\n"
                 )
-                url = api_url + "title_detail?title_id=" + str(mangaid) + "&format=json"
+                url = f"{api_url}title_detail?title_id={str(mangaid)}&format=json"
                 responsedetail = requests.get(url, headers=headers)
                 datadetail = responsedetail.json()
                 msg = (
@@ -175,7 +176,7 @@ def nuevosmangas():
                 )
                 webhook.send(mensaje)
                 ic(portrait)
-                portrait = portrait + "&random=64"
+                portrait = f"{portrait}&random=64"
                 with urllib.request.urlopen(portrait) as response:
                     info = response.info()
                     print(info.get_content_type())  # -> text/html
@@ -191,19 +192,21 @@ def nuevosmangas():
         json.dump(mangasnuevos, outfile)
 
 
-def ultimosmangas(mensaj, mensaj2):
+def ultimosmangas(mensaj, mensaj2, secrets):
     with open("/opt/tachiyomimangaexporter/mangaplusmapper.json") as json_file:
         mapeo = json.load(json_file)
     with open("/opt/tachiyomimangaexporter/mangas.json") as json_file2:
         mangas = json.load(json_file2)
     with open(rutahistorial) as json_file3:
         history = json.load(json_file3)
-    url = api_url + "web/web_home?lang=esp&format=json"
+    url = f"{api_url}web/web_home?lang=esp&format=json"
     responseultimos = requests.get(url, headers=headers)
     dataultimos = responseultimos.json()
+    mensaj.append("Capitulos recientes de MangaPlus\n\n")
     for groupnumber in range(len(dataultimos["success"]["webHomeView"]["groups"])):
         for titlenumber in range(
-            len(dataultimos["success"]["webHomeView"]["groups"][groupnumber]["titles"])
+            len(dataultimos["success"]["webHomeView"]
+                ["groups"][groupnumber]["titles"])
         ):
             if (
                 str(
@@ -262,7 +265,8 @@ def ultimosmangas(mensaj, mensaj2):
                         .replace("#", "")
                         .split(".")
                     )
-                    numeroflotante = "{:0>4}".format(separado[0]) + "." + separado[1]
+                    numeroflotante = "{:0>4}".format(
+                        separado[0]) + "." + separado[1]
                     mangasnormales(
                         str(
                             dataultimos["success"]["webHomeView"]["groups"][
@@ -282,6 +286,7 @@ def ultimosmangas(mensaj, mensaj2):
                         ],
                         mensaj,
                         mensaj2,
+                        secrets,
                     )
                 elif "," in str(
                     dataultimos["success"]["webHomeView"]["groups"][groupnumber][
@@ -306,6 +311,8 @@ def ultimosmangas(mensaj, mensaj2):
                             ]["titles"][titlenumber]["chapterName"]
                         )
                     )
+                    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
                 else:
                     ic(
                         str(
@@ -339,25 +346,30 @@ def ultimosmangas(mensaj, mensaj2):
                         ],
                         mensaj,
                         mensaj2,
+                        secrets,
                     )
+                mensaj = []
+                mensaj2 = []
     with open(rutahistorial, "w") as outfile:
         json.dump(history, outfile)
 
 
-def capitulossueltos(mensaj, mensaj2):
+def capitulossueltos(mensaj, mensaj2, secrets):
     capitulossueltos = "/opt/tachiyomimangaexporter/mangapluscapitulosueltos.json"
     if os.path.exists(capitulossueltos):
         with open(capitulossueltos) as json_file:
             chapters = json.load(json_file)
 
-        with open("/opt/tachiyomimangaexporter/history.json") as json_file3:
+        with open(rutahistorial) as json_file3:
             history = json.load(json_file3)
 
         deletefolder = "Error while deleting directory"
         tdescargas = "/media/cristian/Datos/Comics/Descargas"
+        mensaj.append("Se van a descargar capitulos sueltos especificos en MangaPlus")
         for chapter in chapters:
 
-            historeturn = organizar.historial(history, chapter["number"], chapter)
+            historeturn = organizar.historial(
+                history, chapter["number"], chapter)
             if historeturn == True and downloadchapter(
                 tdescargas, chapter["chapterid"], chapter["name"], chapter["number"]
             ):
@@ -369,16 +381,9 @@ def capitulossueltos(mensaj, mensaj2):
                     + str(chapter["number"])
                     + ".cbz"
                 )
-                organizar.newinhistory(
-                    chapter,
-                    tdescargas + "/" + str(chapter["name"]) + str(chapter["number"]),
-                    str(chapter["number"]),
-                    deletefolder,
-                    cbz,
-                    update,
-                    mensaj2,
-                    mensaj,
-                )
+                organizar.newinhistory(chapter, f"{tdescargas}/" + str(chapter["name"]) + str(
+                    chapter["number"]), str(chapter["number"]), deletefolder, cbz, update, mensaj2, mensaj)
+
             if historeturn == "update" and downloadchapter(
                 tdescargas, chapter["number"], chapter["name"], chapter["number"]
             ):
@@ -390,13 +395,26 @@ def capitulossueltos(mensaj, mensaj2):
                     + ".cbz"
                 )
                 update = True
-                organizar.updatebook(chapter, tdescargas + "/" + str(chapter["name"]) + str(chapter["number"]), str(chapter["number"]), deletefolder, cbz, update, mensaj2, mensaj)
-                history[chapter,].update({str(chapter["number"]): str(chapter["provider"])})
-                
+                try:
+                    organizar.updatebook(chapter, f"{tdescargas}/" + str(chapter["name"]) + str(
+                        chapter["number"]), str(chapter["number"]), deletefolder, cbz, update, mensaj2, mensaj)
+
+                    history[chapter, ].update(
+                        {str(chapter["number"]): str(chapter["provider"])})
+                except KeyError:
+                    mensaj2.append(
+                        f"{chapter['Series']} - {chapter['provider']} - {str(chapter['number'])}: Aun no esta en komgabookid y no se puede actualizar se hara en la siguiente ejecucion \n\n")
+                    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+            with open(rutahistorial, "w") as outfile:
+                json.dump(history, outfile)
+            mensaj = []
+            mensaj2 = []
+
         os.remove(capitulossueltos)
 
 
-def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2):
+def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2, secrets):
     deletefolder = "Error while deleting directory"
     tdescargas = "/media/cristian/Datos/Comics/Descargas"
     historeturn = organizar.historial(history, chapternumber, dic)
@@ -406,15 +424,8 @@ def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2):
         update = False
         cbz = dic["destino"] + "/" + dic["name"] + chapternumber + ".cbz"
         organizar.newinhistory(
-            dic,
-            tdescargas + "/" + dic["name"] + chapternumber,
-            chapternumber,
-            deletefolder,
-            cbz,
-            update,
-            mensaj2,
-            mensaj,
-        )
+            dic, f"{tdescargas}/" + dic["name"] + chapternumber, chapternumber, deletefolder, cbz, update, mensaj2, mensaj, secrets)
+
     if historeturn == "update" and downloadchapter(
         tdescargas, chapterid, dic["name"], chapternumber
     ):
@@ -422,10 +433,20 @@ def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2):
         ic(cbz)
         ic("se actualiza un manga")
         update = True
-        organizar.updatebook(dic, tdescargas + "/" + dic["name"] + chapternumber, chapternumber, deletefolder, cbz, update, mensaj2, mensaj)
-        history[dic["Series"]].update({chapternumber: dic["provider"]})
-        
+        try:
+            organizar.updatebook(
+                dic, f"{tdescargas}/" + dic["name"] + chapternumber, chapternumber, deletefolder, cbz, update, mensaj2, mensaj, secrets)
 
+            history[dic["Series"]].update({chapternumber: dic["provider"]})
+        except KeyError:
+            mensaj2.append(
+                f"{dic['Series']} - {dic['provider']} - {chapternumber}: Aun no esta en komgabookid y no se puede actualizar se hara en la siguiente ejecucion \n\n")
+            sendmsgtelegram(secrets["token"], secrets["chatid"], mensaj2)
+            sendmsgdiscord(secrets["disdcordwebhookfallo"], mensaj2)
+    with open(rutahistorial, "w") as outfile:
+        json.dump(history, outfile)
+    mensaj = []
+    mensaj2 = []
 
 def mangasespeciales(chapterid):
     url = (
@@ -480,13 +501,14 @@ def mangasespeciales(chapterid):
     )
 
 
-def mangascompletos(mensaj, mensaj2):
+def mangascompletos(mensaj, mensaj2, secrets):
     with open("/opt/tachiyomimangaexporter/mangaplusmapper.json") as json_file:
         mapeo = json.load(json_file)
     with open("/opt/tachiyomimangaexporter/mangas.json") as json_file2:
         mangas = json.load(json_file2)
     with open(rutahistorial) as json_file3:
         history = json.load(json_file3)
+    mensaj.append("Revisando mangas que se van a descargar completos en MangaPlus\n\n")
 
     for key in mapeo.keys():
         if mangas[mapeo[key]]["Series"] not in history:
@@ -524,6 +546,7 @@ def mangascompletos(mensaj, mensaj2):
                             mangas[mapeo[key]],
                             mensaj,
                             mensaj2,
+                            secrets
                         )
                     elif "," in str(chapters["name"]):
                         mensaj2.append(
@@ -532,15 +555,20 @@ def mangascompletos(mensaj, mensaj2):
                             + " tiene los capitulos dobles "
                             + str(chapters["name"])
                         )
+                        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                        mensaj2 = []
                     else:
                         ic(str(chapters["name"]).replace("#", ""))
                         mangasnormales(
                             str(chapters["chapterId"]),
-                            "{:0>4}".format(str(chapters["name"]).replace("#", "")),
+                            "{:0>4}".format(
+                                str(chapters["name"]).replace("#", "")),
                             history,
                             mangas[mapeo[key]],
                             mensaj,
                             mensaj2,
+                            secrets
                         )
             if "lastChapterList" in datatodos["success"]["titleDetailView"]:
                 for chapters in datatodos["success"]["titleDetailView"][
@@ -564,6 +592,7 @@ def mangascompletos(mensaj, mensaj2):
                             mangas[mapeo[key]],
                             mensaj,
                             mensaj2,
+                            secrets
                         )
                     elif "," in str(chapters["name"]):
                         mensaj2.append(
@@ -572,19 +601,25 @@ def mangascompletos(mensaj, mensaj2):
                             + " tiene los capitulos dobles "
                             + str(chapters["name"])
                         )
+                        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
                     else:
                         ic(str(chapters["name"]).replace("#", ""))
                         mangasnormales(
                             str(chapters["chapterId"]),
-                            "{:0>4}".format(str(chapters["name"]).replace("#", "")),
+                            "{:0>4}".format(
+                                str(chapters["name"]).replace("#", "")),
                             history,
                             mangas[mapeo[key]],
                             mensaj,
                             mensaj2,
+                            secrets
                         )
     ic("Se va a actualizar el Historial")
     with open(rutahistorial, "w") as outfile:
         json.dump(history, outfile)
+    mensaj = []
+    mensaj2 = []
 
 
 def mangaplusmain():
@@ -593,11 +628,13 @@ def mangaplusmain():
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file1:
         secrets = json.load(json_file1)
     nuevosmangas()
-    mangascompletos(mensaj, mensaj2)
-    capitulossueltos(mensaj, mensaj2)
-    ultimosmangas(mensaj, mensaj2)
+    mangascompletos(mensaj, mensaj2, secrets)
+    mensaj = []
+    mensaj2 = []
+    capitulossueltos(mensaj, mensaj2, secrets)
+    ultimosmangas(mensaj, mensaj2, secrets)
     # mangaplusmapper()
     organizar.scankomgalibrary(
-        mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"]
+        mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets
     )
-    organizar.send(mensaj, mensaj2)
+    # organizar.send(mensaj, mensaj2)

@@ -88,8 +88,8 @@ def cyanide(manga):
             ic(capitulo)
             if capitulo[0][:4] == volumen:
                 archivo = capitulo[1].split("/")[-1]
-                os.makedirs(tdescargas + "/" + capitulo[0])
-                path = tdescargas + "/" + capitulo[0] + "/" + archivo
+                os.makedirs(f"{tdescargas}/{capitulo[0]}")
+                path = f"{tdescargas}/{capitulo[0]}/{archivo}"
                 resp = requests.get(capitulo[1])
                 data = bytearray(resp.content)
                 with open(path, "wb") as fin:
@@ -102,20 +102,15 @@ def cyanide(manga):
                     + capitulo[0]
                     + ".cbz"
                 )
-                organizar.newinhistory(
-                    mangas[manga],
-                    tdescargas + "/" + capitulo[0],
-                    capitulo[0],
-                    deletefolder,
-                    cbz,
-                    False,
-                    mensaj2,
-                    mensaj,
-                )
+                organizar.newinhistory(mangas[manga], f"{tdescargas}/{capitulo[0]}", capitulo[0], deletefolder, cbz, False, mensaj2, mensaj, secrets)
+
                 history[nombre][capitulo[0]] = mangas[manga]["funcion"]
-        with open(rutahistorial, "w") as outfile:
-            json.dump(history, outfile)
+                with open(rutahistorial, "w") as outfile:
+                    json.dump(history, outfile)
+                mensaj = []
+                mensaj2 = []
+        
         organizar.scankomgalibrary(
-            mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"]
+            mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets
         )
-        organizar.send(mensaj, mensaj2)
+        # organizar.send(mensaj, mensaj2)

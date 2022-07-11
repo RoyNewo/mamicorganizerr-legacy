@@ -12,7 +12,7 @@ import requests
 
 def cbzgenerator(namefile):
     parents, filename = os.path.split(namefile)
-    temporal = parents + "/temporal"
+    temporal = f"{parents}/temporal"
     if os.path.exists(temporal):
         try:
             shutil.rmtree(temporal)
@@ -21,10 +21,10 @@ def cbzgenerator(namefile):
     try:
         os.mkdir(temporal)
     except OSError:
-        print("Creation of the directory %s failed" % temporal)
+        print(f"Creation of the directory {temporal} failed")
 
     patoolib.extract_archive(namefile, outdir=temporal)
-    comicinfo = temporal + "/ComicInfo.xml"
+    comicinfo = f"{temporal}/ComicInfo.xml"
     with open(comicinfo, "r") as xml_obj:
         # coverting the xml data to Python dictionary
         my_dict = xmltodict.parse(xml_obj.read())
@@ -32,38 +32,18 @@ def cbzgenerator(namefile):
     xml_obj.close()
 
     print(my_dict["ComicInfo"]["Series"])
-    destino = (
-        "/media/cristian/Datos/Comics/Reader/"
-        + my_dict["ComicInfo"]["Publisher"]
-        + "/"
-        + my_dict["ComicInfo"]["Series"]
-        + " ("
-        + my_dict["ComicInfo"]["Volume"]
-        + ")"
-    )
+    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
     destino = destino.replace(":", "")
     destino = destino.replace("\\", " ")
     destino = destino.replace("?", "")
     print(destino)
     if not os.path.exists(destino):
         os.makedirs(destino)
-    if not os.path.exists(destino + "/poster.jpg") and my_dict["ComicInfo"][
-        "Publisher"
-    ] in ["Marvel", "Delcourt", "DC Comics"]:
+    if not os.path.exists(f"{destino}/poster.jpg") and my_dict["ComicInfo"]["Publisher"] in ["Marvel", "Delcourt", "DC Comics"]:
         getposter(my_dict, destino)
-    archivos = glob.glob(temporal + "/**/*.*", recursive=True)
+    archivos = glob.glob(f"{temporal}/**/*.*", recursive=True)
     archivos.sort()
-
-    cbz = (
-        destino
-        + "/"
-        + my_dict["ComicInfo"]["Series"]
-        + " ("
-        + my_dict["ComicInfo"]["Volume"]
-        + ") Issue #"
-        + "{:0>4}".format(my_dict["ComicInfo"]["Number"])
-        + ".cbz"
-    )
+    cbz = f'{destino}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]}) Issue #{"{:0>4}".format(my_dict["ComicInfo"]["Number"])}.cbz'
     cbz = cbz.replace(":", "")
     cbz = cbz.replace("\\", " ")
     cbz = cbz.replace("?", "")
@@ -99,14 +79,14 @@ def getposter(my_dict, destino):
     # print(url, response)
     datavolume = responsevolume.json()
     image = requests.get(datavolume["results"]["image"]["super_url"])
-    imagesave = str(destino + "/poster.jpg")
+    imagesave = str(f"{destino}/poster.jpg")
     with open(imagesave, "wb") as f:
         f.write(image.content)
 
 
 def main():
-    path = "/media/cristian/Datos/Downloads/Comics"
-    files2 = glob.glob(path + "/**/*.[cC][bB][zZ]", recursive=True)
+    path = "/media/cristian/Datos/Comics/Buffer/msmarvel"
+    files2 = glob.glob(f"{path}/**/*.[cC][bB][zZ]", recursive=True)
     for ficheros2 in files2:
         cbzgenerator(ficheros2)
 

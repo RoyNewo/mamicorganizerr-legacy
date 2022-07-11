@@ -14,6 +14,7 @@ from discord import Webhook, RequestsWebhookAdapter
 from icecream import ic
 from urllib import response
 import urllib
+from functions import sendmsgdiscord, sendmsgtelegram
 
 
 def send(msg, msg2):
@@ -23,7 +24,8 @@ def send(msg, msg2):
     """
 
     if msg:
-        enviarmensaje(msg, "Siguientes Comics/Mangas se han descargado:\n\n", False)
+        enviarmensaje(
+            msg, "Siguientes Comics/Mangas se han descargado:\n\n", False)
 
     if msg2:
         enviarmensaje(msg2, "Siguientes Comics/Mangas han fallado:\n\n", True)
@@ -188,7 +190,7 @@ def folderinit(dic):
         postermangaplus(dic)
 
 
-def updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj):
+def updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj, secrets):
     with open("/opt/tachiyomimangaexporter/komgabooksid.json") as komgabooksid_file:
         komgabooksid = json.load(komgabooksid_file)
     bookid = komgabooksid[dic["Series"]][issue]
@@ -196,56 +198,50 @@ def updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj
     komgabooksid[dic["Series"]].pop(issue, None)
     os.chmod(cbz, 0o777)
 
-    newfiles = "/media/cristian/Datos/Comics/Descargas/" + dic["name"] + issue + ".cbz"
+    newfiles = "/media/cristian/Datos/Comics/Descargas/" + \
+        dic["name"] + issue + ".cbz"
     ic(newfiles)
 
     newinhistory(
-        dic, finalpath, issue, deletefolder, newfiles, update, mensaj2, mensaj
+        dic, finalpath, issue, deletefolder, newfiles, update, mensaj2, mensaj, secrets
     )
-
-
-
-
 
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secrets = json.load(json_file2)
-    
+
     sourcefile = "/comics/Descargas/" + dic["name"] + issue + ".cbz"
-    destinationname =  dic["name"] + issue
-    replace = { "books": [
+    destinationname = dic["name"] + issue
+    replace = {"books": [
         {
-        "sourceFile": sourcefile,
-        "seriesId": str(dic["komga_serie_id"]),
-        "upgradeBookId": str(bookid),
-        "destinationName": destinationname
+            "sourceFile": sourcefile,
+            "seriesId": str(dic["komga_serie_id"]),
+            "upgradeBookId": str(bookid),
+            "destinationName": destinationname
         }
     ],
-    "copyMode": "MOVE"}
+        "copyMode": "MOVE"}
     ic(sourcefile, destinationname, replace)
     reponse = requests.post(
-                'https://komga.loyhouse.net/api/v1/books/import',
-                json=replace,
-                headers={"accept": "*/*", "Content-Type": "application/json"},
-                auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
-            )
+        'https://komga.loyhouse.net/api/v1/books/import',
+        json=replace,
+        headers={"accept": "*/*", "Content-Type": "application/json"},
+        auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
+    )
     ic(reponse.content)
     if reponse.status_code != 202:
-        mensaj2.append("El rusultado de api de borrado ha sido " + str(reponse) + " " + str(reponse))
+        mensaj2.append("El rusultado de api de borrado ha sido " +
+                       str(reponse) + " " + str(reponse))
     with open("/opt/tachiyomimangaexporter/komgabooksid.json", "w") as outfile:
         json.dump(komgabooksid, outfile)
-    
 
 
-
-
-def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
+def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap, secrets):
+    # sourcery skip: assign-if-exp, merge-duplicate-blocks, remove-redundant-if, split-or-ifs
     deletefolder = "Error while deleting directory"
     if isint(numero) or isfloat(numero):
         if isint(numero):
-            if '.' not in numero:
-                issue = "{:0>4}".format(numero)
-            else:
-                issue = "{:0>4}".format(str(numero).split('.')[0])
+            issue = "{:0>4}".format(numero) if '.' not in numero else "{:0>4}".format(
+                str(numero).split('.')[0])
         elif isfloat(numero):
             separado = numero.split(".")
             if separado[1] != '0' or separado[1] != '00':
@@ -257,21 +253,30 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
         if historeturn == True:
             update = False
             newinhistory(
-                dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj
+                dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj, secrets
             )
         if historeturn == False:
-            historycorrect(finalpath, deletefolder, mensaj2)
+            historycorrect(finalpath, deletefolder, mensaj2, secrets)
 
         if historeturn == "update":
             update = True
             ic("se actualiza un manga")
             ic(dic["Series"], dic["provider"])
-            updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj)
-            history[dic["Series"]].update({issue: dic["provider"]})
+            try:
+                updatebook(dic, finalpath, issue, deletefolder,
+                           cbz, update, mensaj2, mensaj, secrets)
+                history[dic["Series"]].update({issue: dic["provider"]})
+            except KeyError:
+                mensaj2.append(
+                    f"{dic['Series']} - {dic['provider']} - {issue}: Aun no esta en komgabookid y no se puede actualizar se hara en la siguiente ejecucion \n\n")
+                sendmsgtelegram.sendmsg(
+                    secrets["token"], secrets["chatid"], mensaj2)
+                sendmsgdiscord.sendmsg(
+                    secrets["disdcordwebhookfallo"], mensaj2)
 
     else:
         try:
-            shutil.move(finalpath, "/media/cristian/Datos/Comics/Fallo/" + cap)
+            shutil.move(finalpath, f"/media/cristian/Datos/Comics/Fallo/{cap}")
         except OSError:
             print(deletefolder)
         try:
@@ -279,16 +284,18 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap):
         except OSError:
             print(deletefolder)
 
-        mensaj2.append(finalpath + " Patron encontrado es: " + numero + "\n\n")
+        mensaj2.append(f"{finalpath} Patron encontrado es: {numero}\n\n")
+        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
 
 
-def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj):
+def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj, secrets):
     generatexml(dic, finalpath, issue)
     archivos = os.listdir(finalpath)
     archivos.sort()
     zipobje = ZipFile(cbz, "w")
     for archivos2 in archivos:
-        finalpath2 = finalpath + "/" + archivos2
+        finalpath2 = f"{finalpath}/{archivos2}"
         zipobje.write(finalpath2, basename(archivos2))
     zipobje.close()
     try:
@@ -297,21 +304,29 @@ def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mens
         print(deletefolder)
     if update == True:
         mensaj2.append(
-            dic["name"] + issue + " se ha actualizado de proveedor a " + dic["provider"] + "\n\n"
+            dic["name"] + issue + " se ha actualizado de proveedor a " +
+            dic["provider"] + "\n\n"
         )
+        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
     else:
         mensaj.append(dic["name"] + issue + "\n\n")
+        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj)
+        sendmsgdiscord.sendmsg(secrets["disdcordwebhook"], mensaj)
 
 
-def historycorrect(finalpath, deletefolder, mensaj2):
+def historycorrect(finalpath, deletefolder, mensaj2, secrets):
     try:
         shutil.rmtree(finalpath)
     except OSError:
         print(deletefolder)
-    mensaj2.append(finalpath + " El Issue existe con el proveedor correcto \n\n")
+    mensaj2.append(
+        finalpath + " El Issue existe con el proveedor correcto \n\n")
+    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
 
 
-def organizer(elemento, dic, finalpath, mensaj, mensaj2, history):
+def organizer(elemento, dic, finalpath, mensaj, mensaj2, history, secrets):
     folderinit(dic)
     tilde = False
     tags = [
@@ -441,7 +456,8 @@ def organizer(elemento, dic, finalpath, mensaj, mensaj2, history):
         numero = cadena
     # ic(numero)
     if numero != "":
-        issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, elemento[1])
+        issueorganizer(dic, finalpath, mensaj, mensaj2,
+                       history, numero, elemento[1], secrets)
     tilde = False
 
 
@@ -461,10 +477,12 @@ def issueupdate(secrets, mangas):
             for key in mangas:
                 if mangas[key]["name"] == name:
                     historial(history, issue[-1], mangas[key])
-                    destino = str(mangas[key]["destino"]) + "/" + str(fichero[1])
+                    destino = str(mangas[key]["destino"]) + \
+                        "/" + str(fichero[1])
                     namefile = str(fichero[0]) + "/" + str(fichero[1])
                     shutil.move(namefile, destino)
-                    mensaje.append(str(mangas[key]["name"]) + str(issue[-1]) + "\n\n")
+                    mensaje.append(
+                        str(mangas[key]["name"]) + str(issue[-1]) + "\n\n")
                     break
         with open("/opt/tachiyomimangaexporter/history.json", "w") as outfile:
             json.dump(history, outfile)
@@ -472,7 +490,7 @@ def issueupdate(secrets, mangas):
         time.sleep(2)
 
 
-def scankomgalibrary(mensaj, mensaj2, user, password):
+def scankomgalibrary(mensaj, mensaj2, user, password, secrets):
     print(mensaj, mensaj2)
     if mensaj != [] or mensaj2 != []:
         print("paso por aqui")
@@ -483,6 +501,9 @@ def scankomgalibrary(mensaj, mensaj2, user, password):
         )
         if response.status_code != 202:
             mensaj2.append(str(response))
+            sendmsgtelegram.sendmsg(
+                secrets["token"], secrets["chatid"], mensaj2)
+            sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
 
 
 def komgabookid():
@@ -505,16 +526,18 @@ def komgabookid():
     for manga in mangas:
         if "komga_serie_id" not in mangas[manga]:
             if str(mangas[manga]["destino"])[-1] != '/':
-                url = urllib.parse.quote_plus(mangas[manga]["destino"].split("/")[-1])
+                url = urllib.parse.quote_plus(
+                    mangas[manga]["destino"].split("/")[-1])
             else:
-                url = urllib.parse.quote_plus(mangas[manga]["destino"].split("/")[-2])
+                url = urllib.parse.quote_plus(
+                    mangas[manga]["destino"].split("/")[-2])
             ic(url)
             query = "https://komga.loyhouse.net/api/v1/series?search=%22" + url + "%22"
             reponse = requests.get(
-                        query,
-                        headers={"accept": "application/json"},
-                        auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
-                    )
+                query,
+                headers={"accept": "application/json"},
+                auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
+            )
             ic(reponse.status_code)
             if reponse.status_code != 200:
                 ic(reponse.content)
@@ -529,27 +552,7 @@ def komgabookid():
     for serie in history:
         for capitulo in history[serie]:
             if serie not in komgabooksid:
-                nombre = mangas[intermedia[serie]]["name"] + capitulo
-                # ic(nombre)
-                url = urllib.parse.quote_plus(nombre)
-                ic(url)
-                query = (
-                    "https://komga.loyhouse.net/api/v1/books?search=%22"
-                    + url
-                    + "%22&library_id=02G13VGFYC532"
-                )
-                reponse = requests.get(
-                    query,
-                    data={"accept": "*/*"},
-                    auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
-                )
-                ic(reponse.json())
-                book = reponse.json()
-                komgabooksid[mangas[intermedia[serie]]["Series"]] = {
-                            capitulo: book["content"][0]["id"]
-                        }
-
-            elif capitulo not in komgabooksid[serie]:
+                try:
                     nombre = mangas[intermedia[serie]]["name"] + capitulo
                     # ic(nombre)
                     url = urllib.parse.quote_plus(nombre)
@@ -562,15 +565,70 @@ def komgabookid():
                     reponse = requests.get(
                         query,
                         data={"accept": "*/*"},
-                        auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
+                        auth=HTTPBasicAuth(
+                            secrets["komgauser"], secrets["komgapass"]),
                     )
                     ic(reponse.json())
                     book = reponse.json()
-                    
+                    komgabooksid[mangas[intermedia[serie]]["Series"]] = {
+                        capitulo: book["content"][0]["id"]
+                    }
+                except IndexError:
+                    query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
+                    nombre = mangas[intermedia[serie]]["name"] + capitulo
+                    reponse = requests.get(
+                        query,
+                        data={"accept": "*/*"},
+                        auth=HTTPBasicAuth(
+                            secrets["komgauser"], secrets["komgapass"]),
+                    )
+                    ic(reponse.json())
+                    book = reponse.json()
+                    for b in book["content"]:
+                        if b["name"] == nombre:
+                            komgabooksid[mangas[intermedia[serie]]
+                                         ["Series"]] = {capitulo: b["id"]}
+                            break
+
+            elif capitulo not in komgabooksid[serie]:
+                try:
+                    nombre = mangas[intermedia[serie]]["name"] + capitulo
+                    ic(nombre)
+                    url = urllib.parse.quote_plus(nombre)
+                    ic(url)
+                    query = (
+                        "https://komga.loyhouse.net/api/v1/books?search=%22"
+                        + url
+                        + "%22&library_id=02G13VGFYC532"
+                    )
+                    reponse = requests.get(
+                        query,
+                        data={"accept": "*/*"},
+                        auth=HTTPBasicAuth(
+                            secrets["komgauser"], secrets["komgapass"]),
+                    )
+                    ic(reponse.json())
+                    book = reponse.json()
+
                     komgabooksid[mangas[intermedia[serie]]["Series"]].update(
                         {capitulo: book["content"][0]["id"]}
                     )
-         
+                except IndexError:
+                    query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
+                    nombre = mangas[intermedia[serie]]["name"] + capitulo
+                    reponse = requests.get(
+                        query,
+                        data={"accept": "*/*"},
+                        auth=HTTPBasicAuth(
+                            secrets["komgauser"], secrets["komgapass"]),
+                    )
+                    ic(reponse.json())
+                    book = reponse.json()
+                    for b in book["content"]:
+                        if b["name"] == nombre:
+                            komgabooksid[mangas[intermedia[serie]]
+                                         ["Series"]].update({capitulo: b["id"]})
+                            break
 
     with open(configpath + komga, "w") as outfile:
         json.dump(komgabooksid, outfile)

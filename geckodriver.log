@@ -1,0 +1,387 @@
+1652870186975	geckodriver	INFO	Listening on 127.0.0.1:60355
+1652870187620	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "57789" "-no-remote" "-profile" "/tmp/rust_mozprofile6sgFpz"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652870198827	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile6sgFpz/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57789/devtools/browser/c58a089b-f6e2-44df-87e0-a28ed90802eb
+1652870210014	Marionette	INFO	Listening on port 35207
+1652870210188	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652870293480	geckodriver	INFO	Listening on 127.0.0.1:59011
+1652870294075	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "58215" "-no-remote" "-profile" "/tmp/rust_mozprofilefJAC1U"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652870295641	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilefJAC1U/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58215/devtools/browser/cfb3c376-adc5-410f-889c-378e91beee21
+1652870300887	Marionette	INFO	Listening on port 42275
+1652870300990	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652870536229	geckodriver	INFO	Listening on 127.0.0.1:59305
+1652870536728	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "40671" "-no-remote" "-profile" "/tmp/rust_mozprofilezIcgTE"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652870538147	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilezIcgTE/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:40671/devtools/browser/d96a08fd-733f-48ee-93f0-dded12f8951f
+1652870543930	Marionette	INFO	Listening on port 40409
+1652870544094	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652870590589	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+1652870606166	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+1652870609555	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+1652870615808	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652870645999	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652870654945	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652870665213	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652870672173	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+1652870701490	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652870708510	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652871240925	geckodriver	INFO	Listening on 127.0.0.1:33313
+1652871241444	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "50261" "-no-remote" "-profile" "/tmp/rust_mozprofilec2ypFq"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652871244317	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilec2ypFq/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50261/devtools/browser/4aa1c133-0309-40df-b1eb-ce3482bc82e7
+1652871268562	Marionette	INFO	Listening on port 45625
+1652871269027	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652871438144	geckodriver	INFO	Listening on 127.0.0.1:37213
+1652871438657	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "41501" "-no-remote" "-profile" "/tmp/rust_mozprofile34dKPx"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652871440800	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile34dKPx/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:41501/devtools/browser/27adbbf1-de96-4408-b372-8dde88cf02d1
+1652871488651	Marionette	INFO	Listening on port 42029
+1652871488721	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652871507979	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+JavaScript warning: https://dronedgentile.com/tgFkXqDJbTwbz/46500, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://dronedgentile.com/tgFkXqDJbTwbz/46500, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://dronedgentile.com/tgFkXqDJbTwbz/46500, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://dronedgentile.com/tgFkXqDJbTwbz/46500, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652871539542	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1652872566782	geckodriver	INFO	Listening on 127.0.0.1:59041
+1652872567294	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "48731" "-no-remote" "-profile" "/tmp/rust_mozprofileev58wS"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652872569643	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileev58wS/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:48731/devtools/browser/de2fc52d-aea5-4ebf-8dae-f620c4dd1074
+1652872575501	Marionette	INFO	Listening on port 33763
+1652872575632	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652872632362	Marionette	INFO	Stopped listening on port 33763
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+1652873118089	geckodriver	INFO	Listening on 127.0.0.1:55367
+1652873118725	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "41889" "-no-remote" "-profile" "/tmp/rust_mozprofileWy3zkO"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652873122065	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileWy3zkO/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:41889/devtools/browser/340c4c29-c956-4ca3-9a61-ee6d37b9a0b1
+1652873127983	Marionette	INFO	Listening on port 43225
+1652873128057	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652873163595	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'interactive'.
+JavaScript error: https://a.vdo.ai/core/assets/vdo.player.js, line 2: TypeError: t is undefined
+1652873173385	Marionette	INFO	Stopped listening on port 43225
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+1652873341031	geckodriver	INFO	Listening on 127.0.0.1:46449
+1652873341544	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "33961" "-no-remote" "-profile" "/tmp/rust_mozprofile09JyMS"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652873344149	Marionette	INFO	Marionette enabled
+console.error: Region.jsm: "Error fetching region" (new Error("TIMEOUT", "resource://gre/modules/Region.jsm", 772))
+console.error: Region.jsm: "Failed to fetch region" (new Error("TIMEOUT", "resource://gre/modules/Region.jsm", 419))
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile09JyMS/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:33961/devtools/browser/5e8fc846-9832-4004-a186-089aa8b6daa6
+1652873356328	Marionette	INFO	Listening on port 36245
+1652873357280	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652873367717	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'interactive'.
+JavaScript error: https://a.vdo.ai/core/assets/vdo.player.js, line 2: TypeError: t is undefined
+1652873387645	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'interactive'.
+JavaScript error: https://a.vdo.ai/core/assets/vdo.player.js, line 2: TypeError: t is undefined
+1652873388982	Marionette	INFO	Stopped listening on port 36245
+
+###!!! [Parent][PCompositorManagerParent] Error: RunMessage(msgname=PCompositorBridge::Msg___delete__) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+1652873969514	geckodriver	INFO	Listening on 127.0.0.1:35411
+1652873969522	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "56755" "-no-remote" "-profile" "/tmp/rust_mozprofilewOioDi"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652873970207	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilewOioDi/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56755/devtools/browser/81e2bd7f-3fc1-4599-8b28-3d706a3a830e
+1652873973520	Marionette	INFO	Listening on port 35459
+1652873973584	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652873991092	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652874001061	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+1652874002977	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652874009010	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+1652874014950	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+1652874022742	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=PD-292-2176b65d, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+1652874028844	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652874036465	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+1652874042641	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+1652874049796	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'loading'.
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+JavaScript error: https://static.viralize.tv/viralize_vpaid.min.7130860c.js?e=ops, line 1: TypeError: this.listeners[e] is undefined
+1652874059709	Marionette	INFO	Stopped listening on port 35459
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+Sandbox: Unexpected EOF, op 0 flags 00 path /proc/cpuinfo
+1652885977414	geckodriver	INFO	Listening on 127.0.0.1:57557
+1652885978106	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "36825" "-no-remote" "-profile" "/tmp/rust_mozprofilemVCxm7"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652885980212	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilemVCxm7/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:36825/devtools/browser/ad0a4ed0-f76b-4b75-be07-5815423d7298
+1652885988855	Marionette	INFO	Listening on port 45309
+1652885988971	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652886290395	geckodriver	INFO	Listening on 127.0.0.1:37179
+1652886290907	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "36883" "-no-remote" "-profile" "/tmp/rust_mozprofileUA53Jv"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652886292639	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileUA53Jv/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:36883/devtools/browser/3806ca0f-8dd7-474a-8728-f5cffa67cca1
+1652886297426	Marionette	INFO	Listening on port 46209
+1652886297479	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://cf-assets.hcaptcha.com/c/6e8a762e/hsw.js, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1652886533939	geckodriver	INFO	Listening on 127.0.0.1:41205
+1652886534450	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "39753" "-no-remote" "-profile" "/tmp/rust_mozprofilej5M5Hg"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+[GFX1-]: glxtest: libEGL initialize failed
+1652886535638	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilej5M5Hg/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:39753/devtools/browser/6f7acb69-3abf-4b39-b7ca-97e4d987572c
+1652886540074	Marionette	INFO	Listening on port 33213
+1652886540215	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: WebGL warning: <Create>: WebglAllowWindowsNativeGl:false restricts context creation on this system.
+JavaScript warning: https://junkieswudge.com/t1gFPakASoLqcdz/46408, line 1: Failed to create WebGL context: WebGL creation failed: 
+* WebglAllowWindowsNativeGl:false restricts context creation on this system. ()
+* Exhausted GL driver options. (FEATURE_FAILURE_WEBGL_EXHAUSTED_DRIVERS)
+1652886564421	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'interactive'.
+JavaScript error: https://a.vdo.ai/core/assets/vdo.player.js, line 2: TypeError: t is undefined
+1652886576201	Marionette	INFO	Stopped listening on port 33213
+1652886576432	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'interactive'.
+JavaScript error: https://a.vdo.ai/core/assets/vdo.player.js, line 2: TypeError: t is undefined
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+

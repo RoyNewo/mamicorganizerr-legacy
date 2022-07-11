@@ -8,31 +8,32 @@ import xml.etree.cElementTree as ET
 import glob
 from zipfile import ZipFile
 from modifieddate import datemodified
+from icecream import ic
 
 def cbzgenerator(namefile, origen):
-    logfile = origen + '/cbrconverter.log'
+    logfile = f'{origen}/cbrconverter.log'
     parents, filename = os.path.split(namefile)
-    temporal = parents + '/temporal'
+    temporal = f'{parents}/temporal'
     try:
         os.mkdir(temporal)
     except OSError:
-        print ("Creation of the directory %s failed" % temporal)
+        print(f"Creation of the directory {temporal} failed")
     print(namefile)
     try:
         patoolib.extract_archive(namefile, outdir=temporal)
     except:
         with open(logfile, "a") as f:
-            f.write("Error descomprimiendo: " + namefile + '\n')
+            f.write(f"Error descomprimiendo: {namefile}" + '\n')
         try:
             shutil.rmtree(temporal)
         except OSError:
             print('Error while deleting directory')
-    os.rename(namefile, namefile + ".extraido")
-    archivos = glob.glob(temporal + '/**/*.*', recursive=True)
+    os.rename(namefile, f"{namefile}.extraido")
+    archivos = glob.glob(f'{temporal}/**/*.*', recursive=True)
     archivos.sort()
 
     filename2, file_extension = os.path.splitext(filename)
-    cbz = parents + '/' + filename2 + '.cbz.new'
+    cbz = f'{parents}/{filename2}.cbz.new'
     zipobje = ZipFile(cbz, 'w')
     for archivos2 in archivos:
         datemodified(archivos2)
@@ -45,11 +46,13 @@ def cbzgenerator(namefile, origen):
         print('Error while deleting directory')
 
 def main():
-    path = "/media/cristian/Datos/Downloads/Comics"
+    ic("eso")
+    path = "/media/cristian/Datos/Comics/Buffer/msmarvel"
     # path = "/media/cristian/Datos/Comics/Buffer/cbr"
 
-    files = glob.glob(path + '/**/*.[cC][bB][rR]', recursive=True)
-    files2 = glob.glob(path + '/**/*.[cC][bB][zZ]', recursive=True)
+    files = glob.glob(f'{path}/**/*.[cC][bB][rR]', recursive=True)
+    files2 = glob.glob(f'{path}/**/*.[cC][bB][zZ]', recursive=True)
+    ic(files)
     # print(files)
     # print(files2)
     # for ficheros in files:
@@ -61,26 +64,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-#     temporal = path + "/temporal"
-    # try:
-    #     os.mkdir(temporal)
-    # except OSError:
-    #     print ("Creation of the directory %s failed" % temporal)
-#     # filename, file_extension = os.path.splitext(ficheros)
-#     filename = path + 
-
-
-
-
-
-# patoolib.extract_archive("foo_bar.rar", outdir=)

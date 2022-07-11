@@ -1,7 +1,8 @@
-import ninemanga.main
+import mangaplus.main
 
 def main():
-    ninemanga.main.main()
+    mangaplus.main.main()
+
 
 
 if __name__ == "__main__":

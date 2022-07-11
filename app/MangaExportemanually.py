@@ -47,8 +47,8 @@ def main():
             files2 = os.listdir(path3)
             files2.sort()
             for file3 in files2:
-                path4 = path3 + "/" + file3
-                organizer([file2, file3], manga, path4, mensaj, mensaj2, history)
+                path4 = f"{path3}/{file3}"
+                organizer([file2, file3], manga, path4, mensaj, mensaj2, history, secrets)
             try:
                 shutil.rmtree(path3)
             except OSError:

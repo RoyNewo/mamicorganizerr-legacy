@@ -7,8 +7,7 @@ from functions import organizer
 def listoftitles(groups):
     titles = []
     for group in groups:
-        for title in group["titles"]:
-            titles.append(title)
+        titles.extend(iter(group["titles"]))
     return titles
 
 
@@ -18,12 +17,12 @@ def mangatype(chaptername):
     elif ',' in chaptername:
         ic("mangadoble")
     else:
-        ic(chaptername + " es un manga normal")
+        ic(f"{chaptername} es un manga normal")
 
 
 def main():
 
-    url = mangaplus.loader.api_url + "web/web_home?lang=esp&format=json"
+    url = f"{mangaplus.loader.api_url}web/web_home?lang=esp&format=json"
     responselast = requests.get(url, headers=mangaplus.loader.headers)
     datalast = responselast.json()
 

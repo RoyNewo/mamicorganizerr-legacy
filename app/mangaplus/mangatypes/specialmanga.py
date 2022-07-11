@@ -10,8 +10,9 @@ def getnamefromchapters(negaindice, chapters):
     return negaindice, contador
 
 def specialmanga(chapterid):
-    url = mangaplus.loader.api_url + "manga_viewer?chapter_id=" + \
-        chapterid + "&split=no&img_quality=super_high&format=json"
+    url = f"{mangaplus.loader.api_url}manga_viewer?chapter_id={chapterid}&split=no&img_quality=super_high&format=json"
+
+
     responsechapter = requests.get(url, headers=mangaplus.loader.headers)
     datachapter = responsechapter.json()
 
@@ -27,8 +28,8 @@ def specialmanga(chapterid):
             negaindice = int(idx)
     if len(chapters) <= 1:
         return chapters[negaindice]["name"] + .1
-    
-        
+
+
     index, contador = getnamefromchapters(negaindice, chapters)
     return (
         chapters[index]["name"]
