@@ -1,4 +1,4 @@
-from discord import Webhook, RequestsWebhookAdapter
+from discord import Webhook
 import time
 
 
@@ -8,7 +8,6 @@ def sendmsg(urlwebhook, mensaj):
     message = ""
     webhook = Webhook.from_url(
         urlwebhook,
-        adapter=RequestsWebhookAdapter(),
     )
     for string in mensaj:
         msglength += len(string)
@@ -26,6 +25,5 @@ def sendphoto(portrait, urlwebhook):
     portrait += "&random=64"
     webhook = Webhook.from_url(
         urlwebhook,
-        adapter=RequestsWebhookAdapter(),
     )
     webhook.send(portrait)

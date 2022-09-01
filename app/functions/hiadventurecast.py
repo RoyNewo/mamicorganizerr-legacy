@@ -6,7 +6,7 @@ import requests
 from scrapy.http import request
 import json
 import os
-import organizer as organizar
+import functions.organizer as organizar
 
 pendientes = []
 
@@ -17,10 +17,10 @@ def convert_date(text):
 
 def same_day_chapters(nombre, history):
     i = 2
-    nuevonombre = nombre + '-' + str(i)
+    nuevonombre = f'{nombre}-{i}'
     while nuevonombre in history:
         i += 1
-        nuevonombre = nombre + '-' + str(i)
+        nuevonombre = f'{nombre}-{i}'
     return nuevonombre
 
 
@@ -43,8 +43,8 @@ class hiadventurecast(scrapy.Spider):
                     + str(i + 1)
                     + "]/div/div[2]/"
                 )
-                fecha = prefijo + "div[2]/span[4]/time/@datetime"
-                url = prefijo + "div[1]/h3/a/@href"
+                fecha = f"{prefijo}div[2]/span[4]/time/@datetime"
+                url = f"{prefijo}div[1]/h3/a/@href"
                 nomcap = convert_date(response.xpath(fecha).get())
                 request_obeject = requests.get(response.xpath(url).get())
                 response_object = scrapy.Selector(request_obeject)
@@ -65,8 +65,8 @@ class hiadventurecast(scrapy.Spider):
                     + str(i + 1)
                     + "]/div/div[2]/"
                 )
-                fecha = prefijo + "div[2]/span[4]/time/@datetime"
-                url = prefijo + "div[1]/h3/a/@href"
+                fecha = f"{prefijo}div[2]/span[4]/time/@datetime"
+                url = f"{prefijo}div[1]/h3/a/@href"
                 nomcap = convert_date(response.xpath(fecha).get())
                 if nomcap == self.ultimo:
                     break
@@ -120,12 +120,12 @@ def hac():
             if capitulo[0] in history[manga["Series"]]:
                 capitulo[0] = same_day_chapters(capitulo[0], history[manga["Series"]])
 
-            os.makedirs(tdescargas + "/" + capitulo[0])
+            os.makedirs(f"{tdescargas}/{capitulo[0]}")
             if capitulo[1]:
                 for i, cap in enumerate(range(len(capitulo[1])), start=1):    
                     archivo = capitulo[1][cap].split("/")[-1].split(".")[-1]
                     num = "{:0>4}".format(i)
-                    path = tdescargas + "/" + capitulo[0] + "/" + num + "." + archivo
+                    path = f"{tdescargas}/{capitulo[0]}/{num}.{archivo}"
                     resp = requests.get(capitulo[1][cap])
                     data = bytearray(resp.content)
                     with open(path, "wb") as fin:
@@ -138,16 +138,8 @@ def hac():
                     + capitulo[0]
                     + ".cbz"
                 )
-                organizar.newinhistory(
-                    manga,
-                    tdescargas + "/" + capitulo[0],
-                    capitulo[0],
-                    deletefolder,
-                    cbz,
-                    False,
-                    mensaj2,
-                    mensaj,
-                )                
+                organizar.newinhistory(manga, f"{tdescargas}/{capitulo[0]}", capitulo[0], deletefolder, cbz, False, mensaj2, mensaj, secrets)
+
                 history[manga["Series"]][capitulo[0]] = manga["funcion"]
                 with open(rutahistorial, "w") as outfile:
                     json.dump(history, outfile)

@@ -138,7 +138,7 @@ def treeelement(datavolume, dataissue, web):
     tree.write(filename, encoding="utf-8", xml_declaration=True)
 
 
-def generatexml(dic, issuenumber):  # sourcery skip: remove-redundant-if
+def generatexml(dic, id):  # sourcery skip: remove-redundant-if
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
     }
@@ -146,7 +146,7 @@ def generatexml(dic, issuenumber):  # sourcery skip: remove-redundant-if
     responsevolume = requests.get(url, headers=headers)
     datavolume = responsevolume.json()
     for issue in datavolume["results"]["issues"]:
-        if issue["issue_number"] == issuenumber:
+        if issue["id"] == id:
             url = f"https://comicvine.gamespot.com/api/issue/4000-{issue['id']}/?api_key=dcb22bb374f04e7217eaca81f2fcfffbe5062e42&format=json"
             responseissue = requests.get(url, headers=headers)
             dataissue = responseissue.json()
@@ -203,89 +203,31 @@ def generatecbz(my_dict, nombre):
     #     loader.secrets["disdcordwebhook"], loader.mensaj)
 
 
-def main():
-    manually = [
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Shang-Chi and the Ten Rings (2022)",
-            "nombre": "Shang-Chi and the Ten Rings #1",
-            "url": "https://getcomics.info/links.php/YLNOvGn6qssDefhpHHpxrZd23VQkkG0mwmwqOfgG0DHWVQz6z6vOyxOcZ/mtbqUEYoxMpuxvUbOoyCv/KfnZHH1yz9XYZV/8Wkj3LWClY1wZQvahXJYDa37bx71dX/ru12M35Sjcd+KObOrZ/FN8hfn/CR1Bx8+Cl/aiey4SmBDPhKSo5t/khAogXOaMBFVf:gkid6doE3bFY41KaFki02g==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Wolverine Patch (2022)",
-            "nombre": "Wolverine – Patch #1",
-            "url": "https://getcomics.info/links.php/ISs3Td+pWXhTw8vMl2H23kMT3nyGUbXGWqaGUrzQ9yPyPkTxX+TZSUaBxrvC827UOll+s93r4EbGViY2hauT9hBjqR16NkJEclXUHi8PgcvmfrEV8oEchb4O/Mt8ymHu63l1LAGlA8ZVJYIBb7Vp51zCgPTIMZUhhW22wJfoASA=:KZrhBY3SpHNfH/bDWGYg3g==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Wolverine Patch (2022)",
-            "nombre": "Wolverine – Patch #2",
-            "url": "https://getcomics.info/links.php/fod2Ae0kL7wjWCg5W1MrhDAqb3WJFlqCJ6+nHyQE0llv8H6OHOetiXcjGBWIKnrMcHovVQdJLVC/TYLy5f+qSuO0SJIg6+gGicXqbI1jG4KNFYLco25dxNSK/dJcgrGbnVK11FRPKz8K+jBjtmWTwJPAkbUHQJfGaMINyjJo+Jc=:122hflbJnIG475abkGW8cA==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Wolverine Patch (2022)",
-            "nombre": "Wolverine – Patch #3",
-            "url": "https://getcomics.info/links.php/9xx9HzyQd7TxteJtL+sRQXxUfA2ZJWtAxVe3R59itw/T8qpJRxiuSC8XRwHkLjhd6CDVD4/VKWz8U+ARLVlzATAojOZ3/rh+Atvwa2j7/kW1iNJjNSg8TNwGB0k4XeCxDFt48h2HLMaERpATpsdybdn5xOQomygZ5vo+AAibrcI=:G6kVctTRXyhroR5DgtDZjQ==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Wolverine Patch (2022)",
-            "nombre": "Wolverine – Patch #4",
-            "url": "https://getcomics.info/links.php/7TqiFjhmHQlUnR0IrNhO4uo+moMtfCjZfYUVLD+RKQvjHjL/49LsnuLOZA4uHWA10FWy/wqLvLuZpgTtFeDguZRXsQakyKJJl2VbEH7DxVbGipMjhVd2ZwWSYK6uszfyWdhSSh6yxoHdOtQmFIGIfqNhPgCLfA+oySLfKAy+dco=:7zkv6+gjzGR8OLbuvnvGSA==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Spider-Gwen Gwenverse (2022)",
-            "nombre": "Spider-Gwen – Gwenverse #4",
-            "url": "https://getcomics.info/links.php/xFSe+FI5G4Js04JHOsIDUbjXfqknCFUKccth+EDllCmWTv3zxBl08gUeoyifPlQ0mA1aitxqQZJSMCTvkLNLQPyMRovZo97l6bAxxulobaSjUecocsuAibIwALi98y/hejHYtuHtvuiHhAX2BIDtX71aQHOZcXm/km+N1rDKmVux87HnzNxqj4o2OfqM0JyM:2U5Rqfnfjwk8+Wq9RpzXaQ==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Spider-Gwen Gwenverse (2022)",
-            "nombre": "Spider-Gwen – Gwenverse #3",
-            "url": "https://getcomics.info/links.php/1xghIhAohKh03Bng3HCr5W1t73kY+3KzuGFxSOSrtT0ICHuMqnABcL++dVr58+f0tlTwM8z75pwQZRNALCbC/zHHL8sEd6vUT7r14qbrMr1JRa6B0n+TSBQJvkv18zhYdX86jw216tnIncfYyluYuLtDkk2SZ4Ldy/hUedaJ5z1RU+kmWZpPPr4Q8szSDuTm:PasjaZdi/dAu5uSmbrlirg==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Spider-Gwen Gwenverse (2022)",
-            "nombre": "Spider-Gwen – Gwenverse #2",
-            "url": "https://getcomics.info/links.php//ZWNLS7Q/I0h/2/xWcs+dyus2UQSD4PeBCJiOc7RWRl9oSB4Wd0nOYEs/on/13ahLpyq2Fe5fEXu3OuUwKBarw7j3JGK7sDfkPpgbsWrrHJ227o3g9gKBl/d12CY3+sMQf0VpI8NxydeCaaAURVarSfC7WEVVQsxgsyTEToGQh48kfPVtGEs0RJooQuIdBWJ:O41sMGmCURDX0JAOuV906Q==",
-        },
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Spider-Gwen Gwenverse (2022)",
-            "nombre": "Spider-Gwen – Gwenverse #1",
-            "url": "https://getcomics.info/links.php/TyJ6vVPECAVheW/DSWtICD6D4Z5DJPOcnl7DHm0E7GhHiIfUKUBOblgiOonSgpsVouTnEXuISZphg9Gkuyi4YmgBr6/WoKRMI3xfSdWA/WZC7kyu4Lutt2x5V6qms+kOKGSZlKreTMcs+I5aEyFJ32vvRsUACyPrcYD5ubWedpOrHi5x7tIQhBBr0hNt0tIu:1VO7OvzFIMXhUsYX0tD6tQ==",
-        }
-    ]
-    for comic in manually:
-        r = requests.get(comic["url"], allow_redirects=True)
-        if r.status_code == 200:
-            open(
-                f'{loader.tdescargas}/{comic["nombre"]}.cbr', 'wb').write(r.content)
-            ic(f'Descargado: {comic["nombre"]}')
-        if os.path.exists(f'{loader.tdescargas}/{comic["nombre"]}.cbr'):
-            if os.path.exists(loader.temporal):
-                try:
-                    shutil.rmtree(loader.temporal)
-                except Exception:
-                    ic("Error while deleting directory")
-            try:
-                os.mkdir(loader.temporal)
-            except OSError:
-                ic(f"Creation of the directory {loader.temporal} failed")
-            patoolib.extract_archive(
-                f'{loader.tdescargas}/{comic["nombre"]}.cbr', outdir=loader.temporal)
-            ic(f'Extraido: {comic["nombre"]}')
-            issuenumber = comic["nombre"].split("#")[1]
-            generatexml(loader.mangas[comic["source"]], issuenumber)
-            my_dict = loadxml()
-            if historial.historial(
-            loader.history, "{:0>4}".format(issuenumber), loader.mangas[comic["source"]], loader.komgabooksid) == True:
-                generatecbz(my_dict, comic["nombre"])
-            loader.save()
+def main(comic):    
+    if os.path.exists(comic["path"]):
+        if os.path.exists(loader.temporal):
             try:
                 shutil.rmtree(loader.temporal)
             except Exception:
                 ic("Error while deleting directory")
-            try:
-                os.remove(f'{loader.tdescargas}/{comic["nombre"]}.cbr')
-            except Exception:
-                ic("Error while deleting file")
-        else:
-            ic(f'No se encontro el comic: {comic["nombre"]}')
-    scankomgalibrary.scankomgalibrary(loader.mensaj, loader.mensaj2,
-                               loader.secrets["komgauser"], loader.secrets["komgapass"], loader.secrets)
+        try:
+            os.mkdir(loader.temporal)
+        except OSError:
+            ic(f"Creation of the directory {loader.temporal} failed")
+        patoolib.extract_archive(
+            comic["path"], outdir=loader.temporal)
+        ic(f'Extraido: {comic["name"]}')
+        issuenumber = comic["name"].split("#")[1]
+        generatexml(loader.mangas[comic["dic"]], comic["id"])
+        my_dict = loadxml()
+        if historial.historial(
+        loader.history, "{:0>4}".format(issuenumber), loader.mangas[comic["dic"]], loader.komgabooksid) == True:
+            generatecbz(my_dict, comic["name"])
+        loader.save()
+        try:
+            shutil.rmtree(loader.temporal)
+        except Exception:
+            ic("Error while deleting directory")
+        
+    else:
+        ic(f'No se encontro el comic: {comic["nombre"]}')

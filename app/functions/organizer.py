@@ -568,27 +568,40 @@ def komgabookid():
                         auth=HTTPBasicAuth(
                             secrets["komgauser"], secrets["komgapass"]),
                     )
-                    ic(reponse.json())
+                    ic("busqueda normal", reponse.json())
                     book = reponse.json()
                     komgabooksid[mangas[intermedia[serie]]["Series"]] = {
                         capitulo: book["content"][0]["id"]
                     }
                 except IndexError:
-                    query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
                     nombre = mangas[intermedia[serie]]["name"] + capitulo
+                    query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
                     reponse = requests.get(
                         query,
                         data={"accept": "*/*"},
                         auth=HTTPBasicAuth(
                             secrets["komgauser"], secrets["komgapass"]),
                     )
-                    ic(reponse.json())
-                    book = reponse.json()
-                    for b in book["content"]:
-                        if b["name"] == nombre:
-                            komgabooksid[mangas[intermedia[serie]]
-                                         ["Series"]] = {capitulo: b["id"]}
+                    totalpages = reponse.json()["totalPages"]
+                    for page in range(totalpages):
+                        query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc&page={page}'
+                        reponse = requests.get(
+                            query,
+                            data={"accept": "*/*"},
+                            auth=HTTPBasicAuth(
+                                secrets["komgauser"], secrets["komgapass"]),
+                        )
+                        ic("busqueda especial",reponse.json())
+                        for book in reponse.json()["content"]:
+                            if book["name"] == nombre:
+                                komgabooksid[mangas[intermedia[serie]]["Series"]] = {
+                                    capitulo: book["id"]
+                                }
+                                break
+                        if book["name"] == nombre:
                             break
+                    
+                    
 
             elif capitulo not in komgabooksid[serie]:
                 try:
@@ -622,12 +635,23 @@ def komgabookid():
                         auth=HTTPBasicAuth(
                             secrets["komgauser"], secrets["komgapass"]),
                     )
-                    ic(reponse.json())
-                    book = reponse.json()
-                    for b in book["content"]:
-                        if b["name"] == nombre:
-                            komgabooksid[mangas[intermedia[serie]]
-                                         ["Series"]].update({capitulo: b["id"]})
+                    totalpages = reponse.json()["totalPages"]
+                    for page in range(totalpages):
+                        query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc&page={page}'
+                        reponse = requests.get(
+                            query,
+                            data={"accept": "*/*"},
+                            auth=HTTPBasicAuth(
+                                secrets["komgauser"], secrets["komgapass"]),
+                        )
+                        ic("busqueda especial",reponse.json())
+                        for book in reponse.json()["content"]:
+                            if book["name"] == nombre:
+                                komgabooksid[mangas[intermedia[serie]]["Series"]].update({
+                                    capitulo: book["id"]
+                                })
+                                break
+                        if book["name"] == nombre:
                             break
 
     with open(configpath + komga, "w") as outfile:

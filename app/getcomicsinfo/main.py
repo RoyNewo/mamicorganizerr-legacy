@@ -1,8 +1,12 @@
-from getcomicsinfo import loader, manuallyissue, scanweb
+from getcomicsinfo import loader, manuallyissue, scanweb, manuallyissuefolder, newreleasedcomic, weeklypack
 
 def main():
     loader.init()
     loader.mensaj.append("Comics nuevos de getcomicsinfo\n\n")
-    manuallyissue.main()
+    # manuallyissuefolder.main()
+    newreleasedcomic.main()
+    weeklypack.main()
+    # manuallyissue.main()
     # scanweb.main()
     loader.save()
+    

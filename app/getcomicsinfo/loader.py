@@ -1,4 +1,5 @@
 import json
+import apprise
 def init():
     global secrets
     global mangas
@@ -9,6 +10,11 @@ def init():
     global temporal
     global mensaj
     global mensaj2
+    global apobj
+    global pendingissues
+    global annual_issues
+    global torrentlist
+    global downloadfolder
 
     configs = "/opt/tachiyomimangaexporter/"
     with open(f'{configs}secrets.json') as secrets_file:
@@ -19,6 +25,8 @@ def init():
         history = json.load(history_file)
     with open(f'{configs}komgabooksid.json') as komgabooksid_file:
         komgabooksid = json.load(komgabooksid_file)
+    with open(f'{configs}torrentlist.json') as torrentlist_file:
+        torrentlist = json.load(torrentlist_file)
 
 
     deletefolder = "Error while deleting directory"
@@ -26,6 +34,21 @@ def init():
     temporal = "/media/cristian/Datos/Comics/Descargas/temporal"
     mensaj = []
     mensaj2 = []
+    pendingissues = []
+    annual_issues = {}
+    downloadfolder = "/media/cristian/Datos/Downloads/"
+
+    # Create an Apprise instance
+    apobj = apprise.Apprise()
+
+    # Create an Config instance
+    config = apprise.AppriseConfig()
+
+    # Add a configuration source:
+    config.add('/opt/tachiyomimangaexporter/apprise.yml')
+
+    # Make sure to add our config into our apprise object
+    apobj.add(config)
 
 def save():
     global secrets

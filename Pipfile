@@ -29,6 +29,9 @@ selenium = "*"
 selenium-wire = "*"
 get-mac = "*"
 pyppeteer = "*"
+scrapy-cloudflare-middleware = "*"
+apprise = "*"
+deluge-client = "*"
 
 [dev-packages]
 autopep8 = "*"

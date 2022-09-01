@@ -9,7 +9,7 @@ from icecream import ic
 import glob
 from os.path import basename
 
-from organizer import scankomgalibrary, send
+from functions.organizer import scankomgalibrary, send
 
 # Ejemplo de estructura del json que pide este script
 # [
@@ -43,14 +43,14 @@ if renamefile.is_file():
             try:
                 shutil.rmtree(temporal)
             except OSError:
-                print(delete + "directory TEMPORAL")
+                print(f"{delete}directory TEMPORAL")
         try:
             os.mkdir(temporal)
         except OSError:
-            print("Creation of the directory %s failed" % temporal)
+            print(f"Creation of the directory {temporal} failed")
 
         patoolib.extract_archive(str(thisfile), outdir=str(temporal))
-        comicinfo = Path(str(temporal) + "/ComicInfo.xml")
+        comicinfo = Path(f"{str(temporal)}/ComicInfo.xml")
         with open(comicinfo, "r") as xml_obj:
             # coverting the xml data to Python dictionary
             my_dict = xmltodict.parse(xml_obj.read())
@@ -60,7 +60,7 @@ if renamefile.is_file():
         my_dict["ComicInfo"]["Number"] = files["numero"]
         with open(comicinfo, "w") as result_file:
             result_file.write(xmltodict.unparse(my_dict))
-        archivos = glob.glob(str(temporal) + "/**/*.*", recursive=True)
+        archivos = glob.glob(f"{str(temporal)}/**/*.*", recursive=True)
         archivos.sort()
         newfile = Path(
             mangas[files["mangasid"]]["destino"]
@@ -89,7 +89,7 @@ if renamefile.is_file():
             not in history[str(mangas[files["mangasid"]]["Series"])]
         ):
             history[str(mangas[files["mangasid"]]["Series"])][str(files["numero"])] = history[str(mangas[files["mangasid"]]["Series"])][thisfilenumber]
-        
+
         history[str(mangas[files["mangasid"]]["Series"])].pop(thisfilenumber)
 
 
@@ -98,7 +98,7 @@ if renamefile.is_file():
     try:
         shutil.rmtree(temporal)
     except OSError:
-        print(delete + "directory TEMPORAL")
+        print(f"{delete}directory TEMPORAL")
 
     try:
         os.remove(str(renamefile))
@@ -109,6 +109,6 @@ if renamefile.is_file():
         secrets = json.load(secrets_file)
     with open("/opt/tachiyomimangaexporter/history.json", "w") as outfile:
         json.dump(history, outfile)
-    scankomgalibrary(mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"])
+    scankomgalibrary(mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets)
     send(mensaj, mensaj2)
 
