@@ -11,17 +11,30 @@ import functions.organizer as organizar
 import functions.mangaplus as MangaPlus
 import functions.explosm as explosm
 import ninemanga.main
+import fixkomgaidseries
 import requests
 from requests.auth import HTTPBasicAuth
-from discord import Webhook, RequestsWebhookAdapter
+from discord import Webhook
 from icecream import ic
-from functions.organizer import sendmsgdiscord, sendmsgtelegram
+# from functions.organizer import sendmsgdiscord, sendmsgtelegram
 import check_ips_and_ports
 from getmac import get_mac_address
+import apprise
+import aiohttp
 
+# Create an Apprise instance
+apobj = apprise.Apprise()
 
+# Create an Config instance
+config = apprise.AppriseConfig()
 
-def my_exception_hook(type, value, tb):
+# Add a configuration source:
+config.add('/opt/tachiyomimangaexporter/apprise.yml')
+
+# Make sure to add our config into our apprise object
+apobj.add(config)
+
+async def my_exception_hook(type, value, tb):
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secretos = json.load(json_file2)
     traceback_details = "\n".join(traceback.extract_tb(tb).format())
@@ -32,6 +45,11 @@ def my_exception_hook(type, value, tb):
         f"Traceback: {traceback_details}"
     )
     print(error_msg)
+    apobj.notify(
+        body=error_msg,
+        title='Manga not in Library',
+        tag='fallo',
+    )
 
     n = 4000
     for i in range(0, len(error_msg), n):
@@ -40,11 +58,12 @@ def my_exception_hook(type, value, tb):
         time.sleep(2)
     n = 1900
     for i in range(0, len(error_msg), n):
-        webhook = Webhook.from_url(
-            secretos["disdcordwebhookfallo"],
-            adapter=RequestsWebhookAdapter(),
-        )
-        webhook.send(error_msg[i : i + n])
+        async with aiohttp.ClientSession() as session:
+            webhook = Webhook.from_url(
+                secretos["disdcordwebhookfallo"],
+                session=session,
+            )
+            webhook.send(error_msg[i : i + n])
 
 
 # def conexion(secret):
@@ -83,7 +102,9 @@ def conexion(secrets):
 
 
 def main():
-    sys.excepthook = my_exception_hook
+
+    # sys.excepthook = my_exception_hook
+    fixkomgaidseries.main()
     organizar.komgabookid()
     mensaj2 = []
     excludes = [
@@ -97,9 +118,9 @@ def main():
         mangas = json.load(json_file)
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secrets = json.load(json_file2)
-    # organizar.issueupdate(secrets, mangas)
+    organizar.issueupdate(secrets, mangas)
     MangaPlus.mangaplusmain()
-    ninemanga.main.main()
+    # ninemanga.main.main()
     explosm.cyanide("/media/cristian/Datos/Comics/Tachiyomi/Cyanide & Happiness (EN)/C&H 2022")
     ic("conexion")
     with open("/opt/tachiyomimangaexporter/history.json") as json_file3:
@@ -145,8 +166,13 @@ def main():
                         path3
                         + " El Manga no existe en la biblioteca y se ha movido a la carpeta Manually \n\n"
                     )
-                    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                    # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                    # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                    apobj.notify(
+                        body=f"{path3} El Manga no existe en la biblioteca y se ha movido a la carpeta Manually \n\n",
+                        title='Manga not in Library',
+                        tag='fallo',
+                    )
                     mensaj2 = []
     os.system(
         'adb shell "find /storage/emulated/0/Tachiyomi/ -type d -mindepth 3 -exec rm -rf "{}" \;"'

@@ -1,6 +1,6 @@
 import ninemanga.loader
 import requests
-from functions import sendmsgdiscord, sendmsgtelegram, filterchapters, historial, organizer
+from functions import sendmsg, filterchapters, historial, organizer
 from bs4 import BeautifulSoup
 import cfscrape
 import json
@@ -40,8 +40,9 @@ def downloadchapter(href, dic, chapternumber):
                 except OSError:
                     ic(f'La imagen {imagenumber} esta truncada o no se ha descargado bien')
                     ninemanga.loader.mensaj2.append(f'La imagen {imagenumber} de {dic["Series"]} - {dic["provider"]} - {chapternumber} esta truncada o no se ha descargado bien')
-                    sendmsgtelegram.sendmsg(ninemanga.loader.secrets["token"], ninemanga.loader.secrets["chatid"], ninemanga.loader.mensaj2)
-                    sendmsgdiscord.sendmsg(ninemanga.loader.secrets["disdcordwebhookfallo"], ninemanga.loader.mensaj2)
+                    sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, 'Fallo Download')
+                    # sendmsgtelegram.sendmsg(ninemanga.loader.secrets["token"], ninemanga.loader.secrets["chatid"], ninemanga.loader.mensaj2)
+                    # sendmsgdiscord.sendmsg(ninemanga.loader.secrets["disdcordwebhookfallo"], ninemanga.loader.mensaj2)
                     ninemanga.loader.mensaj2 = []
         contador += 10
     ic('Se ha Descargado todas la paginas')
@@ -66,8 +67,9 @@ def wrongchaptername(enlace, manga):
             }
             ic(f"El manga {ninemanga.loader.mangas[manga]['Series']} - {ninemanga.loader.mangas[manga]['provider']} tienen un capitulo especial que hay modificar: {enlace.attrs['title']}")
             ninemanga.loader.mensaj2.append(f"El manga {ninemanga.loader.mangas[manga]['Series']} - {ninemanga.loader.mangas[manga]['provider']} tienen un capitulo especial que hay modificar: {enlace.attrs['title']} \n\n")
-            sendmsgtelegram.sendmsg(ninemanga.loader.secrets["token"], ninemanga.loader.secrets["chatid"], ninemanga.loader.mensaj2)
-            sendmsgdiscord.sendmsg(ninemanga.loader.secrets["disdcordwebhookfallo"], ninemanga.loader.mensaj2)
+            sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, 'Capitulo Especial')
+            # sendmsgtelegram.sendmsg(ninemanga.loader.secrets["token"], ninemanga.loader.secrets["chatid"], ninemanga.loader.mensaj2)
+            # sendmsgdiscord.sendmsg(ninemanga.loader.secrets["disdcordwebhookfallo"], ninemanga.loader.mensaj2)
             ninemanga.loader.mensaj2 = []
             return '', False
     else:
@@ -80,8 +82,9 @@ def wrongchaptername(enlace, manga):
         }
         ic(f"El manga {ninemanga.loader.mangas[manga]['Series']} - {ninemanga.loader.mangas[manga]['provider']} tienen un capitulo especial que hay modificar: {enlace.attrs['title']}")
         ninemanga.loader.mensaj2.append(f"El manga {ninemanga.loader.mangas[manga]['Series']} - {ninemanga.loader.mangas[manga]['provider']} tienen un capitulo especial que hay modificar: {enlace.attrs['title']} \n\n")
-        sendmsgtelegram.sendmsg(ninemanga.loader.secrets["token"], ninemanga.loader.secrets["chatid"], ninemanga.loader.mensaj2)
-        sendmsgdiscord.sendmsg(ninemanga.loader.secrets["disdcordwebhookfallo"], ninemanga.loader.mensaj2)
+        sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, 'Capitulo Especial')
+        # sendmsgtelegram.sendmsg(ninemanga.loader.secrets["token"], ninemanga.loader.secrets["chatid"], ninemanga.loader.mensaj2)
+        # sendmsgdiscord.sendmsg(ninemanga.loader.secrets["disdcordwebhookfallo"], ninemanga.loader.mensaj2)
         ninemanga.loader.mensaj2 = []
         return '', False
 
@@ -94,6 +97,7 @@ def checkchapter(enlace, manga):
             ninemanga.loader.history, chapternumber, ninemanga.loader.mangas[manga],ninemanga.loader.komgabooksid)
     else:
         chapternumber, historyreturn = wrongchaptername(enlace, manga)
+    ic(manga, chapternumber, historyreturn)
     if historyreturn == True and downloadchapter(enlace.attrs['href'], ninemanga.loader.mangas[manga], chapternumber):
         ic('Es un manga nuevo')
         update = False

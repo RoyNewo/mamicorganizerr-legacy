@@ -8,8 +8,9 @@ import shutil
 from icecream import ic
 import functions.organizer as organizar
 import urllib.request
-from discord import Webhook, RequestsWebhookAdapter
-from functions import sendmsgdiscord, sendmsgtelegram
+import apprise
+# from discord import Webhook, RequestsWebhookAdapter
+from functions import sendmsg
 
 
 api_url = "https://jumpg-webapi.tokyo-cdn.com/api/"
@@ -140,7 +141,7 @@ def nuevosmangas():
                     }
                 )
                 mensaje = (
-                    "Se ha detectado un nuevo manga en la aplicacione MangaPlus\n\n"
+                    ""
                 )
                 url = f"{api_url}title_detail?title_id={str(mangaid)}&format=json"
                 responsedetail = requests.get(url, headers=headers)
@@ -151,40 +152,63 @@ def nuevosmangas():
                     + "\n\n"
                 )
                 mensaje += msg
-                msg = (
-                    "Autor: "
-                    + datadetail["success"]["titleDetailView"]["title"]["author"]
-                    + "\n\n"
-                )
-                mensaje += msg
-                msg = (
-                    "Descripcion: "
-                    + datadetail["success"]["titleDetailView"]["overview"]
-                    + "\n\n"
-                )
-                mensaje += msg
+                # print(datadetail["success"]["titleDetailView"]["title"])
+                if "author" in datadetail["success"]["titleDetailView"]["title"]:
+                    msg = (
+                        "Autor: "
+                        + datadetail["success"]["titleDetailView"]["title"]["author"]
+                        + "\n\n"
+                    )
+                    mensaje += msg
+                if "overview" in datadetail["success"]["titleDetailView"]["title"]:
+                    msg = (
+                        "Descripcion: "
+                        + datadetail["success"]["titleDetailView"]["overview"]
+                        + "\n\n"
+                    )
+                    mensaje += msg
                 if "isSimulReleased" in datadetail["success"]["titleDetailView"]:
                     mensaje += "Simulrelease\n\n"
                 else:
                     mensaje += "No Simulrelease\n\n"
 
-                bot = telegram.Bot(token=secrets["token"])
-                bot.sendMessage(chat_id=secrets["chatid"], text=mensaje)
-                webhook = Webhook.from_url(
-                    secrets["disdcordwebhook"],
-                    adapter=RequestsWebhookAdapter(),
-                )
-                webhook.send(mensaje)
-                ic(portrait)
+                # Create an Apprise instance
+                apobj = apprise.Apprise()
+
+                # Create an Config instance
+                config = apprise.AppriseConfig()
+
+                # Add a configuration source:
+                config.add('/opt/tachiyomimangaexporter/apprise.yml')
+
+                # Make sure to add our config into our apprise object
+                apobj.add(config)
                 portrait = f"{portrait}&random=64"
-                with urllib.request.urlopen(portrait) as response:
-                    info = response.info()
-                    print(info.get_content_type())  # -> text/html
-                    print(info.get_content_maintype())  # -> text
-                    print(info.get_content_subtype())  # -> html
-                bot.send_photo(chat_id=secrets["chatid"], photo=portrait)
-                webhook.send(portrait)
+                apobj.notify(
+                    body=mensaje,
+                    title="Se ha detectado un nuevo manga en la aplicacione MangaPlus",
+                    attach=portrait,
+                    tag='ok',
+                )
                 time.sleep(2)
+
+                # bot = telegram.Bot(token=secrets["token"])
+                # bot.sendMessage(chat_id=secrets["chatid"], text=mensaje)
+                # webhook = Webhook.from_url(
+                #     secrets["disdcordwebhook"],
+                #     adapter=RequestsWebhookAdapter(),
+                # )
+                # webhook.send(mensaje)
+                # ic(portrait)
+                # portrait = f"{portrait}&random=64"
+                # with urllib.request.urlopen(portrait) as response:
+                #     info = response.info()
+                #     print(info.get_content_type())  # -> text/html
+                #     print(info.get_content_maintype())  # -> text
+                #     print(info.get_content_subtype())  # -> html
+                # bot.send_photo(chat_id=secrets["chatid"], photo=portrait)
+                # webhook.send(portrait)
+                # time.sleep(2)
     ic()
     with open("/opt/tachiyomimangaexporter/all.json", "w") as outfile:
         json.dump(datamanga, outfile)
@@ -311,8 +335,9 @@ def ultimosmangas(mensaj, mensaj2, secrets):
                             ]["titles"][titlenumber]["chapterName"]
                         )
                     )
-                    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                    sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
+                    # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                    # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
                 else:
                     ic(
                         str(
@@ -404,8 +429,9 @@ def capitulossueltos(mensaj, mensaj2, secrets):
                 except KeyError:
                     mensaj2.append(
                         f"{chapter['Series']} - {chapter['provider']} - {str(chapter['number'])}: Aun no esta en komgabookid y no se puede actualizar se hara en la siguiente ejecucion \n\n")
-                    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                    sendmsg.sendnewmsg('fallo', mensaj2, 'Fallo Update')
+                    # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                    # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
             with open(rutahistorial, "w") as outfile:
                 json.dump(history, outfile)
             mensaj = []
@@ -441,8 +467,9 @@ def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2, secr
         except KeyError:
             mensaj2.append(
                 f"{dic['Series']} - {dic['provider']} - {chapternumber}: Aun no esta en komgabookid y no se puede actualizar se hara en la siguiente ejecucion \n\n")
-            sendmsgtelegram(secrets["token"], secrets["chatid"], mensaj2)
-            sendmsgdiscord(secrets["disdcordwebhookfallo"], mensaj2)
+            sendmsg.sendnewmsg('fallo', mensaj2, 'Fallo Update')
+            # sendmsgtelegram(secrets["token"], secrets["chatid"], mensaj2)
+            # sendmsgdiscord(secrets["disdcordwebhookfallo"], mensaj2)
     with open(rutahistorial, "w") as outfile:
         json.dump(history, outfile)
     mensaj = []
@@ -555,8 +582,9 @@ def mangascompletos(mensaj, mensaj2, secrets):
                             + " tiene los capitulos dobles "
                             + str(chapters["name"])
                         )
-                        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                        sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
+                        # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                        # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
                         mensaj2 = []
                     else:
                         ic(str(chapters["name"]).replace("#", ""))
@@ -570,6 +598,8 @@ def mangascompletos(mensaj, mensaj2, secrets):
                             mensaj2,
                             secrets
                         )
+                    mensaj = []
+                    mensaj2 = []
             if "lastChapterList" in datatodos["success"]["titleDetailView"]:
                 for chapters in datatodos["success"]["titleDetailView"][
                     "lastChapterList"
@@ -601,8 +631,10 @@ def mangascompletos(mensaj, mensaj2, secrets):
                             + " tiene los capitulos dobles "
                             + str(chapters["name"])
                         )
-                        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                        sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
+                        # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                        # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                        mensaj2 = []
                     else:
                         ic(str(chapters["name"]).replace("#", ""))
                         mangasnormales(
@@ -615,6 +647,10 @@ def mangascompletos(mensaj, mensaj2, secrets):
                             mensaj2,
                             secrets
                         )
+                    mensaj = []
+                    mensaj2 = []
+            mensaj = []
+            mensaj2 = []
     ic("Se va a actualizar el Historial")
     with open(rutahistorial, "w") as outfile:
         json.dump(history, outfile)

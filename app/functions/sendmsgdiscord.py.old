@@ -2,7 +2,6 @@ from discord import Webhook
 import time
 import aiohttp
 
-
 async def sendmsg(urlwebhook, mensaj):
     # mensaj.sort()
     msglength = 0

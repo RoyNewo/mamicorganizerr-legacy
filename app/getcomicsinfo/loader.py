@@ -64,5 +64,7 @@ def save():
         json.dump(mangas, mangas_file)
     with open(f'{configs}history.json', "w") as history_file:
         json.dump(history, history_file)
+    with open(f'{configs}torrentlist.json', "w") as torrentlist_file:
+        json.dump(torrentlist, torrentlist_file)
     mensaj = []
     mensaj2 = []

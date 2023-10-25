@@ -1,6 +1,6 @@
 import mangaplus.loader
 import requests
-from functions import sendmsgdiscord, sendmsgtelegram
+from functions import sendmsg
 
 
 anio = "2022"
@@ -99,9 +99,10 @@ def main():
             savenewmangas(sourcefolder, targetfolder, name,
                           funcion, provider, series, mangaid, portrait)
             preparemsg(mangaid)
-            if mangaplus.loader.secrets["telegram"] == "True":
-                sendmsgtelegram.sendmsg(mangaplus.loader.secrets["token"], mangaplus.loader.secrets["chatid"])
-                sendmsgtelegram.sendphoto(portrait, mangaplus.loader.secrets["token"], mangaplus.loader.secrets["chatid"])
-            if mangaplus.loader.secrets["discord"] == "True":
-                sendmsgdiscord.sendmsg(mangaplus.loader.secrets["disdcordwebhook"])
-                sendmsgdiscord.sendphoto(portrait, mangaplus.loader.secrets["disdcordwebhook"])
+            # a corregir por que creo que no funcionaba antes y ahora hay que meterlo todo en un metodo con apprsie
+            # if mangaplus.loader.secrets["telegram"] == "True":
+            #     sendmsgtelegram.sendmsg(mangaplus.loader.secrets["token"], mangaplus.loader.secrets["chatid"])
+            #     sendmsgtelegram.sendphoto(portrait, mangaplus.loader.secrets["token"], mangaplus.loader.secrets["chatid"])
+            # if mangaplus.loader.secrets["discord"] == "True":
+            #     sendmsgdiscord.sendmsg(mangaplus.loader.secrets["disdcordwebhook"])
+            #     sendmsgdiscord.sendphoto(portrait, mangaplus.loader.secrets["disdcordwebhook"])

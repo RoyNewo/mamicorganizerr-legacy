@@ -6,15 +6,29 @@ import shutil
 import xml.etree.cElementTree as ET
 from os.path import basename
 from zipfile import ZipFile
-import telegram
+# import telegram
 import time
 import glob
 import json
-from discord import Webhook, RequestsWebhookAdapter
+import apprise
+# from discord import Webhook, RequestsWebhookAdapter
 from icecream import ic
 from urllib import response
 import urllib
-from functions import sendmsgdiscord, sendmsgtelegram
+# from functions import sendmsgdiscord, sendmsgtelegram
+from functions import sendmsg
+
+# Create an Apprise instance
+apobj = apprise.Apprise()
+
+# Create an Config instance
+config = apprise.AppriseConfig()
+
+# Add a configuration source:
+config.add('/opt/tachiyomimangaexporter/apprise.yml')
+
+# Make sure to add our config into our apprise object
+apobj.add(config)
 
 
 def send(msg, msg2):
@@ -35,39 +49,50 @@ def enviarmensaje(arg0, arg1, arg2):
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secrets = json.load(json_file2)
     arg0.sort()
-    telegrammnsj = arg1
-    discordmnsj = arg1
-    if arg2:
-        urlwebhook = secrets["disdcordwebhookfallo"]
-    else:
-        urlwebhook = secrets["disdcordwebhook"]
-
+    stringmnsj = ""
+    # telegrammnsj = arg1
+    # discordmnsj = arg1
+    apprisetag = 'fallo' if arg2 else 'ok'
     for string in arg0:
-        telegramlen = len(telegrammnsj) + len(string)
-        discordlen = len(discordmnsj) + len(string)
-        if telegramlen < 4096:
-            telegrammnsj += string
+        stringlength = len(stringmnsj) + len(string)
+        if stringlength < 2000:
+            stringmnsj += string
         else:
-            time.sleep(2)
-            bot = telegram.Bot(token=secrets["token"])
-            bot.sendMessage(chat_id=secrets["chatid"], text=telegrammnsj)
-            telegrammnsj = string
-        if discordlen < 2000:
-            discordmnsj += string
-        else:
-            webhook = Webhook.from_url(
-                urlwebhook,
-                adapter=RequestsWebhookAdapter(),
+            apobj.notify(
+                body=stringmnsj,
+                title=arg1,
+                tag=apprisetag,
             )
-            webhook.send(discordmnsj)
-            discordmnsj = string
-    bot = telegram.Bot(token=secrets["token"])
-    bot.sendMessage(chat_id=secrets["chatid"], text=telegrammnsj)
-    webhook = Webhook.from_url(
-        urlwebhook,
-        adapter=RequestsWebhookAdapter(),
-    )
-    webhook.send(discordmnsj)
+            stringmnsj = string
+
+
+
+
+    #     telegramlen = len(telegrammnsj) + len(string)
+    #     discordlen = len(discordmnsj) + len(string)
+    #     if telegramlen < 4096:
+    #         telegrammnsj += string
+    #     else:
+    #         time.sleep(2)
+    #         bot = telegram.Bot(token=secrets["token"])
+    #         bot.sendMessage(chat_id=secrets["chatid"], text=telegrammnsj)
+    #         telegrammnsj = string
+    #     if discordlen < 2000:
+    #         discordmnsj += string
+    #     else:
+    #         webhook = Webhook.from_url(
+    #             urlwebhook,
+    #             adapter=RequestsWebhookAdapter(),
+    #         )
+    #         webhook.send(discordmnsj)
+    #         discordmnsj = string
+    # bot = telegram.Bot(token=secrets["token"])
+    # bot.sendMessage(chat_id=secrets["chatid"], text=telegrammnsj)
+    # webhook = Webhook.from_url(
+    #     urlwebhook,
+    #     adapter=RequestsWebhookAdapter(),
+    # )
+    # webhook.send(discordmnsj)
 
 
 def isfloat(x):
@@ -269,10 +294,11 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap, secret
             except KeyError:
                 mensaj2.append(
                     f"{dic['Series']} - {dic['provider']} - {issue}: Aun no esta en komgabookid y no se puede actualizar se hara en la siguiente ejecucion \n\n")
-                sendmsgtelegram.sendmsg(
-                    secrets["token"], secrets["chatid"], mensaj2)
-                sendmsgdiscord.sendmsg(
-                    secrets["disdcordwebhookfallo"], mensaj2)
+                sendmsg.sendnewmsg('fallo', mensaj2, 'Fallo Update')
+                # sendmsgtelegram.sendmsg(
+                #     secrets["token"], secrets["chatid"], mensaj2)
+                # sendmsgdiscord.sendmsg(
+                #     secrets["disdcordwebhookfallo"], mensaj2)
 
     else:
         try:
@@ -285,8 +311,9 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap, secret
             print(deletefolder)
 
         mensaj2.append(f"{finalpath} Patron encontrado es: {numero}\n\n")
-        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+        sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulo no numerado')
+        # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+        # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
 
 
 def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj, secrets):
@@ -307,12 +334,16 @@ def newinhistory(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mens
             dic["name"] + issue + " se ha actualizado de proveedor a " +
             dic["provider"] + "\n\n"
         )
-        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+        sendmsg.sendnewmsg('ok', mensaj2, 'Capitulo Actualizado')
+        # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+        # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
     else:
         mensaj.append(dic["name"] + issue + "\n\n")
-        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj)
-        sendmsgdiscord.sendmsg(secrets["disdcordwebhook"], mensaj)
+        sendmsg.sendnewmsg('ok', mensaj, "Capitulo Nuevo")
+        # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj)
+        # sendmsgdiscord.sendmsg(secrets["disdcordwebhook"], mensaj)
+    mensaj = []
+    mensaj2 = []
 
 
 def historycorrect(finalpath, deletefolder, mensaj2, secrets):
@@ -322,8 +353,10 @@ def historycorrect(finalpath, deletefolder, mensaj2, secrets):
         print(deletefolder)
     mensaj2.append(
         finalpath + " El Issue existe con el proveedor correcto \n\n")
-    sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-    sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+
+    sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulo ya existe')
+    # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+    # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
 
 
 def organizer(elemento, dic, finalpath, mensaj, mensaj2, history, secrets):
@@ -501,9 +534,10 @@ def scankomgalibrary(mensaj, mensaj2, user, password, secrets):
         )
         if response.status_code != 202:
             mensaj2.append(str(response))
-            sendmsgtelegram.sendmsg(
-                secrets["token"], secrets["chatid"], mensaj2)
-            sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+            sendmsg.sendnewmsg('fallo', mensaj2, 'Scan Error')
+            # sendmsgtelegram.sendmsg(
+            #     secrets["token"], secrets["chatid"], mensaj2)
+            # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
 
 
 def komgabookid():
@@ -575,6 +609,7 @@ def komgabookid():
                     }
                 except IndexError:
                     nombre = mangas[intermedia[serie]]["name"] + capitulo
+                    ic(mangas[intermedia[serie]])
                     query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
                     reponse = requests.get(
                         query,

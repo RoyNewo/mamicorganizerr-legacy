@@ -1,7 +1,6 @@
-from fileinput import filename
+
 import requests
 import getcomicsinfo.loader as loader
-from icecream import ic
 import os
 import shutil
 import patoolib
@@ -10,7 +9,15 @@ import xmltodict
 import glob
 from zipfile import ZipFile
 from os.path import basename
-from getcomicsinfo.functions import historial, scankomgalibrary
+from getcomicsinfo.functions import historial
+import logging
+from sys import stdout
+
+logger = logging.getLogger(__name__)
+fmt = f"%(filename)-20s:%(lineno)-4d %(asctime)s %(message)s"
+logging.basicConfig(
+    level=logging.INFO, format=fmt, handlers=[logging.StreamHandler(stdout)]
+)
 
 
 def person_credit(dataissue, root):
@@ -22,25 +29,25 @@ def person_credit(dataissue, root):
     editor = []
     cover_artist = []
     for person in dataissue["results"]["person_credits"]:
-        if(person["role"] == "writer"):
+        if person["role"] == "writer":
             writer.append(person["name"])
 
-        if(person["role"] == "penciller"):
+        if person["role"] == "penciller":
             penciller.append(person["name"])
 
-        if(person["role"] == "inker"):
+        if person["role"] == "inker":
             inker.append(person["name"])
 
-        if(person["role"] == "colorist"):
+        if person["role"] == "colorist":
             colorist.append(person["name"])
 
-        if(person["role"] == "letterer"):
+        if person["role"] == "letterer":
             letterer.append(person["name"])
 
-        if(person["role"] == "editor"):
+        if person["role"] == "editor":
             editor.append(person["name"])
 
-        if(person["role"] in ["cover_artist", "cover"]):
+        if person["role"] in ["cover_artist", "cover"]:
             cover_artist.append(person["name"])
     if writer:
         ET.SubElement(root, "Writer").text = ",".join(writer)
@@ -90,40 +97,46 @@ def treeelement(datavolume, dataissue, web):
         **{
             "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-        }
+        },
     )
-    if(dataissue["results"]["name"]):
+    if dataissue["results"]["name"]:
         ET.SubElement(root, "Title").text = dataissue["results"]["name"]
-    if(dataissue["results"]["volume"]["name"]):
+    if dataissue["results"]["volume"]["name"]:
         ET.SubElement(
             root, "Series").text = dataissue["results"]["volume"]["name"]
-    if(dataissue["results"]["issue_number"]):
-        ET.SubElement(
-            root, "Number").text = "{:0>4}".format(dataissue["results"]["issue_number"])
-    if(datavolume["results"]["start_year"]):
+    if dataissue["results"]["issue_number"]:
+        ET.SubElement(root, "Number").text = "{:0>4}".format(
+            dataissue["results"]["issue_number"]
+        )
+    if datavolume["results"]["start_year"]:
         ET.SubElement(
             root, "Volume").text = datavolume["results"]["start_year"]
-    if(dataissue["results"]["description"]):
+    if dataissue["results"]["description"]:
         ET.SubElement(
             root, "Summary").text = dataissue["results"]["description"]
-    if(dataissue["results"]["store_date"]):
-        ET.SubElement(
-            root, "Year").text = dataissue["results"]["store_date"].split("-")[0]
-        ET.SubElement(
-            root, "Month").text = dataissue["results"]["store_date"].split("-")[1]
-        ET.SubElement(
-            root, "Day").text = dataissue["results"]["store_date"].split("-")[2]
+    if dataissue["results"]["store_date"]:
+        ET.SubElement(root, "Year").text = dataissue["results"]["store_date"].split(
+            "-"
+        )[0]
+        ET.SubElement(root, "Month").text = dataissue["results"]["store_date"].split(
+            "-"
+        )[1]
+        ET.SubElement(root, "Day").text = dataissue["results"]["store_date"].split("-")[
+            2
+        ]
 
     if dataissue["results"]["person_credits"]:
         person_credit(dataissue, root)
 
     if datavolume["results"]["publisher"]:
-        ET.SubElement(
-            root, "Publisher").text = datavolume["results"]["publisher"]["name"]
+        ET.SubElement(root, "Publisher").text = datavolume["results"]["publisher"][
+            "name"
+        ]
     ET.SubElement(root, "Web").text = web
     if dataissue["results"]["character_credits"]:
-        characters = [character["name"]
-                      for character in dataissue["results"]["character_credits"]]
+        characters = [
+            character["name"] for character in dataissue["results"]["character_credits"]
+        ]
 
         ET.SubElement(root, "Characters").text = ", ".join(characters)
     if dataissue["results"]["team_credits"]:
@@ -132,13 +145,14 @@ def treeelement(datavolume, dataissue, web):
         ET.SubElement(root, "Teams").text = ", ".join(teams)
     tree = ET.ElementTree(root)
     from xml.dom import minidom
+
     xml = minidom.parseString(ET.tostring(root)).toprettyxml(indent="\t")
-    ic(xml)
-    filename = f'{loader.temporal}/ComicInfo.xml'
+    logger.info(xml)
+    filename = f"{loader.temporal}/ComicInfo.xml"
     tree.write(filename, encoding="utf-8", xml_declaration=True)
 
 
-def generatexml(dic, issuenumber):  # sourcery skip: remove-redundant-if
+def generatexml(dic, id):  # sourcery skip: remove-redundant-if
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
     }
@@ -146,7 +160,7 @@ def generatexml(dic, issuenumber):  # sourcery skip: remove-redundant-if
     responsevolume = requests.get(url, headers=headers)
     datavolume = responsevolume.json()
     for issue in datavolume["results"]["issues"]:
-        if issue["issue_number"] == issuenumber:
+        if issue["id"] == id:
             url = f"https://comicvine.gamespot.com/api/issue/4000-{issue['id']}/?api_key=dcb22bb374f04e7217eaca81f2fcfffbe5062e42&format=json"
             responseissue = requests.get(url, headers=headers)
             dataissue = responseissue.json()
@@ -166,86 +180,72 @@ def loadxml():
     return my_dict
 
 
-def generatecbz(my_dict, nombre):
-    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
-    destino = destino.replace(":", "")
-    destino = destino.replace("\\", " ")
-    destino = destino.replace("?", "")
-    ic(destino)
+def validfilename(filename):
+    invalid = '<>:"/\|?*'
+
+    for char in invalid:
+        filename = filename.replace(char, '')
+    return filename
+
+
+def generatecbz(my_dict):
+    serie = validfilename(my_dict["ComicInfo"]["Series"])
+    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{serie} ({my_dict["ComicInfo"]["Volume"]})'
+    logger.info(destino)
     if not os.path.exists(destino):
         os.makedirs(destino)
-    if not os.path.exists(f"{destino}/poster.jpg") and my_dict["ComicInfo"]["Publisher"] in ["Marvel", "Delcourt", "DC Comics"]:
+    if not os.path.exists(f"{destino}/poster.jpg") and my_dict["ComicInfo"][
+        "Publisher"
+    ] in ["Marvel", "Delcourt", "DC Comics"]:
         getposter(my_dict, destino)
     archivos = glob.glob(f"{loader.temporal}/**/*.*", recursive=True)
     archivos.sort()
-    cbz = f'{destino}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]}) Issue #{"{:0>4}".format(my_dict["ComicInfo"]["Number"])}.cbz'
-    cbz = cbz.replace(":", "")
-    cbz = cbz.replace("\\", " ")
-    cbz = cbz.replace("?", "")
+    cbz = f'{destino}/{serie} ({my_dict["ComicInfo"]["Volume"]}) Issue #{"{:0>4}".format(my_dict["ComicInfo"]["Number"])}.cbz'
     zipobje = ZipFile(cbz, "w")
     for archivos2 in archivos:
         ruta, nombrearchivo = os.path.split(archivos2)
         zipobje.write(archivos2, basename(nombrearchivo))
     zipobje.close()
-    
-    loader.mensaj.append(f"{nombre}\n\n")
-    ic(loader.mensaj)
+
+    loader.mensaj.append(f'{serie} ({my_dict["ComicInfo"]["Volume"]}) Issue #{"{:0>4}".format(my_dict["ComicInfo"]["Number"])}\n\n')
+    logger.info(loader.mensaj)
     for mensaje in loader.mensaj:
         loader.apobj.notify(
             body=mensaje,
-            title='Downloaded Comic',
-            tag='ok',
-
-    )
+            title="Downloaded Comic",
+            tag="ok",
+        )
     # sendmsgtelegram.sendmsg(
     #     loader.secrets["token"], loader.secrets["chatid"], loader.mensaj)
     # sendmsgdiscord.sendmsg(
     #     loader.secrets["disdcordwebhook"], loader.mensaj)
 
 
-def main():
-    manually = [
-        {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/The Amazing Spider-Man (2022)",
-            "nombre": "The Amazing Spider-Man #27",
-            "url": "https://fs2.comicfiles.ru/2023.06.14/Update/Amazing%20Spider-Man%20027%20%282023%29%20%28Digital%29%20%28Zone-Empire%29.cbr",
-        }
-    ]
-    for comic in manually:
-        r = requests.get(comic["url"], allow_redirects=True)
-        if r.status_code == 200:
-            open(
-                f'{loader.tdescargas}/{comic["nombre"]}.cbr', 'wb').write(r.content)
-            ic(f'Descargado: {comic["nombre"]}')
-        if os.path.exists(f'{loader.tdescargas}/{comic["nombre"]}.cbr'):
-            if os.path.exists(loader.temporal):
-                try:
-                    shutil.rmtree(loader.temporal)
-                except Exception:
-                    ic("Error while deleting directory")
-            try:
-                os.mkdir(loader.temporal)
-            except OSError:
-                ic(f"Creation of the directory {loader.temporal} failed")
-            patoolib.extract_archive(
-                f'{loader.tdescargas}/{comic["nombre"]}.cbr', outdir=loader.temporal)
-            ic(f'Extraido: {comic["nombre"]}')
-            issuenumber = comic["nombre"].split("#")[1]
-            generatexml(loader.mangas[comic["source"]], issuenumber)
-            my_dict = loadxml()
-            if historial.historial(
-            loader.history, "{:0>4}".format(issuenumber), loader.mangas[comic["source"]], loader.komgabooksid) == True:
-                generatecbz(my_dict, comic["nombre"])
-            loader.save()
+def main(comic):
+    if os.path.exists(comic["path"]):
+        if os.path.exists(loader.temporal):
             try:
                 shutil.rmtree(loader.temporal)
             except Exception:
-                ic("Error while deleting directory")
-            try:
-                os.remove(f'{loader.tdescargas}/{comic["nombre"]}.cbr')
-            except Exception:
-                ic("Error while deleting file")
-        else:
-            ic(f'No se encontro el comic: {comic["nombre"]}')
-    scankomgalibrary.scankomgalibrary(loader.mensaj, loader.mensaj2,
-                               loader.secrets["komgauser"], loader.secrets["komgapass"], loader.secrets)
+                logger.info("Error while deleting directory")
+        try:
+            os.mkdir(loader.temporal)
+        except OSError:
+            logger.info(f"Creation of the directory {loader.temporal} failed")
+        patoolib.extract_archive(comic["path"], outdir=loader.temporal)
+        logger.info(f'Extraido: {comic["path"]}')
+        generatexml(comic["dic"], comic["id"])
+        my_dict = loadxml()
+        generatecbz(my_dict)
+        loader.save()
+        try:
+            shutil.rmtree(loader.temporal)
+        except Exception:
+            logger.info("Error while deleting directory")
+        try:
+            os.remove(comic["path"])
+        except Exception:
+            logger.info("Error while deleting file")
+
+    else:
+        logger.info(f'No se encontro el comic: {comic["nombre"]}')

@@ -29,7 +29,14 @@ def main():
     headers = {
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) Gecko/20100101 Firefox/75"
     }
-    scraper = cloudscraper.create_scraper()
+    scraper = cloudscraper.create_scraper(
+        interpreter='nodejs',
+        captcha={
+            'provider': 'deathbycaptcha',
+            'username': 'roynewo',
+            'password': 'Stormaggedon13101992-',
+        }
+    )
     response = scraper.get(manga_url, headers=headers)
     soup = BeautifulSoup(response.text, 'lxml')
     ic(soup)
@@ -44,16 +51,19 @@ def main():
     ic(len(children), children)
     capitulos = []
     while len(children) > 0:
-        titulo= children[0].find('h4', class_="mt-2 text-truncate").attrs['title']
-        href = children[1].find('a', class_="btn btn-default btn-sm").attrs['href']
+        titulo = children[0].find(
+            'h4', class_="mt-2 text-truncate").attrs['title']
+        href = children[1].find(
+            'a', class_="btn btn-default btn-sm").attrs['href']
         ic(titulo, href)
-        capitulos.append([titulo,href])
+        capitulos.append([titulo, href])
         del children[:2]
     chaptername = f'{str(filterchapter(capitulos[0][0], manga))}/'
     dfolder = f'{path}/{chaptername}'
     if not os.path.exists(dfolder):
         os.makedirs(dfolder)
-    chapter = scraper.get(capitulos[0][1], headers=headers, allow_redirects=False)
+    chapter = scraper.get(
+        capitulos[0][1], headers=headers, allow_redirects=False)
     ic(chapter.headers['Location'])
     # chaptersoup = BeautifulSoup(chapter.text, 'lxml')
     # ic(chaptersoup)

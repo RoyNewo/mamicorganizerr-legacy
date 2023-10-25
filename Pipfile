@@ -32,6 +32,7 @@ pyppeteer = "*"
 scrapy-cloudflare-middleware = "*"
 apprise = "*"
 deluge-client = "*"
+deptry = "*"
 
 [dev-packages]
 autopep8 = "*"

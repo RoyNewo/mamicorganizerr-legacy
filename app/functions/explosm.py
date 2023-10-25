@@ -78,7 +78,7 @@ def cyanide(manga):
             os.makedirs(mangas[manga]["destino"])
         process.crawl(explosmspidernuevo, ultimo=volumen)
     process.start()
-    print(pendientes)
+    ic(pendientes)
     if pendientes:
         mensaj = []
         mensaj2 = []
@@ -109,7 +109,6 @@ def cyanide(manga):
                     json.dump(history, outfile)
                 mensaj = []
                 mensaj2 = []
-        
         organizar.scankomgalibrary(
             mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets
         )

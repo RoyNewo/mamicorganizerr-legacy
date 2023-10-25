@@ -195,7 +195,7 @@ def generatecbz(my_dict, nombre):
 
 
 def main():
-    manually = ["/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Fables (2002)"]
+    manually = ["/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/Harley Quinn The Animated Series The Eat. Bang! Kill. Tour (2022)"]
     if manually:
         for manual in manually:
             files2 = glob.glob(f"{manual}/**/*.[cC][bB][zZrR]", recursive=True)

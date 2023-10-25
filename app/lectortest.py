@@ -1,7 +1,6 @@
-import lectormanga.lectormangaselenium
-
+import lectormanga.lectormangarequests
 def main():
-    lectormanga.lectormangaselenium.main()
+    lectormanga.lectormangarequests.main()
 
 
 

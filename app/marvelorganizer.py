@@ -85,7 +85,7 @@ def getposter(my_dict, destino):
 
 
 def main():
-    path = "/media/cristian/Datos/Comics/Buffer/msmarvel"
+    path = "/media/cristian/Datos/Comics/Buffer/Edge of Spider-Geddon (2018)"
     files2 = glob.glob(f"{path}/**/*.[cC][bB][zZ]", recursive=True)
     for ficheros2 in files2:
         cbzgenerator(ficheros2)

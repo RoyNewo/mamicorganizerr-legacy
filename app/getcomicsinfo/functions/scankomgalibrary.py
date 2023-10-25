@@ -1,6 +1,6 @@
 import requests
 from requests.auth import HTTPBasicAuth
-from functions import sendmsgdiscord, sendmsgtelegram
+from functions import sendmsg
 
 
 
@@ -14,5 +14,6 @@ def scankomgalibrary(mensaj, mensaj2, user, password, secrets):
     )
     if response.status_code != 202:
         mensaj2.append(str(response))
-        sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-        sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+        sendmsg.sendnewmsg('fallo', mensaj2, 'Fallo Scaneo Komga')
+        # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+        # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
