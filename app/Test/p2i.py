@@ -7,12 +7,12 @@ from pdf2image import convert_from_path
 # )
 
 images = convert_from_path(
-    "/media/cristian/Datos/Comics/Tachiyomi/Manually/Hollow_Knight_-_Comic_First_Chapter_Quirrel.pdf"
+    "/media/cristian/Datos/Downloads/dr who/doctorwho_thetenthdoctorarchives_vol3.pdf"
 )
 
 for i, image in enumerate(images):
     fname = (
-        "/media/cristian/Datos/Comics/Tachiyomi/Manually/Hollow Knight/Chapter 01 Quirrel/"
+        "/media/cristian/Datos/Comics/Descargas/temporal/"
         + "{:0>3}".format(i)
         + ".png"
     )

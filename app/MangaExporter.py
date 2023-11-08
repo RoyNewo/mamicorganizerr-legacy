@@ -120,7 +120,6 @@ def main():
         secrets = json.load(json_file2)
     organizar.issueupdate(secrets, mangas)
     MangaPlus.mangaplusmain()
-    # ninemanga.main.main()
     explosm.cyanide("/media/cristian/Datos/Comics/Tachiyomi/Cyanide & Happiness (EN)/C&H 2022")
     ic("conexion")
     with open("/opt/tachiyomimangaexporter/history.json") as json_file3:
@@ -177,7 +176,8 @@ def main():
     os.system(
         'adb shell "find /storage/emulated/0/Tachiyomi/ -type d -mindepth 3 -exec rm -rf "{}" \;"'
     )
-
+    ninemanga.main.main()
+    
     mensaj.append('scan')
     organizar.scankomgalibrary(
         mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets

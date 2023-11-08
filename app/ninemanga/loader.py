@@ -45,7 +45,7 @@ def save():
     global ninemangaurls
     global mensaj
     global mensaj2
-    
+
     configs = "/opt/tachiyomimangaexporter/"
     with open(f'{configs}secrets.json', "w") as secrets_file:
         json.dump(secrets, secrets_file)
