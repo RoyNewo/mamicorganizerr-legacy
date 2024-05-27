@@ -30,6 +30,8 @@ def deletebook(bookid):
 def gethistory(seriesid, name):
     chapter = name.split("#")[-1]
     for manga in mangas:
+        if not "komga_serie_id" in mangas[manga]:
+            mangas[manga]["komga_serie_id"] = ""
         if mangas[manga]["komga_serie_id"] == seriesid:
             print(chapter, history[mangas[manga]["Series"]][chapter], komgabooksid[mangas[manga]["Series"]][chapter])
             del history[mangas[manga]["Series"]][chapter]

@@ -3,7 +3,7 @@ import requests
 from functions import sendmsg
 
 
-anio = "2022"
+anio = "2024"
 
 
 def savenewmangas(sourcefolder, targetfolder, name, funcion, provider, series, mangaid, portrait):

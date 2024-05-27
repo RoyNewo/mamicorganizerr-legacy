@@ -18,7 +18,7 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
 }
 rutahistorial = "/opt/tachiyomimangaexporter/history.json"
-anio = "2022"
+anio = "2024"
 
 
 def downloadchapter(path, chapterid, name, number):
@@ -73,7 +73,7 @@ def imgdecrypt(imgurl, imgpath, hexkey):
 
 
 def nuevosmangas():
-    with open("/opt/tachiyomimangaexporter/all.json") as json_file:
+    with open("/opt/tachiyomimangaexporter/allV2.json") as json_file:
         todosdict = json.load(json_file)
     with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
         secrets = json.load(json_file2)
@@ -84,11 +84,11 @@ def nuevosmangas():
         for manga in todosdict["success"]["allTitlesView"]["titles"]
     ]
 
-    url = f"{api_url}title_list/all?format=json"
+    url = f"{api_url}title_list/allV2?format=json"
     responsemanga = requests.get(url, headers=headers)
     datamanga = responsemanga.json()
 
-    for manga2 in datamanga["success"]["allTitlesView"]["titles"]:
+    for manga2 in datamanga["success"]["allTitlesViewV2"]["titles"]:
         tempdict = {manga2["titleId"]: manga2["name"]}
 
         if tempdict not in todoslist:
@@ -143,7 +143,7 @@ def nuevosmangas():
                 mensaje = (
                     ""
                 )
-                url = f"{api_url}title_detail?title_id={str(mangaid)}&format=json"
+                url = f"{api_url}title_detailV3?title_id={str(mangaid)}&format=json"
                 responsedetail = requests.get(url, headers=headers)
                 datadetail = responsedetail.json()
                 msg = (
@@ -210,7 +210,7 @@ def nuevosmangas():
                 # webhook.send(portrait)
                 # time.sleep(2)
     ic()
-    with open("/opt/tachiyomimangaexporter/all.json", "w") as outfile:
+    with open("/opt/tachiyomimangaexporter/allV2.json", "w") as outfile:
         json.dump(datamanga, outfile)
     with open("/opt/tachiyomimangaexporter/newmanga.json", "w") as outfile:
         json.dump(mangasnuevos, outfile)
@@ -223,7 +223,7 @@ def ultimosmangas(mensaj, mensaj2, secrets):
         mangas = json.load(json_file2)
     with open(rutahistorial) as json_file3:
         history = json.load(json_file3)
-    url = f"{api_url}web/web_home?lang=esp&format=json"
+    url = f"{api_url}web/web_homeV4?lang=esp&format=json"
     responseultimos = requests.get(url, headers=headers)
     dataultimos = responseultimos.json()
     mensaj.append("Capitulos recientes de MangaPlus\n\n")
@@ -541,7 +541,7 @@ def mangascompletos(mensaj, mensaj2, secrets):
         if mangas[mapeo[key]]["Series"] not in history:
             url = (
                 api_url
-                + "title_detail?title_id="
+                + "title_detailV3?title_id="
                 + str(mangas[mapeo[key]]["mangaid"])
                 + "&format=json"
             )

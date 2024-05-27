@@ -85,7 +85,10 @@ def filterchapter(webtitle, dic):
     # La lista es el string separado por espacios por lo que cada indice es una palabra
     for indx , palabra in enumerate(cadena.split()):
         if palabra in tags:
-            numero = cadena.split()[indx + 1]
+            try:
+                numero = cadena.split()[indx + 1]
+            except IndexError:
+                numero = ""                
             break
             
     # Si no se saca un numero con las palabras clave sacamos un segundo metodo, vamos a eliminar de la cadena el titulo del manga, algunas palbras clave especiales, vamos a quitar caracteres raros del titulo 

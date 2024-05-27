@@ -10,6 +10,7 @@ def checkmapper():
         if mangaplus.loader.mapeo[mapeo] not in mangaplus.loader.mangas:
             missing.append(mapeo)
     if missing:
+        print(missing)
         return False
     else:
         return True

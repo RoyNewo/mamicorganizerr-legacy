@@ -112,6 +112,8 @@ def main():
         "/media/cristian/Datos/Comics/Tachiyomi/Manually",
         "/media/cristian/Datos/Comics/Tachiyomi/Updates",
         "/media/cristian/Datos/Comics/Tachiyomi/backup",
+        "/media/cristian/Datos/Comics/Tachiyomi/LectorManga (ES)",
+        "/media/cristian/Datos/Comics/Tachiyomi/TuMangaOnline (ES)",
     ]
 
     with open("/opt/tachiyomimangaexporter/mangas.json") as json_file:
