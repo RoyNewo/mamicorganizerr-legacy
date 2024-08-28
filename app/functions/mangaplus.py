@@ -88,129 +88,129 @@ def nuevosmangas():
     url = f"{api_url}title_list/allV2?format=json"
     responsemanga = requests.get(url, headers=headers)
     datamanga = responsemanga.json()
+    if "success" in datamanga:
+        for newserieslist in datamanga["success"]["allTitlesViewV2"]["AllTitlesGroup"]:
+            for titles in newserieslist["titles"]:
+                tempdict = {titles["titleId"]: titles["name"]}
 
-    for newserieslist in datamanga["success"]["allTitlesViewV2"]["AllTitlesGroup"]:
-        for titles in newserieslist["titles"]:
-            tempdict = {titles["titleId"]: titles["name"]}
-
-            if tempdict not in todoslist:
-                if "language" in titles:
-                    if titles["language"] == "SPANISH":
+                if tempdict not in todoslist:
+                    if "language" in titles:
+                        if titles["language"] == "SPANISH":
+                            source = (
+                                "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
+                                + titles["name"]
+                            )
+                            funcion = "MANGA Plus by SHUEISHA (ES)"
+                            provider = "MANGA Plus by SHUEISHA (ES)"
+                            enviar = True
+                        else:
+                            enviar = False
+                    else:
                         source = (
-                            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
+                            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (EN)/"
                             + titles["name"]
                         )
-                        funcion = "MANGA Plus by SHUEISHA (ES)"
-                        provider = "MANGA Plus by SHUEISHA (ES)"
+                        funcion = "MANGA Plus by SHUEISHA (EN)"
+                        provider = "MANGA Plus by SHUEISHA (EN)"
                         enviar = True
-                    else:
-                        enviar = False
-                else:
-                    source = (
-                        "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (EN)/"
+                    output = (
+                        "/media/cristian/Datos/Comics/Reader/Shueisha/"
                         + titles["name"]
+                        + " ("
+                        + anio
+                        + ")"
                     )
-                    funcion = "MANGA Plus by SHUEISHA (EN)"
-                    provider = "MANGA Plus by SHUEISHA (EN)"
-                    enviar = True
-                output = (
-                    "/media/cristian/Datos/Comics/Reader/Shueisha/"
-                    + titles["name"]
-                    + " ("
-                    + anio
-                    + ")"
-                )
-                name = titles["name"] + " (" + anio + ") Issue #"
-                series = titles["name"]
-                mangaid = titles["titleId"]
-                portrait = titles["portraitImageUrl"]
+                    name = titles["name"] + " (" + anio + ") Issue #"
+                    series = titles["name"]
+                    mangaid = titles["titleId"]
+                    portrait = titles["portraitImageUrl"]
 
-                if enviar:
-                    mangasnuevos["new"].append(
-                        {
-                            source: {
-                                "destino": output,
-                                "name": name,
-                                "funcion": funcion,
-                                "provider": provider,
-                                "slug": "undefined",
-                                "Series": series,
-                                "Volume": anio,
-                                "Publisher": "Shueisha",
-                                "mangaid": mangaid,
-                                "portrait": portrait,
+                    if enviar:
+                        mangasnuevos["new"].append(
+                            {
+                                source: {
+                                    "destino": output,
+                                    "name": name,
+                                    "funcion": funcion,
+                                    "provider": provider,
+                                    "slug": "undefined",
+                                    "Series": series,
+                                    "Volume": anio,
+                                    "Publisher": "Shueisha",
+                                    "mangaid": mangaid,
+                                    "portrait": portrait,
+                                }
                             }
-                        }
-                    )
-                    mensaje = (
-                        ""
-                    )
-                    url = f"{api_url}title_detailV3?title_id={str(mangaid)}&format=json"
-                    responsedetail = requests.get(url, headers=headers)
-                    datadetail = responsedetail.json()
-                    msg = (
-                        "Nombre: "
-                        + datadetail["success"]["titleDetailView"]["title"]["name"]
-                        + "\n\n"
-                    )
-                    mensaje += msg
-                    # print(datadetail["success"]["titleDetailView"]["title"])
-                    if "author" in datadetail["success"]["titleDetailView"]["title"]:
+                        )
+                        mensaje = (
+                            ""
+                        )
+                        url = f"{api_url}title_detailV3?title_id={str(mangaid)}&format=json"
+                        responsedetail = requests.get(url, headers=headers)
+                        datadetail = responsedetail.json()
                         msg = (
-                            "Autor: "
-                            + datadetail["success"]["titleDetailView"]["title"]["author"]
+                            "Nombre: "
+                            + datadetail["success"]["titleDetailView"]["title"]["name"]
                             + "\n\n"
                         )
                         mensaje += msg
-                    if "overview" in datadetail["success"]["titleDetailView"]["title"]:
-                        msg = (
-                            "Descripcion: "
-                            + datadetail["success"]["titleDetailView"]["overview"]
-                            + "\n\n"
+                        # print(datadetail["success"]["titleDetailView"]["title"])
+                        if "author" in datadetail["success"]["titleDetailView"]["title"]:
+                            msg = (
+                                "Autor: "
+                                + datadetail["success"]["titleDetailView"]["title"]["author"]
+                                + "\n\n"
+                            )
+                            mensaje += msg
+                        if "overview" in datadetail["success"]["titleDetailView"]["title"]:
+                            msg = (
+                                "Descripcion: "
+                                + datadetail["success"]["titleDetailView"]["overview"]
+                                + "\n\n"
+                            )
+                            mensaje += msg
+                        if "isSimulReleased" in datadetail["success"]["titleDetailView"]:
+                            mensaje += "Simulrelease\n\n"
+                        else:
+                            mensaje += "No Simulrelease\n\n"
+
+                        # Create an Apprise instance
+                        apobj = apprise.Apprise()
+
+                        # Create an Config instance
+                        config = apprise.AppriseConfig()
+
+                        # Add a configuration source:
+                        config.add('/opt/tachiyomimangaexporter/apprise.yml')
+
+                        # Make sure to add our config into our apprise object
+                        apobj.add(config)
+                        portrait = f"{portrait}&random=64"
+                        apobj.notify(
+                            body=mensaje,
+                            title="Se ha detectado un nuevo manga en la aplicacione MangaPlus",
+                            attach=portrait,
+                            tag='ok',
                         )
-                        mensaje += msg
-                    if "isSimulReleased" in datadetail["success"]["titleDetailView"]:
-                        mensaje += "Simulrelease\n\n"
-                    else:
-                        mensaje += "No Simulrelease\n\n"
+                        time.sleep(2)
 
-                    # Create an Apprise instance
-                    apobj = apprise.Apprise()
-
-                    # Create an Config instance
-                    config = apprise.AppriseConfig()
-
-                    # Add a configuration source:
-                    config.add('/opt/tachiyomimangaexporter/apprise.yml')
-
-                    # Make sure to add our config into our apprise object
-                    apobj.add(config)
-                    portrait = f"{portrait}&random=64"
-                    apobj.notify(
-                        body=mensaje,
-                        title="Se ha detectado un nuevo manga en la aplicacione MangaPlus",
-                        attach=portrait,
-                        tag='ok',
-                    )
-                    time.sleep(2)
-
-                # bot = telegram.Bot(token=secrets["token"])
-                # bot.sendMessage(chat_id=secrets["chatid"], text=mensaje)
-                # webhook = Webhook.from_url(
-                #     secrets["disdcordwebhook"],
-                #     adapter=RequestsWebhookAdapter(),
-                # )
-                # webhook.send(mensaje)
-                # ic(portrait)
-                # portrait = f"{portrait}&random=64"
-                # with urllib.request.urlopen(portrait) as response:
-                #     info = response.info()
-                #     print(info.get_content_type())  # -> text/html
-                #     print(info.get_content_maintype())  # -> text
-                #     print(info.get_content_subtype())  # -> html
-                # bot.send_photo(chat_id=secrets["chatid"], photo=portrait)
-                # webhook.send(portrait)
-                # time.sleep(2)
+                    # bot = telegram.Bot(token=secrets["token"])
+                    # bot.sendMessage(chat_id=secrets["chatid"], text=mensaje)
+                    # webhook = Webhook.from_url(
+                    #     secrets["disdcordwebhook"],
+                    #     adapter=RequestsWebhookAdapter(),
+                    # )
+                    # webhook.send(mensaje)
+                    # ic(portrait)
+                    # portrait = f"{portrait}&random=64"
+                    # with urllib.request.urlopen(portrait) as response:
+                    #     info = response.info()
+                    #     print(info.get_content_type())  # -> text/html
+                    #     print(info.get_content_maintype())  # -> text
+                    #     print(info.get_content_subtype())  # -> html
+                    # bot.send_photo(chat_id=secrets["chatid"], photo=portrait)
+                    # webhook.send(portrait)
+                    # time.sleep(2)
     ic()
     with open("/opt/tachiyomimangaexporter/allV2.json", "w") as outfile:
         json.dump(datamanga, outfile)
@@ -229,14 +229,21 @@ def ultimosmangas(mensaj, mensaj2, secrets):
     responseultimos = requests.get(url, headers=headers)
     dataultimos = responseultimos.json()
     mensaj.append("Capitulos recientes de MangaPlus\n\n")
-
+    ic("ultimnos mangas")
+    # ic(dataultimos)
+    # if "success" in dataultimos:
     for groups in dataultimos["success"]["webHomeViewV4"]["groups"]:
+        # ic(groups)
         for titleGroups in groups["titleGroups"]:
+            # ic(titleGroups)
             chapterNumber = titleGroups["chapterNumber"]
             for titles in titleGroups["titles"]:
-                if titles["title"]["titleId"] in mapeo:
-                    organizar.folderinit(mangas[mapeo[titles["title"]["titleId"]]])
-                    ic(mangas[mapeo[titles["title"]["titleId"]]]["Series"])
+                # ic(titles["title"]["titleId"])
+                # ic(mapeo)
+                if str(titles["title"]["titleId"]) in mapeo:
+                    ic("titles")
+                    organizar.folderinit(mangas[mapeo[str(titles["title"]["titleId"])]])
+                    ic(mangas[mapeo[str(titles["title"]["titleId"])]]["Series"])
                     ic(chapterNumber)
                     if str(chapterNumber).replace("#", "") == "ex":
                         separado = (
@@ -249,7 +256,7 @@ def ultimosmangas(mensaj, mensaj2, secrets):
                             str(titles["chapterId"]),
                             numeroflotante,
                             history,
-                            mangas[mapeo[titles["title"]["titleId"]]],
+                            mangas[mapeo[str(titles["title"]["titleId"])]],
                             mensaj,
                             mensaj2,
                             secrets
@@ -257,7 +264,7 @@ def ultimosmangas(mensaj, mensaj2, secrets):
                     elif "," in str(chapterNumber):
                         mensaj2.append(
                             "El manga "
-                            + mangas[mapeo[titles["title"]["titleId"]]]["Series"]
+                            + mangas[mapeo[str(titles["title"]["titleId"])]]["Series"]
                             + " tiene los capitulos dobles "
                             + str(chapterNumber)
                         )
@@ -270,7 +277,7 @@ def ultimosmangas(mensaj, mensaj2, secrets):
                             str(titles["chapterId"]),
                             "{:0>4}".format(str(chapterNumber).replace("#", "")),
                             history,
-                            mangas[mapeo[titles["title"]["titleId"]]],
+                            mangas[mapeo[str(titles["title"]["titleId"])]],
                             mensaj,
                             mensaj2,
                             secrets
@@ -541,47 +548,48 @@ def mangasespeciales(chapterid):
     )
     responsechapter = requests.get(url, headers=headers)
     datachapter = responsechapter.json()
-    for idx, val in enumerate(datachapter["success"]["mangaViewer"]["chapters"]):
-        # ic(val["chapterId"], chapterid)
-        if str(val["chapterId"]) == chapterid:
-            ic(idx, val)
-            ic(
-                "Es un capitulo especial y el inidice va a ser: "
-                + datachapter["success"]["mangaViewer"]["chapters"][int(idx) - 1][
-                    "name"
-                ]
-            )
-            negaindice = int(idx)
+    if "success" in datachapter:
+        for idx, val in enumerate(datachapter["success"]["mangaViewer"]["chapters"]):
+            # ic(val["chapterId"], chapterid)
+            if str(val["chapterId"]) == chapterid:
+                ic(idx, val)
+                ic(
+                    "Es un capitulo especial y el inidice va a ser: "
+                    + datachapter["success"]["mangaViewer"]["chapters"][int(idx) - 1][
+                        "name"
+                    ]
+                )
+                negaindice = int(idx)
 
-    if len(datachapter["success"]["mangaViewer"]["chapters"]) <= 1:
-        return (
-            datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"] + ".1"
+        if len(datachapter["success"]["mangaViewer"]["chapters"]) <= 1:
+            return (
+                datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"] + ".1"
+            )
+        contador = 0
+        while (
+            str(
+                datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"]
+            ).replace("#", "")
+            == "ex"
+        ):
+            negaindice -= 1
+            contador += 1
+        ic(
+            "El indice negativo del capitulo es: "
+            + str(negaindice)
+            + " y el contador es: "
+            + str(contador)
         )
-    contador = 0
-    while (
-        str(
+        ic(
+            "Capitulo devuelto es: "
+            + datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"]
+            + "."
+            + str(contador)
+        )
+        return (
             datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"]
-        ).replace("#", "")
-        == "ex"
-    ):
-        negaindice -= 1
-        contador += 1
-    ic(
-        "El indice negativo del capitulo es: "
-        + str(negaindice)
-        + " y el contador es: "
-        + str(contador)
-    )
-    ic(
-        "Capitulo devuelto es: "
-        + datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"]
-        + "."
-        + str(contador)
-    )
-    return (
-        datachapter["success"]["mangaViewer"]["chapters"][negaindice]["name"]
-        + "."
-        + str(contador)
+            + "."
+            + str(contador)
     )
 
 
@@ -608,146 +616,146 @@ def mangascompletos(mensaj, mensaj2, secrets):
                 mangas[mapeo[key]]["Series"]
                 + ": No esta en History y se va descargar completo"
             )
-
-            for chapterListGroup in datatodos["success"]["titleDetailView"]["chapterListGroup"]:
-                if "firstChapterList" in chapterListGroup:
-                    for chapters in chapterListGroup["firstChapterList"]:
-                        organizar.folderinit(mangas[mapeo[key]])
-                        ic("First Chapters " + chapters["name"])
-                        if str(chapters["name"]).replace("#", "") == "ex":
-                            separado = (
-                                str(mangasespeciales(str(chapters["chapterId"])))
-                                .replace("#", "")
-                                .split(".")
-                            )
-                            numeroflotante = (
-                                "{:0>4}".format(separado[0]) + "." + separado[1]
-                            )
-                            mangasnormales(
-                                str(chapters["chapterId"]),
-                                numeroflotante,
-                                history,
-                                mangas[mapeo[key]],
-                                mensaj,
-                                mensaj2,
-                                secrets
-                            )
-                        elif "," in str(chapters["name"]):
-                            mensaj2.append(
-                                "El manga "
-                                + mangas[mapeo[key]]["Series"]
-                                + " tiene los capitulos dobles "
-                                + str(chapters["name"])
-                            )
-                            sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
-                            # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                            # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
-                        else:
-                            ic(str(chapters["name"]).replace("#", ""))
-                            mangasnormales(
-                                str(chapters["chapterId"]),
-                                "{:0>4}".format(
-                                    str(chapters["name"]).replace("#", "")),
-                                history,
-                                mangas[mapeo[key]],
-                                mensaj,
-                                mensaj2,
-                                secrets
-                            )
-                        mensaj = []
-                        mensaj2 = []
-                if "midChapterList" in chapterListGroup:
-                    for chapters in chapterListGroup["midChapterList"]:
-                        organizar.folderinit(mangas[mapeo[key]])
-                        ic("Mid Chapters " + chapters["name"])
-                        if str(chapters["name"]).replace("#", "") == "ex":
-                            separado = (
-                                str(mangasespeciales(str(chapters["chapterId"])))
-                                .replace("#", "")
-                                .split(".")
-                            )
-                            numeroflotante = (
-                                "{:0>4}".format(separado[0]) + "." + separado[1]
-                            )
-                            mangasnormales(
-                                str(chapters["chapterId"]),
-                                numeroflotante,
-                                history,
-                                mangas[mapeo[key]],
-                                mensaj,
-                                mensaj2,
-                                secrets
-                            )
-                        elif "," in str(chapters["name"]):
-                            mensaj2.append(
-                                "El manga "
-                                + mangas[mapeo[key]]["Series"]
-                                + " tiene los capitulos dobles "
-                                + str(chapters["name"])
-                            )
-                            sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
-                            # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                            # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
-                        else:
-                            ic(str(chapters["name"]).replace("#", ""))
-                            mangasnormales(
-                                str(chapters["chapterId"]),
-                                "{:0>4}".format(
-                                    str(chapters["name"]).replace("#", "")),
-                                history,
-                                mangas[mapeo[key]],
-                                mensaj,
-                                mensaj2,
-                                secrets
-                            )
-                        mensaj = []
-                        mensaj2 = []
-                if "lastChapterList" in chapterListGroup:
-                    for chapters in chapterListGroup["lastChapterList"]:
-                        organizar.folderinit(mangas[mapeo[key]])
-                        ic("Last Chapters " + chapters["name"])
-                        if str(chapters["name"]).replace("#", "") == "ex":
-                            separado = (
-                                str(mangasespeciales(str(chapters["chapterId"])))
-                                .replace("#", "")
-                                .split(".")
-                            )
-                            numeroflotante = (
-                                "{:0>4}".format(separado[0]) + "." + separado[1]
-                            )
-                            mangasnormales(
-                                str(chapters["chapterId"]),
-                                numeroflotante,
-                                history,
-                                mangas[mapeo[key]],
-                                mensaj,
-                                mensaj2,
-                                secrets
-                            )
-                        elif "," in str(chapters["name"]):
-                            mensaj2.append(
-                                "El manga "
-                                + mangas[mapeo[key]]["Series"]
-                                + " tiene los capitulos dobles "
-                                + str(chapters["name"])
-                            )
-                            sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
-                            # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                            # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
-                        else:
-                            ic(str(chapters["name"]).replace("#", ""))
-                            mangasnormales(
-                                str(chapters["chapterId"]),
-                                "{:0>4}".format(
-                                    str(chapters["name"]).replace("#", "")),
-                                history,
-                                mangas[mapeo[key]],
-                                mensaj,
-                                mensaj2,
-                                secrets
-                            )
-                        mensaj = []
-                        mensaj2 = []
+            if "success" in datatodos:
+                for chapterListGroup in datatodos["success"]["titleDetailView"]["chapterListGroup"]:
+                    if "firstChapterList" in chapterListGroup:
+                        for chapters in chapterListGroup["firstChapterList"]:
+                            organizar.folderinit(mangas[mapeo[key]])
+                            ic("First Chapters " + chapters["name"])
+                            if str(chapters["name"]).replace("#", "") == "ex":
+                                separado = (
+                                    str(mangasespeciales(str(chapters["chapterId"])))
+                                    .replace("#", "")
+                                    .split(".")
+                                )
+                                numeroflotante = (
+                                    "{:0>4}".format(separado[0]) + "." + separado[1]
+                                )
+                                mangasnormales(
+                                    str(chapters["chapterId"]),
+                                    numeroflotante,
+                                    history,
+                                    mangas[mapeo[key]],
+                                    mensaj,
+                                    mensaj2,
+                                    secrets
+                                )
+                            elif "," in str(chapters["name"]):
+                                mensaj2.append(
+                                    "El manga "
+                                    + mangas[mapeo[key]]["Series"]
+                                    + " tiene los capitulos dobles "
+                                    + str(chapters["name"])
+                                )
+                                sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
+                                # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                                # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                            else:
+                                ic(str(chapters["name"]).replace("#", ""))
+                                mangasnormales(
+                                    str(chapters["chapterId"]),
+                                    "{:0>4}".format(
+                                        str(chapters["name"]).replace("#", "")),
+                                    history,
+                                    mangas[mapeo[key]],
+                                    mensaj,
+                                    mensaj2,
+                                    secrets
+                                )
+                            mensaj = []
+                            mensaj2 = []
+                    if "midChapterList" in chapterListGroup:
+                        for chapters in chapterListGroup["midChapterList"]:
+                            organizar.folderinit(mangas[mapeo[key]])
+                            ic("Mid Chapters " + chapters["name"])
+                            if str(chapters["name"]).replace("#", "") == "ex":
+                                separado = (
+                                    str(mangasespeciales(str(chapters["chapterId"])))
+                                    .replace("#", "")
+                                    .split(".")
+                                )
+                                numeroflotante = (
+                                    "{:0>4}".format(separado[0]) + "." + separado[1]
+                                )
+                                mangasnormales(
+                                    str(chapters["chapterId"]),
+                                    numeroflotante,
+                                    history,
+                                    mangas[mapeo[key]],
+                                    mensaj,
+                                    mensaj2,
+                                    secrets
+                                )
+                            elif "," in str(chapters["name"]):
+                                mensaj2.append(
+                                    "El manga "
+                                    + mangas[mapeo[key]]["Series"]
+                                    + " tiene los capitulos dobles "
+                                    + str(chapters["name"])
+                                )
+                                sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
+                                # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                                # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                            else:
+                                ic(str(chapters["name"]).replace("#", ""))
+                                mangasnormales(
+                                    str(chapters["chapterId"]),
+                                    "{:0>4}".format(
+                                        str(chapters["name"]).replace("#", "")),
+                                    history,
+                                    mangas[mapeo[key]],
+                                    mensaj,
+                                    mensaj2,
+                                    secrets
+                                )
+                            mensaj = []
+                            mensaj2 = []
+                    if "lastChapterList" in chapterListGroup:
+                        for chapters in chapterListGroup["lastChapterList"]:
+                            organizar.folderinit(mangas[mapeo[key]])
+                            ic("Last Chapters " + chapters["name"])
+                            if str(chapters["name"]).replace("#", "") == "ex":
+                                separado = (
+                                    str(mangasespeciales(str(chapters["chapterId"])))
+                                    .replace("#", "")
+                                    .split(".")
+                                )
+                                numeroflotante = (
+                                    "{:0>4}".format(separado[0]) + "." + separado[1]
+                                )
+                                mangasnormales(
+                                    str(chapters["chapterId"]),
+                                    numeroflotante,
+                                    history,
+                                    mangas[mapeo[key]],
+                                    mensaj,
+                                    mensaj2,
+                                    secrets
+                                )
+                            elif "," in str(chapters["name"]):
+                                mensaj2.append(
+                                    "El manga "
+                                    + mangas[mapeo[key]]["Series"]
+                                    + " tiene los capitulos dobles "
+                                    + str(chapters["name"])
+                                )
+                                sendmsg.sendnewmsg('fallo', mensaj2, 'Capitulos Dobles')
+                                # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+                                # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+                            else:
+                                ic(str(chapters["name"]).replace("#", ""))
+                                mangasnormales(
+                                    str(chapters["chapterId"]),
+                                    "{:0>4}".format(
+                                        str(chapters["name"]).replace("#", "")),
+                                    history,
+                                    mangas[mapeo[key]],
+                                    mensaj,
+                                    mensaj2,
+                                    secrets
+                                )
+                            mensaj = []
+                            mensaj2 = []
 
 
             # if "firstChapterList" in datatodos["success"]["titleDetailView"]:

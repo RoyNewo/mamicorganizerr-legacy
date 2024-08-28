@@ -15,7 +15,7 @@ def main():
         for mapeo in mangaplus.loader.mapeo:
             jsonurl = (
                 mangaplus.loader.api_url
-                + "title_detail?title_id="
+                + "title_detailV3?title_id="
                 + mapeo
                 + "&format=json"
             )
