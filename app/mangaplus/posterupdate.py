@@ -2,8 +2,11 @@ import mangaplus.loader
 import mangaplus.checkmapper
 import requests
 from icecream import ic
+import os
 
 def postermangaplus(manga, url):
+    if not os.path.exists(manga["destino"]):
+        os.makedirs(manga["destino"])
     image = requests.get(url, headers=mangaplus.loader.headers)
     imagesave = str(manga["destino"] + "/poster.jpg")
     with open(imagesave, "wb") as f:
@@ -16,7 +19,7 @@ def main():
             jsonurl = (
                 mangaplus.loader.api_url
                 + "title_detailV3?title_id="
-                + mapeo
+                + str(mapeo)
                 + "&format=json"
             )
             responsetodos = requests.get(jsonurl, headers=mangaplus.loader.headers)
