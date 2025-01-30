@@ -42,6 +42,9 @@ def downloadchapter(href, dic, chapternumber):
     try:
         for option in chapterpagesdiv.find_all("option"):
             chapterimagesurl = dic['web_url'] + option['value'] + ninemanga.loader.waring
+            capituloimageurl = flaresolverr(chapterimagesurl)
+            while 'solution' not in capituloimageurl:
+                capitulos = flaresolverr(chapterimagesurl)
             chapterimagessoup = BeautifulSoup(flaresolverr(chapterimagesurl)["solution"]['response'], 'lxml')
             for img in chapterimagessoup.find_all('img', class_='manga_pic'):
                 imagenumber = int(img.attrs["i"]) + contador
