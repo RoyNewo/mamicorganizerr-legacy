@@ -31,7 +31,10 @@ def downloadchapter(href, dic, chapternumber):
     dfolder = f'{ninemanga.loader.tdescargas}/{dic["Series"]} - {dic["provider"]} {chapternumber}/'
     if not os.path.exists(dfolder):
         os.makedirs(dfolder)
-    chaptersoup = BeautifulSoup(flaresolverr(href)["solution"]['response'], 'lxml')
+    try:
+        chaptersoup = BeautifulSoup(flaresolverr(href)["solution"]['response'], 'lxml')
+    except KeyError:
+        sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, f'Fallo Download {dic["Series"]}')
     # ic(chaptersoup)
     chapterpagesdiv = chaptersoup.find('div', class_="changepage")
     # ic(chapterpagesdiv)
@@ -66,7 +69,8 @@ def downloadchapter(href, dic, chapternumber):
             contador += 10
         ic('Se ha Descargado todas la paginas')
         return True
-    except:
+    except Exception as e:
+        ic(e)
         sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, f'Fallo Download {dic["Series"]}')
         return False
 
