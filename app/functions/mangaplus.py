@@ -603,6 +603,7 @@ def mangascompletos(mensaj, mensaj2, secrets):
     mensaj.append("Revisando mangas que se van a descargar completos en MangaPlus\n\n")
 
     for key in mapeo.keys():
+        ic(mangas[mapeo[key]])
         if mangas[mapeo[key]]["Series"] not in history:
             url = (
                 api_url
