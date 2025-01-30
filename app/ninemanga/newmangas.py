@@ -31,10 +31,10 @@ def downloadchapter(href, dic, chapternumber):
     dfolder = f'{ninemanga.loader.tdescargas}/{dic["Series"]} - {dic["provider"]} {chapternumber}/'
     if not os.path.exists(dfolder):
         os.makedirs(dfolder)
-    try:
-        chaptersoup = BeautifulSoup(flaresolverr(href)["solution"]['response'], 'lxml')
-    except:
-        sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, f'Fallo Download {dic["Series"]}')
+    capitulos = flaresolverr(href)
+    while 'solution' not in capitulos:
+        capitulos = flaresolverr(href)
+    chaptersoup = BeautifulSoup(capitulos["solution"]['response'], 'lxml')
     # ic(chaptersoup)
     chapterpagesdiv = chaptersoup.find('div', class_="changepage")
     # ic(chapterpagesdiv)
