@@ -165,6 +165,8 @@ def main():
         #     json.dump(json_data, f, indent=4, ensure_ascii=False)
         # thejson = flaresolverr(manga_url)
         # ic(thejson['response'])
+
+        capitulos = flaresolverr(manga_url)
         while 'solution' not in capitulos:
             capitulos = flaresolverr(manga_url)
         chapterlistsoup = BeautifulSoup(capitulos["solution"]['response'], 'lxml')
