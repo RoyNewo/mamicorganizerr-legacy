@@ -33,7 +33,7 @@ def downloadchapter(href, dic, chapternumber):
         os.makedirs(dfolder)
     try:
         chaptersoup = BeautifulSoup(flaresolverr(href)["solution"]['response'], 'lxml')
-    except KeyError:
+    except:
         sendmsg.sendnewmsg('fallo', ninemanga.loader.mensaj2, f'Fallo Download {dic["Series"]}')
     # ic(chaptersoup)
     chapterpagesdiv = chaptersoup.find('div', class_="changepage")
