@@ -165,7 +165,9 @@ def main():
         #     json.dump(json_data, f, indent=4, ensure_ascii=False)
         # thejson = flaresolverr(manga_url)
         # ic(thejson['response'])
-        chapterlistsoup = BeautifulSoup(flaresolverr(manga_url)["solution"]['response'], 'lxml')
+        while 'solution' not in capitulos:
+            capitulos = flaresolverr(manga_url)
+        chapterlistsoup = BeautifulSoup(capitulos["solution"]['response'], 'lxml')
         chapterlistenlaces = chapterlistsoup.find_all(
             'a', class_="chapter_list_a")
         for enlace in chapterlistenlaces:
