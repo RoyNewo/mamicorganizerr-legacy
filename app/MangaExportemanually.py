@@ -20,8 +20,8 @@ def main():
         with open("/opt/tachiyomimangaexporter/history.json") as json_file3:
             history = json.load(json_file3)
         # manga = {
-        #     "origen": "/media/cristian/Datos/Comics/Tachiyomi/Manually/Hollow Knight",
-        #     "destino": "/media/cristian/Datos/Comics/Reader/Team Cherry/Hollow Knight Chapter One Quirrel (2017)",
+        #     "origen": "/home/data/Comics/Tachiyomi/Manually/Hollow Knight",
+        #     "destino": "/home/data/Comics/Reader/Team Cherry/Hollow Knight Chapter One Quirrel (2017)",
         #     "name": "Hollow Knight Chapter One Quirrel (2017) Issue #",
         #     "funcion": "Team Cherry",
         #     "provider": "Team Cherry",
@@ -43,7 +43,7 @@ def main():
             file2 = manga["Series"]
             path3 = manga[
                 "origen"
-            ]  # "/media/cristian/Datos/Comics/Tachiyomi/Manually/Hollow Knight"
+            ]  # "/home/data/Comics/Tachiyomi/Manually/Hollow Knight"
             files2 = os.listdir(path3)
             files2.sort()
             for file3 in files2:
@@ -59,7 +59,7 @@ def main():
         mensaj2.append(
             str(
                 requests.post(
-                    "https://komga.loyhouse.net/api/v1/libraries/02G13VGFYC532/scan",
+                    "https://komga.royflix.net/api/v1/libraries/02G13VGFYC532/scan",
                     data={"accept": "*/*"},
                     auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
                 )

@@ -109,7 +109,7 @@ def select_all_tasks(conn):
 
 def ninemanga():
     log = {}
-    conn = create_connection("/media/cristian/Datos/Comics/Buffer/manga-py/tachiyomi.db")
+    conn = create_connection("/home/data/Comics/Buffer/manga-py/tachiyomi.db")
     with conn:
         print("2. Query all tasks")
         lista = select_all_tasks(conn)
@@ -126,7 +126,7 @@ def ninemanga():
             fullurl = f'{fullurl}?waring=1'
 
         log[iterable[2]] = {}
-        infofile = Path("/media/cristian/Datos/Comics/Buffer/manga-py/info.json")
+        infofile = Path("/home/data/Comics/Buffer/manga-py/info.json")
         init = (
             'manga-py -f -u "Mozilla/5.0 (Windows NT 10.0; WOW64) Gecko/20100101 Firefox/75" --skip-incomplete-chapters --print-json --simulate ' + fullurl + ' > '
             + str(infofile)
@@ -141,7 +141,7 @@ def ninemanga():
                 "Accept-Language": "es-ES,es;q=0.9,en;q=0.8,gl;q=0.7",
             }
             # manga = {
-            #     "destino": "/media/cristian/Datos/Comics/Reader/Kodansha/Mokushiroku no Yonkishi (2021)/",
+            #     "destino": "/home/data/Comics/Reader/Kodansha/Mokushiroku no Yonkishi (2021)/",
             #     "name": "Mokushiroku no Yonkishi (2021) Issue #",
             #     "funcion": "NineMangaEs (ES)",
             #     "provider": "NineMangaEs (ES)",

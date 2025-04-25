@@ -32,7 +32,7 @@ def cbzgenerator(namefile):
     xml_obj.close()
 
     print(my_dict["ComicInfo"]["Series"])
-    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
+    destino = f'/home/data/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
     destino = destino.replace(":", "")
     destino = destino.replace("\\", " ")
     destino = destino.replace("?", "")
@@ -85,7 +85,7 @@ def getposter(my_dict, destino):
 
 
 def main():
-    path = "/media/cristian/Datos/Comics/Buffer/Edge of Spider-Geddon (2018)"
+    path = "/home/data/Comics/Buffer/Edge of Spider-Geddon (2018)"
     files2 = glob.glob(f"{path}/**/*.[cC][bB][zZ]", recursive=True)
     for ficheros2 in files2:
         cbzgenerator(ficheros2)

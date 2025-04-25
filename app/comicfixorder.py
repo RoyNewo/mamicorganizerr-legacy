@@ -65,8 +65,8 @@ def ultimo(dic, finalpath, namefile, comprimido, ruta):
 
 
 def main():
-    path = "/media/cristian/Datos/Comics/Buffer/Originales"
-    manga = { "destino": "/media/cristian/Datos/Comics/Reader/Shinchosha/Gokushufudou (2018)(EN)",
+    path = "/home/data/Comics/Buffer/Originales"
+    manga = { "destino": "/home/data/Comics/Reader/Shinchosha/Gokushufudou (2018)(EN)",
         "name": "Gokushufudou (2018)(EN) Issue #",
         "funcion": "ultimo",
         "Series" : "Gokushufudou (EN)",

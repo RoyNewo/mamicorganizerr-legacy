@@ -60,7 +60,7 @@ def isint(x):
 
 
 def main():
-    database = "/media/cristian/Datos/Comics/Buffer/databases/tachiyomi.db"
+    database = "/home/data/Comics/Buffer/databases/tachiyomi.db"
     # mensaj = []
 
     # with open('/opt/tachiyomimangaexporter/mangas.json') as json_file:

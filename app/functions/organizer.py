@@ -223,7 +223,7 @@ def updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj
     komgabooksid[dic["Series"]].pop(issue, None)
     os.chmod(cbz, 0o777)
 
-    newfiles = "/media/cristian/Datos/Comics/Descargas/" + \
+    newfiles = "/home/data/Comics/Descargas/" + \
         dic["name"] + issue + ".cbz"
     ic(newfiles)
 
@@ -247,7 +247,7 @@ def updatebook(dic, finalpath, issue, deletefolder, cbz, update, mensaj2, mensaj
         "copyMode": "MOVE"}
     ic(sourcefile, destinationname, replace)
     reponse = requests.post(
-        'https://komga.loyhouse.net/api/v1/books/import',
+        'https://komga.royflix.net/api/v1/books/import',
         json=replace,
         headers={"accept": "*/*", "Content-Type": "application/json"},
         auth=HTTPBasicAuth(secrets["komgauser"], secrets["komgapass"]),
@@ -302,7 +302,7 @@ def issueorganizer(dic, finalpath, mensaj, mensaj2, history, numero, cap, secret
 
     else:
         try:
-            shutil.move(finalpath, f"/media/cristian/Datos/Comics/Fallo/{cap}")
+            shutil.move(finalpath, f"/home/data/Comics/Fallo/{cap}")
         except OSError:
             print(deletefolder)
         try:
@@ -497,7 +497,7 @@ def organizer(elemento, dic, finalpath, mensaj, mensaj2, history, secrets):
 def issueupdate(secrets, mangas):
     with open("/opt/tachiyomimangaexporter/history.json") as json_file:
         history = json.load(json_file)
-    folder = "/media/cristian/Datos/Comics/Tachiyomi/Updates"
+    folder = "/home/data/Comics/Tachiyomi/Updates"
     mensaje = []
     mensaje2 = ""
     if len(os.listdir(folder)) != 0:
@@ -528,7 +528,7 @@ def scankomgalibrary(mensaj, mensaj2, user, password, secrets):
     if mensaj != [] or mensaj2 != []:
         print("paso por aqui")
         response = requests.post(
-            "https://komga.loyhouse.net/api/v1/libraries/02G13VGFYC532/scan",
+            "https://komga.royflix.net/api/v1/libraries/02G13VGFYC532/scan",
             data={"accept": "*/*"},
             auth=HTTPBasicAuth(user, password),
         )
@@ -566,7 +566,7 @@ def komgabookid():
                 url = urllib.parse.quote_plus(
                     mangas[manga]["destino"].split("/")[-2])
             ic(url)
-            query = "https://komga.loyhouse.net/api/v1/series?search=%22" + url + "%22"
+            query = "https://komga.royflix.net/api/v1/series?search=%22" + url + "%22"
             reponse = requests.get(
                 query,
                 headers={"accept": "application/json"},
@@ -592,7 +592,7 @@ def komgabookid():
                     url = urllib.parse.quote_plus(nombre)
                     ic(url)
                     query = (
-                        "https://komga.loyhouse.net/api/v1/books?search=%22"
+                        "https://komga.royflix.net/api/v1/books?search=%22"
                         + url
                         + "%22&library_id=02G13VGFYC532"
                     )
@@ -610,7 +610,7 @@ def komgabookid():
                 except IndexError:
                     nombre = mangas[intermedia[serie]]["name"] + capitulo
                     ic(mangas[intermedia[serie]])
-                    query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
+                    query = f'https://komga.royflix.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
                     reponse = requests.get(
                         query,
                         data={"accept": "*/*"},
@@ -619,7 +619,7 @@ def komgabookid():
                     )
                     totalpages = reponse.json()["totalPages"]
                     for page in range(totalpages):
-                        query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc&page={page}'
+                        query = f'https://komga.royflix.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc&page={page}'
                         reponse = requests.get(
                             query,
                             data={"accept": "*/*"},
@@ -645,7 +645,7 @@ def komgabookid():
                     url = urllib.parse.quote_plus(nombre)
                     ic(url)
                     query = (
-                        "https://komga.loyhouse.net/api/v1/books?search=%22"
+                        "https://komga.royflix.net/api/v1/books?search=%22"
                         + url
                         + "%22&library_id=02G13VGFYC532"
                     )
@@ -662,7 +662,7 @@ def komgabookid():
                         {capitulo: book["content"][0]["id"]}
                     )
                 except IndexError:
-                    query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
+                    query = f'https://komga.royflix.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc'
                     nombre = mangas[intermedia[serie]]["name"] + capitulo
                     reponse = requests.get(
                         query,
@@ -672,7 +672,7 @@ def komgabookid():
                     )
                     totalpages = reponse.json()["totalPages"]
                     for page in range(totalpages):
-                        query = f'https://komga.loyhouse.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc&page={page}'
+                        query = f'https://komga.royflix.net/api/v1/series/{mangas[intermedia[serie]]["komga_serie_id"]}/books?sort=name%2Cdesc&page={page}'
                         reponse = requests.get(
                             query,
                             data={"accept": "*/*"},

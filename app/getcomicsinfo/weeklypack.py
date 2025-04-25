@@ -21,7 +21,7 @@ logging.basicConfig(
 
 def prowlar():
     response = requests.get(
-        "https://prowlarr.loyhouse.net/api/v1/search?query=%22Weekly%20Pack%22&indexerIds=18&categories=7030&type=search",
+        "https://prowlarr.royflix.net/api/v1/search?query=%22Weekly%20Pack%22&indexerIds=18&categories=7030&type=search",
         headers={"x-api-key": loader.secrets["prowlarrapi"]},
         params={
             "query": "%22Weekly%20Pack%22",
@@ -36,7 +36,7 @@ def prowlar():
             intentos = 0
             while response.json() == []:
                 response = requests.get(
-                    "https://prowlarr.loyhouse.net/api/v1/search?query=%22Weekly%20Pack%22&indexerIds=18&categories=7030&type=search",
+                    "https://prowlarr.royflix.net/api/v1/search?query=%22Weekly%20Pack%22&indexerIds=18&categories=7030&type=search",
                     headers={"x-api-key": loader.secrets["prowlarrapi"]},
                     params={
                         "query": "%22Weekly%20Pack%22",
@@ -65,7 +65,7 @@ def deluge(pendingtorrents):
     ses = requests.Session()
     header = {"Content-Type": "application/json", "Accept": "application/json"}
     ses.headers = header
-    url = "https://deluge.loyhouse.net/json"
+    url = "https://deluge.royflix.net/json"
     ses.post(
         url,
         headers=header,

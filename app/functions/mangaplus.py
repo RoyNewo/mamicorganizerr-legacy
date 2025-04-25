@@ -18,7 +18,7 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
 }
 rutahistorial = "/opt/tachiyomimangaexporter/history.json"
-anio = "2024"
+anio = "2025"
 
 
 def downloadchapter(path, chapterid, name, number):
@@ -97,7 +97,7 @@ def nuevosmangas():
                     if "language" in titles:
                         if titles["language"] == "SPANISH":
                             source = (
-                                "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
+                                "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
                                 + titles["name"]
                             )
                             funcion = "MANGA Plus by SHUEISHA (ES)"
@@ -107,14 +107,14 @@ def nuevosmangas():
                             enviar = False
                     else:
                         source = (
-                            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (EN)/"
+                            "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (EN)/"
                             + titles["name"]
                         )
                         funcion = "MANGA Plus by SHUEISHA (EN)"
                         provider = "MANGA Plus by SHUEISHA (EN)"
                         enviar = True
                     output = (
-                        "/media/cristian/Datos/Comics/Reader/Shueisha/"
+                        "/home/data/Comics/Reader/Shueisha/"
                         + titles["name"]
                         + " ("
                         + anio
@@ -453,7 +453,7 @@ def capitulossueltos(mensaj, mensaj2, secrets):
             history = json.load(json_file3)
 
         deletefolder = "Error while deleting directory"
-        tdescargas = "/media/cristian/Datos/Comics/Descargas"
+        tdescargas = "/home/data/Comics/Descargas"
         mensaj.append("Se van a descargar capitulos sueltos especificos en MangaPlus")
         for chapter in chapters:
 
@@ -506,7 +506,7 @@ def capitulossueltos(mensaj, mensaj2, secrets):
 
 def mangasnormales(chapterid, chapternumber, history, dic, mensaj, mensaj2, secrets):
     deletefolder = "Error while deleting directory"
-    tdescargas = "/media/cristian/Datos/Comics/Descargas"
+    tdescargas = "/home/data/Comics/Descargas"
     historeturn = organizar.historial(history, chapternumber, dic)
     if historeturn == True and downloadchapter(
         tdescargas, chapterid, dic["name"], chapternumber

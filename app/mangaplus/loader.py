@@ -31,7 +31,7 @@ def init():
         history = json.load(history_file)
 
     deletefolder = "Error while deleting directory"
-    tdescargas = "/media/cristian/Datos/Comics/Descargas"
+    tdescargas = "/home/data/Comics/Descargas"
     api_url = "https://jumpg-webapi.tokyo-cdn.com/api/"
     mensaj = []
     mensaj2 = []

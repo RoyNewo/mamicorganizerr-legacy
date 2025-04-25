@@ -149,19 +149,19 @@ def main():
         secrets = json.load(json_file2)
     conect = "adb connect " + secrets['ip']
     os.system(conect)
-    os.system("adb pull /storage/emulated/0/Tachiyomi /media/cristian/Datos/Comics")
-    path = "/media/cristian/Datos/Comics/Tachiyomi"
+    os.system("adb pull /storage/emulated/0/Tachiyomi /home/data/Comics")
+    path = "/home/data/Comics/Tachiyomi"
     dirs = os.listdir(path)
     dirs.sort()
     for file1 in dirs:
         path2 = path + "/" + file1
-        if path2 != '/media/cristian/Datos/Comics/Tachiyomi/automatic':
+        if path2 != '/home/data/Comics/Tachiyomi/automatic':
             if os.path.isdir(path2):
                 files = os.listdir(path2)
                 for file2 in files:
                     path3 = path2 + "/" + file2
                     # print(path3)
-                    if path3 != '/media/cristian/Datos/Comics/Tachiyomi/backup/automatic':
+                    if path3 != '/home/data/Comics/Tachiyomi/backup/automatic':
                         if os.path.isdir(path3):
                             files2 = os.listdir(path3)
                             for file3 in files2:

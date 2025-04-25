@@ -15,7 +15,7 @@ from functions.organizer import scankomgalibrary, send
 # [
 #     {
 #         "name": "Kono Subarashii Sekai Ni Shukufuku Wo (2014) Issue #16.00.cbz",
-#         "mangasid": "/media/cristian/Datos/Comics/Tachiyomi/LectorManga (ES)/KonoSuba_ God's Blessing on this Wonderful World!",
+#         "mangasid": "/home/data/Comics/Tachiyomi/LectorManga (ES)/KonoSuba_ God's Blessing on this Wonderful World!",
 #         "numero": "0016"
 #     }
 # ]
@@ -23,7 +23,7 @@ from functions.organizer import scankomgalibrary, send
 mensaj = []
 mensaj2 = []
 delete = "Error while deleting "
-renamefile = Path("/media/cristian/Datos/Comics/Buffer/rename.json")
+renamefile = Path("/home/data/Comics/Buffer/rename.json")
 with open("/opt/tachiyomimangaexporter/mangas.json") as mangas_file:
     mangas = json.load(mangas_file)
 

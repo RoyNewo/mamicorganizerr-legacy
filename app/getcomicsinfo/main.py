@@ -4,11 +4,11 @@ from getcomicsinfo import loader, manuallyissue, scanweb, manuallyissuefolder, n
 def main():
     loader.init()
     loader.mensaj.append("Comics nuevos de getcomicsinfo\n\n")
-    newreleasedcomic.main()
+    # newreleasedcomic.main()
     # fixmetadata.main()
-    weeklypack.main()
+    # weeklypack.main()
     # manuallyissue.main()
     # manuallyissuefolder.main()
-    # scanweb.main()
+    scanweb.main()
     loader.save()
     

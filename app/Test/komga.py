@@ -28,7 +28,7 @@ for manga in mangas:
     else:
         url = urllib.parse.quote_plus(mangas[manga]["destino"].split("/")[-2])
     ic(url)
-    query = "https://komga.loyhouse.net/api/v1/series?search=%22" + url + "%22"
+    query = "https://komga.royflix.net/api/v1/series?search=%22" + url + "%22"
     reponse = requests.get(
                 query,
                 headers={"accept": "application/json"},

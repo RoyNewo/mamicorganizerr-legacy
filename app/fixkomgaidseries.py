@@ -25,7 +25,7 @@ def getmanga(url):
     results = []
     url = url.replace("/comics", "")
     for manga in mangas:
-        compareurl = mangas[manga]["destino"].replace("/media/cristian/Datos/Comics", "")
+        compareurl = mangas[manga]["destino"].replace("/home/data/Comics", "")
         if compareurl[-1] == "/":
             compareurl = compareurl[:-1]
         print(compareurl, url)
@@ -48,7 +48,7 @@ def getseries(series):
 
 def main():
 
-    query = "https://komga.loyhouse.net/api/v1/series"
+    query = "https://komga.royflix.net/api/v1/series"
     response = requests.get(
         query,
         headers={"accept": "application/json"},
@@ -60,7 +60,7 @@ def main():
     # print(series["totalPages"])
     i = 0
     for i in range(0, totalpages):
-        query = f"https://komga.loyhouse.net/api/v1/series?page={i}"        
+        query = f"https://komga.royflix.net/api/v1/series?page={i}"        
         response = requests.get(
             query,
             headers={"accept": "application/json"},

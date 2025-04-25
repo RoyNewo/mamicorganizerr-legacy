@@ -190,7 +190,7 @@ def validfilename(filename):
 
 def generatecbz(my_dict):
     serie = validfilename(my_dict["ComicInfo"]["Series"])
-    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{serie} ({my_dict["ComicInfo"]["Volume"]})'
+    destino = f'/home/data/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{serie} ({my_dict["ComicInfo"]["Volume"]})'
     logger.info(destino)
     if not os.path.exists(destino):
         os.makedirs(destino)

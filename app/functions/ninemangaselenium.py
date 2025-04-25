@@ -27,7 +27,7 @@ import shutil
 mensaj = []
 mensaj2 = []
 mangadic = {
-    "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Psyren (2007)/",
+    "destino": "/home/data/Comics/Reader/Shueisha/Psyren (2007)/",
     "name": "Psyren (2007) Issue #",
     "funcion": "NineMangaEs (ES)",
     "provider": "NineMangaEs (ES)",
@@ -46,7 +46,7 @@ mangabase = "/manga/"
 chapterbase = "/chapter/"
 mangatitle = mangadic["ninemanga"]
 organizar.folderinit(mangadic)
-tdescargas = "/media/cristian/Datos/Comics/Descargas/"
+tdescargas = "/home/data/Comics/Descargas/"
 deletefolder = "Error while deleting directory"
 
 options = Options()

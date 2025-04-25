@@ -34,13 +34,13 @@ def spanishjson():
                 for char in caracteres:
                     nombremanga = nombremanga.replace(char, "")
                 source = (
-                    "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
+                    "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
                     + nombremanga
                 )
                 funcion = "MANGA Plus by SHUEISHA (ES)"
                 provider = "MANGA Plus by SHUEISHA (ES)"
                 output = (
-                    "/media/cristian/Datos/Comics/Reader/Shueisha/"
+                    "/home/data/Comics/Reader/Shueisha/"
                     + nombremanga
                     + " ("
                     + anio

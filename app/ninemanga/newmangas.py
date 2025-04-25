@@ -13,7 +13,7 @@ global scraper
 
 
 def flaresolverr(url_manga):
-    url = "http://192.168.1.130:8191/v1"
+    url = "http://royflix.net:20080/v1"
     headers = {"Content-Type": "application/json"}
 
     scraper = {

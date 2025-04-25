@@ -1,7 +1,7 @@
 [
   {
-    "origen": "/media/cristian/Datos/Comics/Tachiyomi/Manually/Solo Leveling",
-    "destino": "/media/cristian/Datos/Comics/Reader/Webtoon/Solo Leveling (2018)",
+    "origen": "/home/data/Comics/Tachiyomi/Manually/Solo Leveling",
+    "destino": "/home/data/Comics/Reader/Webtoon/Solo Leveling (2018)",
     "name": "Solo Leveling (2018) Issue #",
     "funcion": "NineMangaEs (ES)",
     "provider": "NineMangaEs (ES)",

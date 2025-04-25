@@ -47,7 +47,7 @@ def file_issue_number(file):
 
 def main():
     comiclocaldb = {
-        "destino": "/media/cristian/Datos/Comics/Buffer/The Amazing Spider-Man (2022)",
+        "destino": "/home/data/Comics/Buffer/The Amazing Spider-Man (2022)",
         "slug": "4050-142577"
     }
 

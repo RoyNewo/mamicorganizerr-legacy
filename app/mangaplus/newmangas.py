@@ -3,7 +3,7 @@ import requests
 from functions import sendmsg
 
 
-anio = "2024"
+anio = "2025"
 
 
 def savenewmangas(sourcefolder, targetfolder, name, funcion, provider, series, mangaid, portrait):
@@ -29,14 +29,14 @@ def sourceprovider(webmanga):
     if "language" in webmanga:
         if webmanga["language"] == "SPANISH":
             sourcefolder = (
-                "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
+                "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/"
                 + webmanga["name"]
             )
             funcion = "MANGA Plus by SHUEISHA (ES)"
             provider = "MANGA Plus by SHUEISHA (ES)"
     else:
         sourcefolder = (
-            "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (EN)/"
+            "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (EN)/"
             + webmanga["name"]
         )
         funcion = "MANGA Plus by SHUEISHA (EN)"
@@ -85,7 +85,7 @@ def main():
     for webmanga in webdatamanga["success"]["allTitlesView"]["titles"]:
         if webmanga not in mangaplus.loader.todosdict["success"]["allTitlesView"]["titles"]:
             targetfolder = (
-                "/media/cristian/Datos/Comics/Reader/Shueisha/"
+                "/home/data/Comics/Reader/Shueisha/"
                 + webmanga["name"]
                 + " ("
                 + mangaplus.loader.anio

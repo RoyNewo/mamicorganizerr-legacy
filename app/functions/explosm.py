@@ -83,7 +83,7 @@ def cyanide(manga):
         mensaj = []
         mensaj2 = []
         deletefolder = "Error while deleting directory"
-        tdescargas = "/media/cristian/Datos/Comics/Descargas"
+        tdescargas = "/home/data/Comics/Descargas"
         for capitulo in reversed(pendientes):
             ic(capitulo)
             if capitulo[0][:4] == volumen:

@@ -39,8 +39,8 @@ def poster(manga):
 def main():
     providers = ["NineMangaEn (EN)", "Mangakakalot (EN)", "Webtoons.com (EN)",
                  "MANGA Plus by SHUEISHA (EN)", "NineMangaEs (ES)", "MANGA Plus by SHUEISHA (ES)"]
-    manga = {"/media/cristian/Datos/Comics/Reader/Webtoon/Tower of God (2010)(ES)": {
-        "destino": "/media/cristian/Datos/Comics/Reader/Webtoon/Tower of God (2010)/",
+    manga = {"/home/data/Comics/Reader/Webtoon/Tower of God (2010)(ES)": {
+        "destino": "/home/data/Comics/Reader/Webtoon/Tower of God (2010)/",
         "name": "Tower of God (2010) Issue #",
         "funcion": "NineMangaEs (ES)",
         "provider" : "NineMangaEs (ES)",
@@ -49,8 +49,8 @@ def main():
         "Volume" : "2010",
         "Publisher" : "Webtoon"
     },
-    "/media/cristian/Datos/Comics/Reader/Webtoon/Tower of God (2010)(EN)": {
-        "destino": "/media/cristian/Datos/Comics/Reader/Webtoon/Tower of God (2010)",
+    "/home/data/Comics/Reader/Webtoon/Tower of God (2010)(EN)": {
+        "destino": "/home/data/Comics/Reader/Webtoon/Tower of God (2010)",
         "name": "Tower of God (2010) Issue #",
         "funcion": "NineMangaEs (ES)",
         "provider" : "Webtoons.com (EN)",

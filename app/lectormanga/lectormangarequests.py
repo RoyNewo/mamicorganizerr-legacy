@@ -12,9 +12,9 @@ def main():
     base_url = "https://lectormanga.com"
 
     manga_url = "https://lectormanga.com/library/manga/9237/kono-subarashii-sekai-ni-shukufuku-wo"
-    path = "/media/cristian/Datos/Comics/Buffer/Dragon Age/Kono Subarashii Sekai Ni Shukufuku Wo (2014)"
+    path = "/home/data/Comics/Buffer/Dragon Age/Kono Subarashii Sekai Ni Shukufuku Wo (2014)"
     manga = {
-        "destino": "/media/cristian/Datos/Comics/Reader/Dragon Age/Kono Subarashii Sekai Ni Shukufuku Wo (2014)",
+        "destino": "/home/data/Comics/Reader/Dragon Age/Kono Subarashii Sekai Ni Shukufuku Wo (2014)",
         "name": "Kono Subarashii Sekai Ni Shukufuku Wo (2014) Issue #",
         "funcion": "LectorManga (ES)",
         "provider": "LectorManga (ES)",

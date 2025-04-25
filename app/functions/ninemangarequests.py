@@ -10,9 +10,9 @@ def main():
     base_url = "https://es.ninemanga.com"
 
     manga_url="https://es.ninemanga.com/manga/Re%3AZero%20kara%20Hajimeru%20Isekai%20Seikatsu%20%28Novela%29.html?waring=1"
-    path = "/media/cristian/Datos/Comics/Tachiyomi/NineMangaEs (ES)/Re_Zero kara Hajimeru Isekai Seikatsu (Novela)/"
+    path = "/home/data/Comics/Tachiyomi/NineMangaEs (ES)/Re_Zero kara Hajimeru Isekai Seikatsu (Novela)/"
     manga = {
-            "destino": "/media/cristian/Datos/Comics/Reader/Media Factory/Re Zero kara Hajimeru Isekai Seikatsu Novela (2012)",
+            "destino": "/home/data/Comics/Reader/Media Factory/Re Zero kara Hajimeru Isekai Seikatsu Novela (2012)",
             "name": "Re Zero kara Hajimeru Isekai Seikatsu (2014) Issue #",
             "funcion": "NineMangaEs (ES)",
             "provider": "NineMangaEs (ES)",

@@ -88,17 +88,17 @@ async def my_exception_hook(type, value, tb):
 #             conect = key
 #     return conect if conect != "" else None
 
-def conexion(secrets):
-    if address := check_ips_and_ports.check_subnet_for_open_port(secrets["rango"], int(secrets["puerto"])):
-        ic(address)
-        for direccion in address:
-            ip_mac = get_mac_address(ip=direccion)
-            if ip_mac == secrets["mac"]:
-                if direccion != secrets["ip"]:
-                    secrets["ip"] = direccion
-                    with open("/opt/tachiyomimangaexporter/secrets.json", "w") as outfile:
-                        json.dump(secrets, outfile)
-                return direccion
+# def conexion(secrets):
+#     if address := check_ips_and_ports.check_subnet_for_open_port(secrets["rango"], int(secrets["puerto"])):
+#         ic(address)
+#         for direccion in address:
+#             ip_mac = get_mac_address(ip=direccion)
+#             if ip_mac == secrets["mac"]:
+#                 if direccion != secrets["ip"]:
+#                     secrets["ip"] = direccion
+#                     with open("/opt/tachiyomimangaexporter/secrets.json", "w") as outfile:
+#                         json.dump(secrets, outfile)
+#                 return direccion
 
 
 def main():
@@ -108,12 +108,12 @@ def main():
     organizar.komgabookid()
     mensaj2 = []
     excludes = [
-        "/media/cristian/Datos/Comics/Tachiyomi/automatic",
-        "/media/cristian/Datos/Comics/Tachiyomi/Manually",
-        "/media/cristian/Datos/Comics/Tachiyomi/Updates",
-        "/media/cristian/Datos/Comics/Tachiyomi/backup",
-        "/media/cristian/Datos/Comics/Tachiyomi/LectorManga (ES)",
-        "/media/cristian/Datos/Comics/Tachiyomi/TuMangaOnline (ES)",
+        "/home/data/Comics/Tachiyomi/automatic",
+        "/home/data/Comics/Tachiyomi/Manually",
+        "/home/data/Comics/Tachiyomi/Updates",
+        "/home/data/Comics/Tachiyomi/backup",
+        "/home/data/Comics/Tachiyomi/LectorManga (ES)",
+        "/home/data/Comics/Tachiyomi/TuMangaOnline (ES)",
     ]
 
     with open("/opt/tachiyomimangaexporter/mangas.json") as json_file:
@@ -122,68 +122,69 @@ def main():
         secrets = json.load(json_file2)
     organizar.issueupdate(secrets, mangas)
     MangaPlus.mangaplusmain()
-    explosm.cyanide("/media/cristian/Datos/Comics/Tachiyomi/Cyanide & Happiness (EN)/C&H 2022")
-    ic("conexion")
-    with open("/opt/tachiyomimangaexporter/history.json") as json_file3:
-        history = json.load(json_file3)
-    conect = f"adb connect {conexion(secrets)}:{str(secrets['puerto'])}"
-    os.system(conect)
-    time.sleep(5)
-    os.system("adb pull /storage/emulated/0/Tachiyomi /media/cristian/Datos/Comics")
-    mensaj = ["Revision de Mangas de Tachiyomi\n\n"]
-    path = "/media/cristian/Datos/Comics/Tachiyomi"
-    dirs = os.listdir(path)
-    dirs.sort()
-    for file1 in dirs:
-        path2 = f"{path}/{file1}"
-        if path2 not in excludes and os.path.isdir(path2):
-            files = os.listdir(path2)
-            for file2 in files:
-                path3 = f"{path2}/{file2}"
-                # print(path3)
-                if path3 in mangas:
-                    if path3 not in excludes and os.path.isdir(path3):
-                        files2 = os.listdir(path3)
-                        for file3 in files2:
-                            path4 = f"{path3}/{file3}"
-                            organizar.organizer(
-                                [file2, file3],
-                                mangas[path3],
-                                path4,
-                                mensaj,
-                                mensaj2,
-                                history,
-                                secrets
-                            )
-                            with open("/opt/tachiyomimangaexporter/history.json", "w") as outfile:
-                                json.dump(history, outfile)
-                            mensaj = []
-                            mensaj2 = []
-                else:
-                    shutil.move(
-                        path3, "/media/cristian/Datos/Comics/Tachiyomi/Manually"
-                    )
-                    mensaj2.append(
-                        path3
-                        + " El Manga no existe en la biblioteca y se ha movido a la carpeta Manually \n\n"
-                    )
-                    # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
-                    # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
-                    apobj.notify(
-                        body=f"{path3} El Manga no existe en la biblioteca y se ha movido a la carpeta Manually \n\n",
-                        title='Manga not in Library',
-                        tag='fallo',
-                    )
-                    mensaj2 = []
-    os.system(
-        'adb shell "find /storage/emulated/0/Tachiyomi/ -type d -mindepth 3 -exec rm -rf "{}" \;"'
-    )
+    explosm.cyanide("/home/data/Comics/Tachiyomi/Cyanide & Happiness (EN)/C&H 2022")
+    # ic("conexion")
+    # with open("/opt/tachiyomimangaexporter/history.json") as json_file3:
+    #     history = json.load(json_file3)
+    # conect = f"adb connect {conexion(secrets)}:{str(secrets['puerto'])}"
+    # os.system(conect)
+    # time.sleep(5)
+    # os.system("adb pull /storage/emulated/0/Tachiyomi /home/data/Comics")
+    # mensaj = ["Revision de Mangas de Tachiyomi\n\n"]
+    # path = "/home/data/Comics/Tachiyomi"
+    # dirs = os.listdir(path)
+    # dirs.sort()
+    # for file1 in dirs:
+    #     path2 = f"{path}/{file1}"
+    #     if path2 not in excludes and os.path.isdir(path2):
+    #         files = os.listdir(path2)
+    #         for file2 in files:
+    #             path3 = f"{path2}/{file2}"
+    #             # print(path3)
+    #             if path3 in mangas:
+    #                 if path3 not in excludes and os.path.isdir(path3):
+    #                     files2 = os.listdir(path3)
+    #                     for file3 in files2:
+    #                         path4 = f"{path3}/{file3}"
+    #                         organizar.organizer(
+    #                             [file2, file3],
+    #                             mangas[path3],
+    #                             path4,
+    #                             mensaj,
+    #                             mensaj2,
+    #                             history,
+    #                             secrets
+    #                         )
+    #                         with open("/opt/tachiyomimangaexporter/history.json", "w") as outfile:
+    #                             json.dump(history, outfile)
+    #                         mensaj = []
+    #                         mensaj2 = []
+    #             else:
+    #                 shutil.move(
+    #                     path3, "/home/data/Comics/Tachiyomi/Manually"
+    #                 )
+    #                 mensaj2.append(
+    #                     path3
+    #                     + " El Manga no existe en la biblioteca y se ha movido a la carpeta Manually \n\n"
+    #                 )
+    #                 # sendmsgtelegram.sendmsg(secrets["token"], secrets["chatid"], mensaj2)
+    #                 # sendmsgdiscord.sendmsg(secrets["disdcordwebhookfallo"], mensaj2)
+    #                 apobj.notify(
+    #                     body=f"{path3} El Manga no existe en la biblioteca y se ha movido a la carpeta Manually \n\n",
+    #                     title='Manga not in Library',
+    #                     tag='fallo',
+    #                 )
+    #                 mensaj2 = []
+    # os.system(
+    #     'adb shell "find /storage/emulated/0/Tachiyomi/ -type d -mindepth 3 -exec rm -rf "{}" \;"'
+    # )
     ninemanga.main.main()
     apobj.notify(
 		body=f"Ninemanga ha Terminado \n\n",
 		title='Mamicorganizer',
 		tag='ok',
 	)
+    mensaj = []
     mensaj.append('scan')
     organizar.scankomgalibrary(
         mensaj, mensaj2, secrets["komgauser"], secrets["komgapass"], secrets

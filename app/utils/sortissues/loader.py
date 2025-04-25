@@ -17,11 +17,11 @@ def init():
         secrets = json.load(secrets_file)
 
     deletefolder = "Error while deleting directory"
-    tdescargas = "/media/cristian/Datos/Comics/Descargas"
-    temporal = "/media/cristian/Datos/Comics/Descargas/temporal"
+    tdescargas = "/home/data/Comics/Descargas"
+    temporal = "/home/data/Comics/Descargas/temporal"
     mensaj = []
     mensaj2 = []
-    downloadfolder = "/media/cristian/Datos/Downloads/"
+    downloadfolder = "/home/data/Downloads/"
 
     # Create an Apprise instance
     apobj = apprise.Apprise()

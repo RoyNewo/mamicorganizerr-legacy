@@ -12,16 +12,16 @@ logging.basicConfig(
 
 def main():
     excludes = [
-        "/media/cristian/Datos/Comics/Tachiyomi/automatic",
-        "/media/cristian/Datos/Comics/Tachiyomi/Manually",
-        "/media/cristian/Datos/Comics/Tachiyomi/Updates",
-        "/media/cristian/Datos/Comics/Tachiyomi/backup",
+        "/home/data/Comics/Tachiyomi/automatic",
+        "/home/data/Comics/Tachiyomi/Manually",
+        "/home/data/Comics/Tachiyomi/Updates",
+        "/home/data/Comics/Tachiyomi/backup",
     ]
 
     with open("/opt/tachiyomimangaexporter/mangas.json") as json_file:
         mangas = json.load(json_file)
 
-    path = "/media/cristian/Datos/Comics/Tachiyomi"
+    path = "/home/data/Comics/Tachiyomi"
     dirs = os.listdir(path)
     dirs.sort()
     for file1 in dirs:

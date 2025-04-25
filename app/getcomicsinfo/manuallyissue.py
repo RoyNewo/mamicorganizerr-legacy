@@ -167,7 +167,7 @@ def loadxml():
 
 
 def generatecbz(my_dict, nombre):
-    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
+    destino = f'/home/data/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
     destino = destino.replace(":", "")
     destino = destino.replace("\\", " ")
     destino = destino.replace("?", "")
@@ -206,7 +206,7 @@ def generatecbz(my_dict, nombre):
 def main():
     manually = [
         {
-            "source": "/media/cristian/Datos/Comics/Tachiyomi/ReadComicOnline (EN)/The Amazing Spider-Man (2022)",
+            "source": "/home/data/Comics/Tachiyomi/ReadComicOnline (EN)/The Amazing Spider-Man (2022)",
             "nombre": "The Amazing Spider-Man #27",
             "url": "https://fs2.comicfiles.ru/2023.06.14/Update/Amazing%20Spider-Man%20027%20%282023%29%20%28Digital%29%20%28Zone-Empire%29.cbr",
         }

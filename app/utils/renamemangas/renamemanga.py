@@ -2,14 +2,14 @@ import utils.renamemangas.loader
 
 
 def main():
-    original = "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman\u3002"
+    original = "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman\u3002"
     rename = (
-        "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman"
+        "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman"
     )
     rename[
-        "/media/cristian/Datos/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman"
+        "/home/data/Comics/Tachiyomi/MANGA Plus by SHUEISHA (ES)/Bakuman"
     ] = {
-        "destino": "/media/cristian/Datos/Comics/Reader/Shueisha/Bakuman (2008)",
+        "destino": "/home/data/Comics/Reader/Shueisha/Bakuman (2008)",
         "name": "Bakuman (2008) Issue #",
         "funcion": "MANGA Plus by SHUEISHA (ES)",
         "provider": "MANGA Plus by SHUEISHA (ES)",

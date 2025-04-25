@@ -47,8 +47,8 @@ def cbzgenerator(namefile, origen):
 
 def main():
     ic("eso")
-    path = "/media/cristian/Datos/Comics/Buffer/msmarvel"
-    # path = "/media/cristian/Datos/Comics/Buffer/cbr"
+    path = "/home/data/Comics/Buffer/msmarvel"
+    # path = "/home/data/Comics/Buffer/cbr"
 
     files = glob.glob(f'{path}/**/*.[cC][bB][rR]', recursive=True)
     files2 = glob.glob(f'{path}/**/*.[cC][bB][zZ]', recursive=True)

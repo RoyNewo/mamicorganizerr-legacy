@@ -38,7 +38,7 @@ def conectar(secret):
 # sudo apt-get install <package name>=<version>
 # https://pypi.org/project/python3-nmap/
 # https://community.home-assistant.io/t/cant-get-nmap-to-work-inside-docker/83844/3
-# docker run --network="host" -v /opt/tachiyomimangaexporter:/config -v /media/cristian/Datos/Comics:/media/cristian/Datos/Comics -i -t tachiyomimangaexporter:v.1.02 /bin/bash
+# docker run --network="host" -v /opt/tachiyomimangaexporter:/config -v /home/data/Comics:/home/data/Comics -i -t tachiyomimangaexporter:v.1.02 /bin/bash
 
 
 def main():
@@ -49,7 +49,7 @@ def main():
     ip = conectar(secrets)
     client.remote_connect(ip, 5555)
     device = client.device( ip +":5555")
-    device.pull("/storage/emulated/0/Tachiyomi", "/media/cristian/Datos/Comics/Tachiyomi")
+    device.pull("/storage/emulated/0/Tachiyomi", "/home/data/Comics/Tachiyomi")
 
 
 

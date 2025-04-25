@@ -4,7 +4,7 @@ import telegram
 from functions import p2i
 
 
-ruta = "/media/cristian/Datos/Downloads/Comics/Tokyo Ghoul"
+ruta = "/home/data/Downloads/Comics/Tokyo Ghoul"
 with open("/opt/tachiyomimangaexporter/secrets.json") as json_file2:
     secrets = json.load(json_file2)
 

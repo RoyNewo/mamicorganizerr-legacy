@@ -13,7 +13,7 @@ def flaresolverrresponse(data):
     contador = 0
     while not statusok and contador < 10:
         ic("Intentando conexion")
-        r = requests.post('http://192.168.1.130:8191/v1', headers=headers, data=data)
+        r = requests.post('http://royflix.net:8191/v1', headers=headers, data=data)
         response = json.loads(r.text)
         ic(response)
         if response["status"] == "ok":
@@ -31,7 +31,7 @@ def main():
     ]
     createsession = '{ "cmd": "sessions.create", "session": "getcomicinfo" }'
 
-    r =requests.post('http://192.168.1.130:8191/v1', headers=headers, data=createsession)
+    r =requests.post('http://royflix.net:8191/v1', headers=headers, data=createsession)
 
     for web in webpages:
         data = '{ "cmd": "request.get", "url": "' + web + '", "session": "getcomicinfo" }'
@@ -39,7 +39,7 @@ def main():
         if not statusok:
             destroysession = '{ "cmd": "sessions.destroy", "session": "getcomicinfo"}'
 
-            requests.post('http://192.168.1.130:8191/v1', headers=headers, data=destroysession)
+            requests.post('http://royflix.net:8191/v1', headers=headers, data=destroysession)
         else:
             soup = BeautifulSoup(response["solution"]["response"], 'lxml')
             nextpage = soup.find('a', class_='pagination-button pagination-older').contents[0]

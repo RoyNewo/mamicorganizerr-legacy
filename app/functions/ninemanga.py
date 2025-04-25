@@ -87,7 +87,7 @@ def main():
     proc.start()
     print(caplist)
     manga = {
-        "destino": "/media/cristian/Datos/Comics/Reader/Media Factory/Re Zero kara Hajimeru Isekai Seikatsu Novela (2012)",
+        "destino": "/home/data/Comics/Reader/Media Factory/Re Zero kara Hajimeru Isekai Seikatsu Novela (2012)",
         "name": "Re Zero kara Hajimeru Isekai Seikatsu (2014) Issue #",
         "funcion": "NineMangaEs (ES)",
         "provider": "NineMangaEs (ES)",

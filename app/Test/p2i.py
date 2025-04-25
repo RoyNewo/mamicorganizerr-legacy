@@ -7,12 +7,12 @@ from pdf2image import convert_from_path
 # )
 
 images = convert_from_path(
-    "/media/cristian/Datos/Downloads/dr who/doctorwho_thetenthdoctorarchives_vol3.pdf"
+    "/home/data/Downloads/dr who/doctorwho_thetenthdoctorarchives_vol3.pdf"
 )
 
 for i, image in enumerate(images):
     fname = (
-        "/media/cristian/Datos/Comics/Descargas/temporal/"
+        "/home/data/Comics/Descargas/temporal/"
         + "{:0>3}".format(i)
         + ".png"
     )

@@ -18,7 +18,7 @@ with open(f'{config}komgabooksid.json') as komgabooksid_file:
 
 
 def deletebook(bookid):
-    query = f"https://komga.loyhouse.net/api/v1/books/{bookid}/file"
+    query = f"https://komga.royflix.net/api/v1/books/{bookid}/file"
     response = requests.delete(
         query,
         headers={"accept": "application/json"},
@@ -44,7 +44,7 @@ def gethistory(seriesid, name):
 
 
 def main():
-    query = "https://komga.loyhouse.net/api/v1/books"
+    query = "https://komga.royflix.net/api/v1/books"
     response = requests.get(
         query,
         headers={"accept": "application/json"},
@@ -54,7 +54,7 @@ def main():
     totalpages = books["totalPages"]
     i = 0
     for i in range(0, totalpages):
-        query = f"https://komga.loyhouse.net/api/v1/books?page={i}"
+        query = f"https://komga.royflix.net/api/v1/books?page={i}"
         response = requests.get(
             query,
             headers={"accept": "application/json"},

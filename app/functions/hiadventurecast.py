@@ -90,7 +90,7 @@ def hac():
         secrets = json.load(json_file3)
 
     manga = {
-        "destino": "/media/cristian/Datos/Comics/Reader/HiAdventureCast",
+        "destino": "/home/data/Comics/Reader/HiAdventureCast",
         "name": "HiAdventureCast Issue #",        
         "funcion": "HiAdventureCast",
         "slug": "undefined",
@@ -115,7 +115,7 @@ def hac():
         mensaj = []
         mensaj2 = []
         deletefolder = "Error while deleting directory"
-        tdescargas = "/media/cristian/Datos/Comics/Descargas"
+        tdescargas = "/home/data/Comics/Descargas"
         for capitulo in reversed(pendientes):
             if capitulo[0] in history[manga["Series"]]:
                 capitulo[0] = same_day_chapters(capitulo[0], history[manga["Series"]])

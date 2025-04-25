@@ -174,7 +174,7 @@ def loadxml():
 
 
 def generatecbz(my_dict):
-    destino = f'/media/cristian/Datos/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
+    destino = f'/home/data/Comics/Reader/{my_dict["ComicInfo"]["Publisher"]}/{my_dict["ComicInfo"]["Series"]} ({my_dict["ComicInfo"]["Volume"]})'
     destino = destino.replace(":", "")
     destino = destino.replace("\\", " ")
     destino = destino.replace("?", "")
@@ -223,7 +223,7 @@ def datafromcomicvine(slug):
 
 def main():
     comiclocaldb = {
-        "source": "/media/cristian/Datos/Downloads/dr who/doctorwho_thetwelfthdoctor_vol1.cbz",
+        "source": "/home/data/Downloads/dr who/doctorwho_thetwelfthdoctor_vol1.cbz",
         "slug": "4050-77596",
         "issue-slug": "4000-490158",
     }

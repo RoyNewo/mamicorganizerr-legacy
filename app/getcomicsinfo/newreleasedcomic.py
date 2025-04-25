@@ -26,7 +26,7 @@ def check_specials(issues):
 
 
 def from_komga(dic):
-    query = f'https://komga.loyhouse.net/api/v1/series/{dic["komga_serie_id"]}/books?sort=name%2Cdesc'
+    query = f'https://komga.royflix.net/api/v1/series/{dic["komga_serie_id"]}/books?sort=name%2Cdesc'
     reponse = requests.get(
         query,
         data={"accept": "*/*"},
@@ -62,7 +62,7 @@ def get_last_issues(dic, nuevo):
     if comicvinenumber["id"] in loader.annual_issues:
         comicvinenumber["issue_number"] = loader.annual_issues[comicvinenumber["id"]]["newnumber"]
     logger.info('Serie: ' + dic["Series"])
-    logger.info('Issue en komga: ' + komganumber)
+    logger.info('Issue en komga: ' + str(komganumber))
     logger.info('Issue en Comicvine: ' + comicvinenumber["issue_number"])
     if float(komganumber) != comicvinenumber["issue_number"]:
         pending_issues = [[issue, series] for issue in issues if float(issue["issue_number"]) > float(komganumber)]

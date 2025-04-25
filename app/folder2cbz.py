@@ -5,7 +5,7 @@ from zipfile import ZipFile
 import shutil
 
 def main():
-    path = '/media/cristian/Datos/Downloads/Comics/Okko/cbz'
+    path = '/home/data/Downloads/Comics/Okko/cbz'
     directorios=os.listdir(path)
     for dir in directorios:
         path2 = path + '/' + dir

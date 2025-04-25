@@ -8,7 +8,7 @@ def scankomgalibrary(mensaj, mensaj2, user, password, secrets):
     print(mensaj, mensaj2)
     print("paso por aqui")
     response = requests.post(
-        "https://komga.loyhouse.net/api/v1/libraries/02G13VGFYC532/scan",
+        "https://komga.royflix.net/api/v1/libraries/02G13VGFYC532/scan",
         data={"accept": "*/*"},
         auth=HTTPBasicAuth(user, password),
     )

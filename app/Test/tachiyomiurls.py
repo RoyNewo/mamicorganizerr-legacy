@@ -64,7 +64,7 @@ def main():
     }
     fallos = {}
     conn = create_connection(
-        "/media/cristian/Datos/Comics/Buffer/databases/tachiyomi.db")
+        "/home/data/Comics/Buffer/databases/tachiyomi.db")
     with conn:
         print("2. Query all tasks")
         lista = select_all_tasks(conn)

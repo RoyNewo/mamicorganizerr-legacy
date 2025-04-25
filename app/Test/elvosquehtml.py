@@ -74,7 +74,7 @@ def vosque2(url):
     print(imagen, serie.decode('utf-8'))
     
 def main():
-    # path = '/media/cristian/Datos/Comics/Buffer/El Vosque/XML'
+    # path = '/home/data/Comics/Buffer/El Vosque/XML'
     xml = 'http://elvosque.es/rss.php'
     elvosque = ''
     # os.makedirs(path)
